@@ -1,0 +1,1068 @@
+{
+  "objects": [
+    {
+      "name": "<common>",
+      "data": [
+        {
+          "decl": "int game_variant_global;",
+          "addr": "0x5aa820"
+        }
+      ]
+    },
+    {
+      "name": "ai.obj",
+      "source": "ai/ai.c",
+      "functions": [
+        {
+          "decl": "void ai_initialize(void);",
+          "addr": "0x3f670"
+        }
+      ]
+    },
+    {
+      "name": "bink_playback.obj",
+      "source": "bink/bink_playback.c",
+      "functions": [
+        {
+          "decl": "void bink_playback_initialize(void);",
+          "addr": "0x1c61a0"
+        },
+        {
+          "decl": "void bink_playback_update(void);",
+          "addr": "0x1c6870"
+        }
+      ]
+    },
+    {
+      "name": "bitmaps.obj",
+      "source": "bitmaps/bitmaps.c",
+      "functions": [
+        {
+          "decl": "void bitmap_delete(void *);",
+          "addr": "0x7c8f0"
+        }
+      ]
+    },
+    {
+      "name": "breakable_surfaces.obj",
+      "source": "physics/breakable_surfaces.c",
+      "functions": [
+        {
+          "decl": "void breakable_surfaces_initialize(void);",
+          "addr": "0x1458a0"
+        }
+      ]
+    },
+    {
+      "name": "cache_files_windows.obj",
+      "source": "cache/cache_files_windows.c",
+      "functions": [
+        {
+          "decl": "bool cache_files_precache_in_progress(void);",
+          "addr": "0x1bc6b0"
+        },
+        {
+          "decl": "int cache_files_precache_map_status(float *);",
+          "addr": "0x1bcf00"
+        },
+        {
+          "decl": "void cache_files_precache_map_begin(char *, char);",
+          "addr": "0x1bd910"
+        },
+        {
+          "decl": "void cache_files_precache_map_end(void);",
+          "addr": "0x1bda30"
+        }
+      ]
+    },
+    {
+      "name": "cheats.obj",
+      "source": "game/cheats.c",
+      "functions": [
+        {
+          "decl": "void cheats_initialize(void);",
+          "addr": "0xa65e0"
+        },
+        {
+          "decl": "void cheats_update(void);",
+          "addr": "0xa6620"
+        }
+      ]
+    },
+    {
+      "name": "cinematics.obj",
+      "source": "cutscene/cinematics.c",
+      "functions": [
+        {
+          "decl": "void cinematic_initialize(void);",
+          "addr": "0x92d80"
+        },
+        {
+          "decl": "bool cinematic_can_be_skipped(void);",
+          "addr": "0x92e60"
+        },
+        {
+          "decl": "bool cinematic_in_progress(void);",
+          "addr": "0x930a0"
+        }
+      ]
+    },
+    {
+      "name": "collision_usage.obj",
+      "source": "physics/collision_usage.c",
+      "functions": [
+        {
+          "decl": "void collision_log_initialize(void);",
+          "addr": "0x14d010"
+        },
+        {
+          "decl": "void collision_log_continue_period(int16_t);",
+          "addr": "0x14d120"
+        },
+        {
+          "decl": "void collision_log_end_period(void);",
+          "addr": "0x14d140"
+        }
+      ]
+    },
+    {
+      "name": "console.obj",
+      "source": "main/console.c",
+      "functions": [
+        {
+          "decl": "void console_initialize(void);",
+          "addr": "0xff400"
+        },
+        {
+          "decl": "void console_startup(void);",
+          "addr": "0xff8a0"
+        },
+        {
+          "decl": "void console_dispose(void);",
+          "addr": "0xff9c0"
+        },
+        {
+          "decl": "bool console_update(void);",
+          "addr": "0xff9e0"
+        }
+      ]
+    },
+    {
+      "name": "contrails.obj",
+      "source": "effects/contrails.c",
+      "functions": [
+        {
+          "decl": "void contrails_initialize(void);",
+          "addr": "0x97d40"
+        }
+      ]
+    },
+    {
+      "name": "cseries.obj",
+      "source": "cseries/cseries.c",
+      "functions": [
+        {
+          "decl": "void *csmemset(void *ptr, int v, int n);",
+          "addr": "0x8db80"
+        },
+        {
+          "decl": "void csstrncpy(char *dst, const char *src, size_t size);",
+          "addr": "0x8de70"
+        }
+      ]
+    },
+    {
+      "name": "cseries_windows.obj",
+      "source": "cseries/cseries_windows.c",
+      "functions": [
+        {
+          "decl": "unsigned int system_milliseconds(void);",
+          "addr": "0x8e370"
+        }
+      ]
+    },
+    {
+      "name": "debug_keys.obj",
+      "source": "main/debug_keys.c",
+      "functions": [
+        {
+          "decl": "void debug_keys_initialize(void);",
+          "addr": "0xffc00"
+        },
+        {
+          "decl": "void debug_keys_dispose(void);",
+          "addr": "0xffc80"
+        },
+        {
+          "decl": "void debug_keys_update(void);",
+          "addr": "0xffcb0"
+        }
+      ]
+    },
+    {
+      "name": "decals.obj",
+      "source": "effects/decals.c",
+      "functions": [
+        {
+          "decl": "void decals_initialize(void);",
+          "addr": "0x98ca0"
+        }
+      ]
+    },
+    {
+      "name": "director.obj",
+      "source": "camera/director.c",
+      "functions": [
+        {
+          "decl": "void director_initialize(void);",
+          "addr": "0x861a0"
+        },
+        {
+          "decl": "void director_update(float);",
+          "addr": "0x875f0"
+        }
+      ]
+    },
+    {
+      "name": "editor_stubs.obj",
+      "functions": [
+        {
+          "decl": "bool game_in_editor(void);",
+          "addr": "0x977f0"
+        },
+        {
+          "decl": "bool editor_should_exit(void);",
+          "addr": "0x97810"
+        },
+        {
+          "decl": "void editor_initialize(void);",
+          "addr": "0x97820"
+        }
+      ]
+    },
+    {
+      "name": "effects.obj",
+      "source": "effects/effects.c",
+      "functions": [
+        {
+          "decl": "void effects_initialize(void);",
+          "addr": "0x9c650"
+        }
+      ]
+    },
+    {
+      "name": "errors.obj",
+      "source": "cseries/errors.c",
+      "functions": [
+        {
+          "decl": "void error(int l, const char *msg, ...);",
+          "addr": "0x8f390"
+        }
+      ]
+    },
+    {
+      "name": "event_manager.obj",
+      "source": "interface/event_manager.c",
+      "functions": [
+        {
+          "decl": "void event_manager_initialize(void);",
+          "addr": "0xdc1d0"
+        },
+        {
+          "decl": "void event_manager_update(void);",
+          "addr": "0xdc620"
+        }
+      ]
+    },
+    {
+      "name": "first_person_weapons.obj",
+      "source": "interface/first_person_weapons.c",
+      "functions": [
+        {
+          "decl": "void first_person_weapons_initialize(void);",
+          "addr": "0xdec50"
+        }
+      ]
+    },
+    {
+      "name": "game.obj",
+      "source": "game/game.c",
+      "functions": [
+        {
+          "decl": "void game_initialize(void);",
+          "addr": "0xa6bf0"
+        },
+        {
+          "decl": "void game_dispose(void);",
+          "addr": "0xa6d00"
+        },
+        {
+          "decl": "void game_dispose_from_old_map(void);",
+          "addr": "0xa7050"
+        },
+        {
+          "decl": "void game_initial_pulse(void);",
+          "addr": "0xa73c0"
+        },
+        {
+          "decl": "void game_initialize_for_new_map(void);",
+          "addr": "0xa7780"
+        }
+      ]
+    },
+    {
+      "name": "game_allegiance.obj",
+      "source": "game/game_allegiance.c",
+      "functions": [
+        {
+          "decl": "void game_allegiance_initialize(void);",
+          "addr": "0xa7940"
+        }
+      ]
+    },
+    {
+      "name": "game_engine.obj",
+      "source": "game/game_engine.c",
+      "functions": [
+        {
+          "decl": "bool game_engine_running(void);",
+          "addr": "0xa8e30"
+        },
+        {
+          "decl": "void game_engine_initialize(void *);",
+          "addr": "0xaba30"
+        },
+        {
+          "decl": "void game_engine_update_non_deterministic(float);",
+          "addr": "0xacdd0"
+        }
+      ]
+    },
+    {
+      "name": "game_sound.obj",
+      "source": "sound/game_sound.c",
+      "functions": [
+        {
+          "decl": "void game_sound_initialize(void);",
+          "addr": "0x1c7030"
+        }
+      ]
+    },
+    {
+      "name": "game_state.obj",
+      "source": "saved games/game_state.c",
+      "functions": [
+        {
+          "decl": "void game_state_save(void);",
+          "addr": "0x1bf880"
+        },
+        {
+          "decl": "void game_state_revert(void);",
+          "addr": "0x1bf8a0"
+        },
+        {
+          "decl": "void game_state_save_core(const char *);",
+          "addr": "0x1bf990"
+        },
+        {
+          "decl": "void *game_state_malloc(const char *name, int unk1, int unk2);",
+          "addr": "0x1bfbf0"
+        },
+        {
+          "decl": "void game_state_load_core(const char *);",
+          "addr": "0x1bffd0"
+        }
+      ]
+    },
+    {
+      "name": "game_time.obj",
+      "source": "game/game_time.c",
+      "functions": [
+        {
+          "decl": "void game_time_initialize(void);",
+          "addr": "0xb59b0"
+        },
+        {
+          "decl": "int game_time_get(void);",
+          "addr": "0xb5aa0"
+        },
+        {
+          "decl": "int16_t game_time_get_elapsed(void);",
+          "addr": "0xb5ae0"
+        },
+        {
+          "decl": "bool game_in_progress(void);",
+          "addr": "0xb5be0"
+        },
+        {
+          "decl": "int game_time_end(void);",
+          "addr": "0xb5c30"
+        },
+        {
+          "decl": "float game_time_get_speed(void);",
+          "addr": "0xb5cc0"
+        },
+        {
+          "decl": "void game_time_start(void);",
+          "addr": "0xb5f40"
+        },
+        {
+          "decl": "void game_time_update(float);",
+          "addr": "0xb6020"
+        }
+      ]
+    },
+    {
+      "name": "hs.obj",
+      "source": "hs/hs.c",
+      "functions": [
+        {
+          "decl": "void hs_initialize(void);",
+          "addr": "0xc5050"
+        }
+      ]
+    },
+    {
+      "name": "hud.obj",
+      "source": "interface/hud.c",
+      "functions": [
+        {
+          "decl": "void hud_load(char);",
+          "addr": "0xd0d50"
+        },
+        {
+          "decl": "void hud_autosave(int16_t);",
+          "addr": "0xd0db0"
+        }
+      ]
+    },
+    {
+      "name": "hud_messaging.obj",
+      "source": "interface/hud_messaging.c",
+      "functions": [
+        {
+          "decl": "void hud_messaging_initialize(void);",
+          "addr": "0x1c8990"
+        }
+      ]
+    },
+    {
+      "name": "input_abstraction.obj",
+      "source": "input/input_abstraction.c",
+      "functions": [
+        {
+          "decl": "void input_abstraction_initialize(void);",
+          "addr": "0xce9f0"
+        },
+        {
+          "decl": "void input_abstraction_update();",
+          "addr": "0xcea90"
+        }
+      ]
+    },
+    {
+      "name": "input_xbox.obj",
+      "source": "input/input_xbox.c",
+      "functions": [
+        {
+          "decl": "void input_flush(void);",
+          "addr": "0xcf500"
+        },
+        {
+          "decl": "bool input_key_is_down(uint16_t);",
+          "addr": "0xcf560"
+        },
+        {
+          "decl": "void input_update(void);",
+          "addr": "0xd0120"
+        },
+        {
+          "decl": "void input_frame_begin(void);",
+          "addr": "0xd0180"
+        },
+        {
+          "decl": "void input_frame_end(void);",
+          "addr": "0xd0190"
+        }
+      ]
+    },
+    {
+      "name": "main.obj",
+      "source": "main/main.c",
+      "data": [
+        {
+          "decl": "bool debug_no_drawing;",
+          "addr": "0x46e001"
+        }
+      ],
+      "functions": [
+        {
+          "decl": "void create_local_players(void);",
+          "addr": "0x1000d0"
+        },
+        {
+          "decl": "void main_change_map_name(void);",
+          "addr": "0x100c10"
+        },
+        {
+          "decl": "void main_skip_private(void);",
+          "addr": "0x100de0"
+        },
+        {
+          "decl": "void main_save_map_private(void);",
+          "addr": "0x100eb0"
+        },
+        {
+          "decl": "void main_won_map_private(void);",
+          "addr": "0x101040"
+        },
+        {
+          "decl": "void main_frame_rate_debug(void);",
+          "addr": "0x101130"
+        },
+        {
+          "decl": "void main_update_time(void);",
+          "addr": "0x1013d0"
+        },
+        {
+          "decl": "void main_rasterizer_throttle(void);",
+          "addr": "0x101970"
+        },
+        {
+          "decl": "void main_load_last_solo_map(void);",
+          "addr": "0x101e00"
+        },
+        {
+          "decl": "void main_menu_load(void);",
+          "addr": "0x101fe0"
+        },
+        {
+          "decl": "void main_pregame_render(void);",
+          "addr": "0x102090"
+        },
+        {
+          "decl": "void main_present_frame(void);",
+          "addr": "0x102370"
+        },
+        {
+          "decl": "void main_setup_connection(void);",
+          "addr": "0x102400"
+        },
+        {
+          "decl": "void main_initialize_time(void);",
+          "addr": "0x1024c0"
+        },
+        {
+          "decl": "void main_game_render(double);",
+          "addr": "0x102c80"
+        },
+        {
+          "decl": "void main_loop(void);",
+          "addr": "0x102e40"
+        }
+      ]
+    },
+    {
+      "name": "marketing_and_strategic_business_development.obj",
+      "source": "interface/marketing_and_strategic_business_development.c",
+      "functions": [
+        {
+          "decl": "void xbox_demos_launch(void);",
+          "addr": "0xe0500"
+        }
+      ]
+    },
+    {
+      "name": "network_game_globals.obj",
+      "source": "networking/network_game_globals.c",
+      "functions": [
+        {
+          "decl": "void dispose_global_network_game_client(void);",
+          "addr": "0x12a1e0"
+        },
+        {
+          "decl": "bool network_game_server_start_frame(void);",
+          "addr": "0x12a210"
+        },
+        {
+          "decl": "void dispose_global_network_game_server(void);",
+          "addr": "0x12a2a0"
+        },
+        {
+          "decl": "bool network_game_client_start_frame(void);",
+          "addr": "0x12a2d0"
+        },
+        {
+          "decl": "bool network_game_client_end_frame(void);",
+          "addr": "0x12a500"
+        },
+        {
+          "decl": "void network_game_abort(void);",
+          "addr": "0x12a780"
+        }
+      ]
+    },
+    {
+      "name": "network_messages.obj",
+      "source": "networking/network_messages.c",
+      "functions": [
+        {
+          "decl": "void initialize_network_game_packets(void);",
+          "addr": "0x12b640"
+        }
+      ]
+    },
+    {
+      "name": "objects.obj",
+      "source": "objects/objects.c",
+      "functions": [
+        {
+          "decl": "void objects_initialize(void);",
+          "addr": "0x13f810"
+        }
+      ]
+    },
+    {
+      "name": "observer.obj",
+      "source": "camera/observer.c",
+      "functions": [
+        {
+          "decl": "void observer_initialize(void);",
+          "addr": "0x8a340"
+        },
+        {
+          "decl": "void observer_update(float);",
+          "addr": "0x8cde0"
+        }
+      ]
+    },
+    {
+      "name": "particle_systems.obj",
+      "source": "effects/particle_systems.c",
+      "functions": [
+        {
+          "decl": "void particle_systems_initialize(void);",
+          "addr": "0x9f680"
+        }
+      ]
+    },
+    {
+      "name": "particles.obj",
+      "source": "effects/particles.c",
+      "functions": [
+        {
+          "decl": "void particles_initialize(void);",
+          "addr": "0xa1480"
+        }
+      ]
+    },
+    {
+      "name": "physical_memory_map.obj",
+      "source": "cache/physical_memory_map.c",
+      "functions": [
+        {
+          "decl": "void physical_memory_allocate(void);",
+          "addr": "0x1bdb70"
+        }
+      ]
+    },
+    {
+      "name": "player_control.obj",
+      "source": "game/player_control.c",
+      "functions": [
+        {
+          "decl": "void player_control_update(float);",
+          "addr": "0xb8c70"
+        },
+        {
+          "decl": "void player_control_initialize(void);",
+          "addr": "0xb9b30"
+        }
+      ]
+    },
+    {
+      "name": "player_effects.obj",
+      "source": "effects/player_effects.c",
+      "functions": [
+        {
+          "decl": "void player_effect_initialize(void);",
+          "addr": "0xa2700"
+        }
+      ]
+    },
+    {
+      "name": "player_rumble.obj",
+      "source": "game/player_rumble.c",
+      "functions": [
+        {
+          "decl": "void rumble_initialize(void);",
+          "addr": "0x18e280"
+        }
+      ]
+    },
+    {
+      "name": "player_ui.obj",
+      "source": "interface/player_ui.c",
+      "functions": [
+        {
+          "decl": "void player_ui_initialize(void);",
+          "addr": "0xe1350"
+        }
+      ]
+    },
+    {
+      "name": "players.obj",
+      "source": "game/players.c",
+      "functions": [
+        {
+          "decl": "void players_initialize(void);",
+          "addr": "0xba100"
+        },
+        {
+          "decl": "bool players_respawn_coop(void);",
+          "addr": "0xbc750"
+        }
+      ]
+    },
+    {
+      "name": "profile.obj",
+      "source": "cseries/profile.c",
+      "functions": [
+        {
+          "decl": "void profile_render_start(void);",
+          "addr": "0x91510"
+        },
+        {
+          "decl": "void profile_render_end(void);",
+          "addr": "0x91540"
+        },
+        {
+          "decl": "void profile_frame_start();",
+          "addr": "0x91780"
+        },
+        {
+          "decl": "void profile_frame_end(void);",
+          "addr": "0x91800"
+        }
+      ]
+    },
+    {
+      "name": "progress_bar.obj",
+      "source": "interface/progress_bar.c",
+      "functions": [
+        {
+          "decl": "void progress_bar_initialize(void);",
+          "addr": "0xe1c70"
+        }
+      ]
+    },
+    {
+      "name": "rasterizer_xbox.obj",
+      "source": "rasterizer/xbox/rasterizer_xbox.c",
+      "functions": [
+        {
+          "decl": "void rasterizer_preinitialize__fill_you_up_with_the_devils_cock(void);",
+          "addr": "0x1553f0"
+        }
+      ]
+    },
+    {
+      "name": "real_math.obj",
+      "source": "math/real_math.c",
+      "functions": [
+        {
+          "decl": "void real_math_reset_precision(void);",
+          "addr": "0x10b5e0"
+        }
+      ]
+    },
+    {
+      "name": "recorded_animations.obj",
+      "source": "cutscene/recorded_animations.c",
+      "functions": [
+        {
+          "decl": "void recorded_animations_initialize(void);",
+          "addr": "0x94bb0"
+        }
+      ]
+    },
+    {
+      "name": "render.obj",
+      "source": "render/render.c",
+      "functions": [
+        {
+          "decl": "void render_initialize(void);",
+          "addr": "0x184b80"
+        }
+      ]
+    },
+    {
+      "name": "saved_game_files.obj",
+      "source": "saved games/saved_game_files.c",
+      "functions": [
+        {
+          "decl": "void saved_game_files_initialize(void);",
+          "addr": "0x1c3750"
+        }
+      ]
+    },
+    {
+      "name": "scenario.obj",
+      "source": "scenario/scenario.c",
+      "functions": [
+        {
+          "decl": "void scenario_switch_structure_bsp();",
+          "addr": "0x18eb40"
+        }
+      ]
+    },
+    {
+      "name": "shell.obj",
+      "functions": [
+        {
+          "decl": "int shell_initialize(void);",
+          "addr": "0x1910f0"
+        },
+        {
+          "decl": "void shell_dispose(void);",
+          "addr": "0x191140"
+        },
+        {
+          "decl": "bool shell_application_is_paused();",
+          "addr": "0x191170"
+        }
+      ]
+    },
+    {
+      "name": "shell_xbox.obj",
+      "functions": [
+        {
+          "decl": "void shell_idle(void);",
+          "addr": "0x191250"
+        },
+        {
+          "decl": "int __cdecl main(int argc, const char **argv, const char **envp);",
+          "addr": "0x191330"
+        }
+      ]
+    },
+    {
+      "name": "structure_runtime_decals.obj",
+      "source": "structures/structure_runtime_decals.c",
+      "functions": [
+        {
+          "decl": "void structure_decals_initialize(void);",
+          "addr": "0x1983c0"
+        }
+      ]
+    },
+    {
+      "name": "telnet_console.obj",
+      "functions": [
+        {
+          "decl": "void telnet_console_initialize(void);",
+          "addr": "0x130980"
+        },
+        {
+          "decl": "void telnet_console_process(void);",
+          "addr": "0x130d60"
+        }
+      ]
+    },
+    {
+      "name": "terminal.obj",
+      "source": "interface/terminal.c",
+      "functions": [
+        {
+          "decl": "void terminal_update(void);",
+          "addr": "0xe39e0"
+        }
+      ]
+    },
+    {
+      "name": "transport_endpoint_set_winsock.obj",
+      "source": "bungie_net/network/transport_endpoint_set_winsock.c",
+      "functions": [
+        {
+          "decl": "void transport_initialize(void);",
+          "addr": "0x82130"
+        }
+      ]
+    },
+    {
+      "name": "ui_widget.obj",
+      "source": "interface/ui_widget.c",
+      "functions": [
+        {
+          "decl": "void ui_widgets_initialize(void);",
+          "addr": "0xe3be0"
+        },
+        {
+          "decl": "void display_error_when_main_menu_loaded(int16_t);",
+          "addr": "0xe44d0"
+        },
+        {
+          "decl": "void ui_widgets_disable_pause_game(int);",
+          "addr": "0xe46b0"
+        },
+        {
+          "decl": "void process_ui_widgets(void);",
+          "addr": "0xe9450"
+        }
+      ]
+    },
+    {
+      "name": "weather_particle_systems.obj",
+      "source": "effects/weather_particle_systems.c",
+      "functions": [
+        {
+          "decl": "void weather_particle_systems_initialize(void);",
+          "addr": "0xa3ef0"
+        }
+      ]
+    },
+    {
+      "name": null,
+      "data": [
+        {
+          "decl": "long long int qword_325678;",
+          "addr": "0x325678"
+        },
+        {
+          "decl": "void *dword_4566EC;",
+          "addr": "0x4566ec"
+        },
+        {
+          "decl": "int dword_46D9E0;",
+          "addr": "0x46d9e0"
+        },
+        {
+          "decl": "long long int qword_46D9E8;",
+          "addr": "0x46d9e8"
+        },
+        {
+          "decl": "float flt_46DA08;",
+          "addr": "0x46da08"
+        },
+        {
+          "decl": "short word_46DA0C;",
+          "addr": "0x46da0c"
+        },
+        {
+          "decl": "void *dword_46DA10;",
+          "addr": "0x46da10"
+        },
+        {
+          "decl": "bool game_reset_pending;",
+          "addr": "0x46da24"
+        },
+        {
+          "decl": "bool main_change_map_name_pending;",
+          "addr": "0x46da25"
+        },
+        {
+          "decl": "bool game_state_revert_pending;",
+          "addr": "0x46da26"
+        },
+        {
+          "decl": "bool should_skip_cinematic;",
+          "addr": "0x46da27"
+        },
+        {
+          "decl": "char byte_46DA28;",
+          "addr": "0x46da28"
+        },
+        {
+          "decl": "bool game_state_save_pending;",
+          "addr": "0x46da2b"
+        },
+        {
+          "decl": "bool main_won_map_private_pending;",
+          "addr": "0x46da3a"
+        },
+        {
+          "decl": "char byte_46DA3B;",
+          "addr": "0x46da3b"
+        },
+        {
+          "decl": "char byte_46DA3C;",
+          "addr": "0x46da3c"
+        },
+        {
+          "decl": "bool game_state_save_core_pending;",
+          "addr": "0x46da3d"
+        },
+        {
+          "decl": "bool game_state_load_core_pending;",
+          "addr": "0x46da3e"
+        },
+        {
+          "decl": "short word_46DA40;",
+          "addr": "0x46da40"
+        },
+        {
+          "decl": "char byte_46DA42;",
+          "addr": "0x46da42"
+        },
+        {
+          "decl": "bool main_menu_load_pending;",
+          "addr": "0x46da43"
+        },
+        {
+          "decl": "bool xbox_demos_launch_pending;",
+          "addr": "0x46da44"
+        },
+        {
+          "decl": "char byte_46DA46;",
+          "addr": "0x46da46"
+        },
+        {
+          "decl": "char byte_46DA47;",
+          "addr": "0x46da47"
+        },
+        {
+          "decl": "bool main_load_last_solo_map_pending;",
+          "addr": "0x46da48"
+        },
+        {
+          "decl": "bool main_skip_private_pending;",
+          "addr": "0x46da49"
+        },
+        {
+          "decl": "short word_46DA4C;",
+          "addr": "0x46da4c"
+        },
+        {
+          "decl": "short word_46DA4E;",
+          "addr": "0x46da4e"
+        },
+        {
+          "decl": "char byte_46DA50;",
+          "addr": "0x46da50"
+        },
+        {
+          "decl": "char map_name[255];",
+          "addr": "0x46da55"
+        },
+        {
+          "decl": "char byte_46DB54;",
+          "addr": "0x46db54"
+        },
+        {
+          "decl": "char byte_46DC55;",
+          "addr": "0x46dc55"
+        },
+        {
+          "decl": "char core_name[];",
+          "addr": "0x46dd55"
+        }
+      ],
+      "functions": [
+        {
+          "decl": "void update_loaded_module_section_attributes(void);",
+          "addr": "0x191260"
+        }
+      ]
+    }
+  ]
+}

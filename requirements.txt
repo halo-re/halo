@@ -1,0 +1,3 @@
+clang
+libclang
+https://github.com/mborgerson/pyxbe/archive/dev.zip

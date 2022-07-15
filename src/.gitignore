@@ -1,0 +1,9 @@
+private
+*.d
+*.lib
+*.obj
+*.exe
+*.pdb
+decl_generated.h
+halo.xbe.def
+build_info.c

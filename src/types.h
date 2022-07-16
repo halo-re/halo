@@ -19,4 +19,10 @@ typedef struct {
 
 static_assert(sizeof(game_options_t) == 0x10C);
 
+typedef union {
+    char unk[0x20];
+} game_time_globals_t;
+
+static_assert(sizeof(game_time_globals_t) == 0x20);
+
 #pragma pack()

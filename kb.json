@@ -1055,6 +1055,10 @@
           "addr": "0x4566ec"
         },
         {
+          "decl": "game_time_globals_t *game_time_globals;",
+          "addr": "0x45708c"
+        },
+        {
           "decl": "wchar_t ui_widget_game_data_build_version_wide_str[128];",
           "addr": "0x46ce68"
         },

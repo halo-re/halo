@@ -1,31 +1,52 @@
-void __cdecl ui_widget_game_data_build_version(int a2)
+// FIXME: Move somewhere
+#define assert_halt(cond)                                    \
+    do {                                                     \
+        if (!(cond)) {                                       \
+            display_assert(#cond, __FILE__, __LINE__, true); \
+            system_exit(-1);                                 \
+        }                                                    \
+    } while (0)
+
+void ui_widget_game_data_function_invoke(
+    void *widget, unsigned __int16 game_data_input_reference_function)
 {
-  void *v1; // eax
-  int v2; // eax
+    assert_halt(widget);
 
-  if ( !word_46CE68 ) {
+    if (game_data_input_reference_function > 40u) {
+        error(2, "invalid game_data_input_reference_function");
+    } else {
+        ui_widget_game_data_function_table[game_data_input_reference_function](
+            widget);
+    }
+}
+
+void ui_widget_game_data_build_version(int widget)
+{
+    wchar_t *v1, *v2; // eax
+
+    if (!ui_widget_game_data_build_version_wide_str[0]) {
+        ascii_to_wide(
 #if DECOMP_CUSTOM
-    ascii_to_wide(build_ui_widget_text, (int)&word_46CE68, 0x80u);
+            build_ui_widget_text,
 #else
-    ascii_to_wide("01.10.12.2276", (int)&word_46CE68, 0x80u);
+            "01.10.12.2276",
 #endif
-  }
+            ui_widget_game_data_build_version_wide_str,
+            sizeof(ui_widget_game_data_build_version_wide_str));
+    }
 
-  if ( !*(uint32_t *)(a2 + 60) )
-  {
-    v1 = (void *)ui_widget_realloc(
-                   0,
-                   0x80u,
-                   (int)__FILE__,
-                   606);
-    *(uint32_t *)(a2 + 60) = (uint32_t)v1;
-    if ( v1 )
-      csmemset(v1, 0, 0x80u);
-  }
-  v2 = *(uint32_t *)(a2 + 60);
-  if ( v2 )
-  {
-    ustrncpy(v2, (int)&word_46CE68, 0x3Fu);
-    *(uint16_t *)(*(uint32_t *)(a2 + 60) + 126) = 0;
-  }
+    if (!*(uint32_t *)(widget + 60)) {
+        v1 = ui_widget_realloc(
+            0, sizeof(ui_widget_game_data_build_version_wide_str), __FILE__,
+            __LINE__);
+        *(uint32_t *)(widget + 60) = (uint32_t)v1;
+        if (v1) {
+            csmemset(v1, 0, sizeof(ui_widget_game_data_build_version_wide_str));
+        }
+    }
+    v2 = *(wchar_t **)(widget + 60);
+    if (v2) {
+        ustrncpy(v2, ui_widget_game_data_build_version_wide_str, 0x3Fu);
+        *(wchar_t *)(*(uint32_t *)(widget + 60) + 126) = 0;
+    }
 }

@@ -749,6 +749,20 @@
       ]
     },
     {
+      "name": "player_queues_new.obj",
+      "source": "game/player_queues_new.c",
+      "functions": [
+        {
+          "decl": "void update_client_start(void);",
+          "addr": "0xb8e40"
+        },
+        {
+          "decl": "void update_server_start(void);",
+          "addr": "0xb91b0"
+        }
+      ]
+    },
+    {
       "name": "player_rumble.obj",
       "source": "game/player_rumble.c",
       "functions": [
@@ -1053,6 +1067,14 @@
         {
           "decl": "void *game_globals;",
           "addr": "0x4566ec"
+        },
+        {
+          "decl": "char byte_457068;",
+          "addr": "0x457068"
+        },
+        {
+          "decl": "char byte_457069;",
+          "addr": "0x457069"
         },
         {
           "decl": "game_time_globals_t *game_time_globals;",

@@ -168,6 +168,10 @@
         {
           "decl": "void csstrncpy(char *dst, const char *src, size_t size);",
           "addr": "0x8de70"
+        },
+        {
+          "decl": "void display_assert(const char *reason, const char *filepath, int lineno, bool halt);",
+          "addr": "0x8d9f0"
         }
       ]
     },

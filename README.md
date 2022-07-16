@@ -11,8 +11,10 @@ The goal of this project is to study and re-implement the original Xbox launch t
 
 Current State
 -------------
-* Able to patch and run existing game
-* Main loop of the game is re-implemented
+- Able to patch and run existing game
+- Main loop of the game is re-implemented
+- Several more functions are implemented
+- Long way to go...
 
 Build
 -----

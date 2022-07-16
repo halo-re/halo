@@ -1,6 +1,6 @@
 ![Halo Decompilation Project](logo.png)
 
-The goal of this project is to study and re-implement the original Xbox launch title [Halo: Combat Evolved](https://en.wikipedia.org/wiki/Halo:_Combat_Evolved). Analysis is done on build 2276 `cachebeta`, and works with retail game files.
+The goal of this project is to study and re-implement the original Xbox launch title [Halo: Combat Evolved](https://en.wikipedia.org/wiki/Halo:_Combat_Evolved).
 
 **Motivation:** Fans of Halo CE will be empowered to customize and enjoy this incredible classic in new ways, to understand the mechanics behind the game, and eventually port the game to run natively on more platforms. Moreover, this game serves as an exciting vehicle to drive advancements in decompilation research and tooling.
 

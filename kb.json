@@ -173,6 +173,10 @@
           "decl": "void csstrncpy(char *dst, const char *src, size_t size);",
           "addr": "0x8de70"
         },
+        {
+          "decl": "void csstrcpy(char *dst, const char *src);",
+          "addr": "0x8dff0"
+        }
       ]
     },
     {

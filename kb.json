@@ -10,6 +10,15 @@
       ]
     },
     {
+      "name": "LIBCMT:qsort.obj",
+      "functions": [
+        {
+          "decl": "void qsort(void *base, unsigned int nmemb, unsigned int size, int (__cdecl *compar)(unsigned int, unsigned int));",
+          "addr": "0x1d9260"
+        }
+      ]
+    },
+    {
       "name": "ai.obj",
       "source": "ai/ai.c",
       "functions": [
@@ -524,6 +533,10 @@
           "addr": "0x31fa90"
         },
         {
+          "decl": "short player_spawn_count;",
+          "addr": "0x31fa94"
+        },
+        {
           "decl": "bool debug_no_drawing;",
           "addr": "0x46e001"
         }
@@ -746,6 +759,10 @@
       "source": "interface/player_ui.c",
       "functions": [
         {
+          "decl": "__int16 player_ui_get_single_player_local_player_controller(unsigned __int16 a1);",
+          "addr": "0xe07c0"
+        },
+        {
           "decl": "void player_ui_initialize(void);",
           "addr": "0xe1350"
         }
@@ -758,6 +775,14 @@
         {
           "decl": "void players_initialize(void);",
           "addr": "0xba100"
+        },
+        {
+          "decl": "int local_player_set_player_index(unsigned __int16 a1, int a2);",
+          "addr": "0xba410"
+        },
+        {
+          "decl": "int player_new(unsigned __int16 a1, int a2, unsigned __int16 a3, char *a4);",
+          "addr": "0xbb2f0"
         },
         {
           "decl": "bool players_respawn_coop(void);",
@@ -1174,6 +1199,10 @@
         {
           "decl": "void ui_widget_game_data_build_version(int a2);",
           "addr": "0xf0ea0"
+        },
+        {
+          "decl": "int sub_100090(__int16 *a1, __int16 *a2);",
+          "addr": "0x100090"
         },
         {
           "decl": "void update_loaded_module_section_attributes(void);",

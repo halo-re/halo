@@ -1,12 +1,3 @@
-// FIXME: Move somewhere
-#define assert_halt(cond)                                    \
-    do {                                                     \
-        if (!(cond)) {                                       \
-            display_assert(#cond, __FILE__, __LINE__, true); \
-            system_exit(-1);                                 \
-        }                                                    \
-    } while (0)
-
 void ui_widget_game_data_function_invoke(
     void *widget, unsigned __int16 game_data_input_reference_function)
 {

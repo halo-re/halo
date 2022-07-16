@@ -16,4 +16,12 @@ extern const char *build_ui_widget_text;
 #include "types.h"
 #include "decl_generated.h"
 
+#define assert_halt(cond)                                    \
+    do {                                                     \
+        if (!(cond)) {                                       \
+            display_assert(#cond, __FILE__, __LINE__, true); \
+            system_exit(-1);                                 \
+        }                                                    \
+    } while (0)
+
 #endif

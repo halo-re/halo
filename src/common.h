@@ -7,18 +7,13 @@
 #define DECOMP_CUSTOM 1 // Logic that is added to aid decompilation, etc
 #define DEBUG_BUILD 1 // Logic that appears only in debug builds
 
-#include <stdint.h>
-typedef unsigned int size_t;
-typedef unsigned char bool;
-typedef short wchar_t;
-
-static const bool true = 1;
-static const bool false = 0;
+#define static_assert(cond) _Static_assert(cond, #cond)
 
 extern const char *build_rev;
 extern const char *build_date;
 extern const char *build_ui_widget_text;
 
+#include "types.h"
 #include "decl_generated.h"
 
 #endif

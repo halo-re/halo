@@ -44,3 +44,11 @@ void game_initialize(void)
     bink_playback_initialize();
     progress_bar_initialize();
 }
+
+void game_options_new(game_options_t *game_options)
+{
+    csmemset(game_options, 0, sizeof(*game_options));
+    game_options->unk_4 = 0;
+    game_options->unk_6 = 1;
+    game_options->unk_8 = 0xDEADBEEF;
+}

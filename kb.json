@@ -313,6 +313,10 @@
           "addr": "0xa7050"
         },
         {
+          "decl": "void game_options_new(game_options_t *game_options);",
+          "addr": "0xa7370"
+        },
+        {
           "decl": "void game_initial_pulse(void);",
           "addr": "0xa73c0"
         },

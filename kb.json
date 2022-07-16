@@ -898,6 +898,10 @@
           "addr": "0xe3be0"
         },
         {
+          "decl": "int ui_widget_realloc(int a1, unsigned short a2, int a3, int a4);",
+          "addr": "0xe3d20"
+        },
+        {
           "decl": "void display_error_when_main_menu_loaded(int16_t);",
           "addr": "0xe44d0"
         },
@@ -908,6 +912,20 @@
         {
           "decl": "void process_ui_widgets(void);",
           "addr": "0xe9450"
+        }
+      ]
+    },
+    {
+      "name": "unicode.obj",
+      "source": "text/unicode.c",
+      "functions": [
+        {
+          "decl": "int ustrncpy(int a1, int a2, unsigned int a3);",
+          "addr": "0x19dc90"
+        },
+        {
+          "decl": "int ascii_to_wide(const char *a1, int a2, unsigned int a3);",
+          "addr": "0x19f450"
         }
       ]
     },
@@ -931,6 +949,10 @@
         {
           "decl": "void *dword_4566EC;",
           "addr": "0x4566ec"
+        },
+        {
+          "decl": "short word_46CE68;",
+          "addr": "0x46ce68"
         },
         {
           "decl": "int dword_46D9E0;",
@@ -1058,6 +1080,10 @@
         }
       ],
       "functions": [
+        {
+          "decl": "void ui_widget_game_data_build_version(int a2);",
+          "addr": "0xf0ea0"
+        },
         {
           "decl": "void update_loaded_module_section_attributes(void);",
           "addr": "0x191260"

@@ -47,8 +47,11 @@ main.exe: $(OBJS) $(IMPORTLIBS)
 
 .PHONY: $(CURDIR)/build_info.c
 $(CURDIR)/build_info.c:
-	echo "const char *build_rev = \"$(shell git rev-parse HEAD 2>/dev/null | tr -d '\n' | cut -c-7)\";" > $@
-	echo "const char *build_date = \"$(shell date)\";" >> $@
+	echo "#define BUILD_REV \"$(shell git rev-parse HEAD 2>/dev/null | tr -d '\n' | cut -c-7)\"" > $@
+	echo "#define BUILD_DATE \"$(shell date)\"" >> $@
+	echo "const char *build_rev = BUILD_REV;" >> $@
+	echo "const char *build_date = BUILD_DATE;" >> $@
+	echo "const char *build_ui_widget_text = \"HDP \" BUILD_REV;" >> $@
 
 %.lib: %.def
 	lld-link /def:$< /out:$@ /machine:x86

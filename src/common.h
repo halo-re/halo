@@ -13,6 +13,7 @@ typedef unsigned char bool;
 
 extern const char *build_rev;
 extern const char *build_date;
+extern const char *build_ui_widget_text;
 
 #include "decl_generated.h"
 

@@ -287,3 +287,17 @@ void main_setup_connection(void)
         main_new_map(&game_options);
     }
 }
+
+void main_initialize_time(void)
+{
+  // FIXME: d3d_find_flipcount checks handler address, so we cannot
+  //        provide function reference here until we re-implement it.
+  #define main_vertical_blank_interrupt_handler (void*)0x101CD0
+
+  dword_46D9E0 = system_milliseconds();
+  qword_46D9E8 = 0LL;
+  rasterizer_set_vblank_callback(main_vertical_blank_interrupt_handler);
+  word_46DDDC = 0;
+  csmemset(word_46DDDE, 0, 0x1Eu);
+  flip_count_ptr = d3d_find_flipcount();
+}

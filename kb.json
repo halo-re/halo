@@ -194,6 +194,15 @@
       ]
     },
     {
+      "name": "d3d_intimacy.obj",
+      "functions": [
+        {
+          "decl": "int *d3d_find_flipcount(void);",
+          "addr": "0x1cf880"
+        }
+      ]
+    },
+    {
       "name": "debug_keys.obj",
       "source": "main/debug_keys.c",
       "functions": [
@@ -557,6 +566,10 @@
           "addr": "0x101970"
         },
         {
+          "decl": "void main_vertical_blank_interrupt_handler(void);",
+          "addr": "0x101cd0"
+        },
+        {
           "decl": "void main_load_last_solo_map(void);",
           "addr": "0x101e00"
         },
@@ -781,6 +794,16 @@
         {
           "decl": "void progress_bar_initialize(void);",
           "addr": "0xe1c70"
+        }
+      ]
+    },
+    {
+      "name": "rasterizer.obj",
+      "source": "rasterizer/rasterizer.c",
+      "functions": [
+        {
+          "decl": "void rasterizer_set_vblank_callback(void *);",
+          "addr": "0x17c950"
         }
       ]
     },
@@ -1133,6 +1156,18 @@
         {
           "decl": "char core_name[];",
           "addr": "0x46dd55"
+        },
+        {
+          "decl": "int *flip_count_ptr;",
+          "addr": "0x46ddd8"
+        },
+        {
+          "decl": "short word_46DDDC;",
+          "addr": "0x46dddc"
+        },
+        {
+          "decl": "short word_46DDDE[15];",
+          "addr": "0x46ddde"
         }
       ],
       "functions": [

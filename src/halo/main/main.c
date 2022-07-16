@@ -3,7 +3,7 @@
 
 static const short _game_connection_local = 0;
 
-static short game_connection(void)
+short game_connection(void)
 {
     return word_46DA0C;
 }

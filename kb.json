@@ -543,6 +543,10 @@
       ],
       "functions": [
         {
+          "decl": "short game_connection(void);",
+          "addr": "0xfff80"
+        },
+        {
           "decl": "void create_local_players(void);",
           "addr": "0x1000d0"
         },

@@ -2,11 +2,11 @@
 
 The goal of this project is to study and re-implement the original Xbox launch title [Halo: Combat Evolved](https://en.wikipedia.org/wiki/Halo:_Combat_Evolved).
 
+**Disclaimer:** This project is intended only for educational and research purposes and is not indended to promote piracy or violation of any copyright laws. This repository does not include original executables or any game assets. You will need to provide these files from your own copy of the game. Buy a copy. Heck, buy two!
+
 **Motivation:** Fans of Halo CE will be empowered to customize and enjoy this incredible classic in new ways, to understand the mechanics behind the game, and eventually port the game to run natively on more platforms. Moreover, this game serves as an exciting vehicle to drive advancements in decompilation research and tooling.
 
 **Methodology:** Pieces of the game are slowly being re-implemented in C/C++ source code. These pieces are then compiled and patched into the original executable, such that the re-implemented pieces are used over their original implementation counterparts. This approach fosters incremental development, testing, and debugging, and accelerates the timeline for those who are interested in making game modifications.
-
-**Disclaimer:** This project is intended only for educational and research purposes and is not indended to promote piracy or violation of any copyright laws. This repository does not include original executables or any game assets. You will need to provide these files from your own copy of the game. Buy a copy. Heck, buy two!
 
 Current State
 -------------

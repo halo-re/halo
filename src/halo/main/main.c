@@ -1,3 +1,42 @@
+void main_setup_connection(void)
+{
+    game_options_t game_options; // [esp+0h] [ebp-10Ch] BYREF
+
+    if (byte_46DA45) {
+        main_menu_load_pending = 0;
+        word_46DA0C = 3;
+        error(2, "error opening saved film");
+        main_menu_load_pending = 1;
+        main_menu_load();
+    } else if (main_menu_load_pending) {
+        main_menu_load();
+    } else {
+        word_46DA0C = 0;
+        game_options_new(&game_options);
+        csstrncpy(game_options.map_name, map_name,
+                  sizeof(game_options.map_name) - 1);
+        game_options.map_name[sizeof(game_options.map_name) - 1] = 0;
+        game_options.difficulty = global_difficulty_level;
+        game_precache_new_map(game_options.map_name, 1);
+        game_dispose_from_old_map();
+        main_new_map(&game_options);
+    }
+}
+
+void main_initialize_time(void)
+{
+  // FIXME: d3d_find_flipcount checks handler address, so we cannot
+  //        provide function reference here until we re-implement it.
+  #define main_vertical_blank_interrupt_handler (void*)0x101CD0
+
+  dword_46D9E0 = system_milliseconds();
+  qword_46D9E8 = 0LL;
+  rasterizer_set_vblank_callback(main_vertical_blank_interrupt_handler);
+  word_46DDDC = 0;
+  csmemset(word_46DDDE, 0, 0x1Eu);
+  flip_count_ptr = d3d_find_flipcount();
+}
+
 #ifdef DECOMP_CUSTOM
 static void print_startup_banner(void)
 {
@@ -261,43 +300,4 @@ void main_loop(void)
     game_dispose();
     debug_keys_dispose();
     console_dispose();
-}
-
-void main_setup_connection(void)
-{
-    game_options_t game_options; // [esp+0h] [ebp-10Ch] BYREF
-
-    if (byte_46DA45) {
-        main_menu_load_pending = 0;
-        word_46DA0C = 3;
-        error(2, "error opening saved film");
-        main_menu_load_pending = 1;
-        main_menu_load();
-    } else if (main_menu_load_pending) {
-        main_menu_load();
-    } else {
-        word_46DA0C = 0;
-        game_options_new(&game_options);
-        csstrncpy(game_options.map_name, map_name,
-                  sizeof(game_options.map_name) - 1);
-        game_options.map_name[sizeof(game_options.map_name) - 1] = 0;
-        game_options.difficulty = global_difficulty_level;
-        game_precache_new_map(game_options.map_name, 1);
-        game_dispose_from_old_map();
-        main_new_map(&game_options);
-    }
-}
-
-void main_initialize_time(void)
-{
-  // FIXME: d3d_find_flipcount checks handler address, so we cannot
-  //        provide function reference here until we re-implement it.
-  #define main_vertical_blank_interrupt_handler (void*)0x101CD0
-
-  dword_46D9E0 = system_milliseconds();
-  qword_46D9E8 = 0LL;
-  rasterizer_set_vblank_callback(main_vertical_blank_interrupt_handler);
-  word_46DDDC = 0;
-  csmemset(word_46DDDE, 0, 0x1Eu);
-  flip_count_ptr = d3d_find_flipcount();
 }

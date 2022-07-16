@@ -166,7 +166,7 @@
           "addr": "0x8d9f0"
         },
         {
-          "decl": "void *csmemset(void *ptr, int v, int n);",
+          "decl": "void *csmemset(void *buffer, int v, int size);",
           "addr": "0x8db80"
         },
         {

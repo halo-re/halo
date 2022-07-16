@@ -309,6 +309,10 @@
           "addr": "0xa6d00"
         },
         {
+          "decl": "void game_precache_new_map(char *map_name, int a2);",
+          "addr": "0xa6dc0"
+        },
+        {
           "decl": "void game_dispose_from_old_map(void);",
           "addr": "0xa7050"
         },
@@ -507,6 +511,10 @@
       "source": "main/main.c",
       "data": [
         {
+          "decl": "short global_difficulty_level;",
+          "addr": "0x31fa90"
+        },
+        {
           "decl": "bool debug_no_drawing;",
           "addr": "0x46e001"
         }
@@ -515,6 +523,10 @@
         {
           "decl": "void create_local_players(void);",
           "addr": "0x1000d0"
+        },
+        {
+          "decl": "void main_new_map(game_options_t *game_options);",
+          "addr": "0x100b40"
         },
         {
           "decl": "void main_change_map_name(void);",
@@ -1073,6 +1085,10 @@
         {
           "decl": "bool xbox_demos_launch_pending;",
           "addr": "0x46da44"
+        },
+        {
+          "decl": "char byte_46DA45;",
+          "addr": "0x46da45"
         },
         {
           "decl": "char byte_46DA46;",

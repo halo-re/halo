@@ -49,6 +49,6 @@ void game_options_new(game_options_t *game_options)
 {
     csmemset(game_options, 0, sizeof(*game_options));
     game_options->unk_4 = 0;
-    game_options->unk_6 = 1;
+    game_options->difficulty = 1;
     game_options->unk_8 = 0xDEADBEEF;
 }

@@ -12,7 +12,7 @@ static const bool false = 0;
 typedef struct {
     uint32_t unk_0;
     uint16_t unk_4;
-    uint16_t unk_6; /* Must be < 4 */
+    uint16_t difficulty; /* Must be < 4 */
     uint32_t unk_8;
     char map_name[256];
 } game_options_t;

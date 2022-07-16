@@ -1,7 +1,7 @@
 void game_initialize(void)
 {
-    dword_4566EC = game_state_malloc("game globals", 0, 276);
-    csmemset(dword_4566EC, 0, 0x114u);
+    game_globals = game_state_malloc("game globals", 0, 276);
+    csmemset(game_globals, 0, 0x114u);
     csmemset(&game_variant_global, 0, 0x68u);
     real_math_reset_precision();
     game_time_initialize();

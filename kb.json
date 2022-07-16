@@ -983,7 +983,7 @@
           "addr": "0x325678"
         },
         {
-          "decl": "void *dword_4566EC;",
+          "decl": "void *game_globals;",
           "addr": "0x4566ec"
         },
         {

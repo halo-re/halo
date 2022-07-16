@@ -162,6 +162,10 @@
       "source": "cseries/cseries.c",
       "functions": [
         {
+          "decl": "void display_assert(const char *reason, const char *filepath, int lineno, bool halt);",
+          "addr": "0x8d9f0"
+        },
+        {
           "decl": "void *csmemset(void *ptr, int v, int n);",
           "addr": "0x8db80"
         },
@@ -169,16 +173,16 @@
           "decl": "void csstrncpy(char *dst, const char *src, size_t size);",
           "addr": "0x8de70"
         },
-        {
-          "decl": "void display_assert(const char *reason, const char *filepath, int lineno, bool halt);",
-          "addr": "0x8d9f0"
-        }
       ]
     },
     {
       "name": "cseries_windows.obj",
       "source": "cseries/cseries_windows.c",
       "functions": [
+        {
+          "decl": "void system_exit(unsigned int);",
+          "addr": "0x8e2f0"
+        },
         {
           "decl": "unsigned int system_milliseconds(void);",
           "addr": "0x8e370"
@@ -851,6 +855,16 @@
       ]
     },
     {
+      "name": "stack_walk_windows.obj",
+      "source": "cseries/stack_walk_windows.c",
+      "functions": [
+        {
+          "decl": "char stack_walk(__int16 a1);",
+          "addr": "0x92d60"
+        }
+      ]
+    },
+    {
       "name": "structure_runtime_decals.obj",
       "source": "structures/structure_runtime_decals.c",
       "functions": [
@@ -920,6 +934,16 @@
       ]
     },
     {
+      "name": "ui_widget_game_data_input_functions.obj",
+      "source": "interface/ui_widget_game_data_input_functions.c",
+      "functions": [
+        {
+          "decl": "void ui_widget_game_data_function_invoke(void *widget, unsigned short game_data_input_reference_function);",
+          "addr": "0xf0a30"
+        }
+      ]
+    },
+    {
       "name": "unicode.obj",
       "source": "text/unicode.c",
       "functions": [
@@ -946,6 +970,10 @@
     {
       "name": null,
       "data": [
+        {
+          "decl": "void (*ui_widget_game_data_function_table[])(void *widget);",
+          "addr": "0x31e500"
+        },
         {
           "decl": "long long int qword_325678;",
           "addr": "0x325678"
@@ -1081,10 +1109,6 @@
         {
           "decl": "char core_name[];",
           "addr": "0x46dd55"
-        },
-        {
-          "decl": "void (*ui_widget_game_data_function_table[])(void *widget);",
-          "addr": "0x31e500"
         }
       ],
       "functions": [
@@ -1095,18 +1119,6 @@
         {
           "decl": "void update_loaded_module_section_attributes(void);",
           "addr": "0x191260"
-        },
-        {
-          "decl": "char stack_walk(__int16 a1);",
-          "addr": "0x92d60"
-        },
-        {
-          "decl": "void system_exit(unsigned int);",
-          "addr": "0x8e2f0"
-        },
-        {
-          "decl": "void ui_widget_game_data_function_invoke(void *widget, unsigned short game_data_input_reference_function);",
-          "addr": "0xf0a30"
         }
       ]
     }

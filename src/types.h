@@ -80,41 +80,43 @@ typedef struct {
   int16_t maximum_count;
   int16_t size;
   bool valid;
-  char unk_37[3];
+  bool identifier_zero_invalid;
+  char unk_38[2];
   int magic;
   char unk_44[2];
-  int16_t unk_46;
+  int16_t current_count;
   int16_t unk_48;
   char unk_50[2];
   void *data;
 } data_t;
 
 cs(data_t, 56);
-co(data_t, name,          0);
-co(data_t, maximum_count, 32);
-co(data_t, size,          34);
-co(data_t, valid,         36);
-co(data_t, unk_37,        37);
-co(data_t, magic,         40);
-co(data_t, unk_44,        44);
-co(data_t, unk_46,        46);
-co(data_t, unk_48,        48);
-co(data_t, data,          52);
+co(data_t, name,                    0);
+co(data_t, maximum_count,           32);
+co(data_t, size,                    34);
+co(data_t, valid,                   36);
+co(data_t, identifier_zero_invalid, 37);
+co(data_t, unk_38,                  38);
+co(data_t, magic,                   40);
+co(data_t, unk_44,                  44);
+co(data_t, current_count,           46);
+co(data_t, unk_48,                  48);
+co(data_t, data,                    52);
 
 typedef struct {
   data_t *data;
-  uint16_t unk_4;
+  uint16_t index;
   char unk_6[2];
-  uint32_t unk_8;
+  uint32_t datum_handle;
   uint32_t cookie;
 } data_iter_t;
 
 cs(data_iter_t, 16);
-co(data_iter_t, data,   0);
-co(data_iter_t, unk_4,  4);
-co(data_iter_t, unk_6,  6);
-co(data_iter_t, unk_8,  8);
-co(data_iter_t, cookie, 12);
+co(data_iter_t, data,         0);
+co(data_iter_t, index,        4);
+co(data_iter_t, unk_6,        6);
+co(data_iter_t, datum_handle, 8);
+co(data_iter_t, cookie,       12);
 
 #undef co
 #undef cs

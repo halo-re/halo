@@ -242,6 +242,10 @@
         {
           "decl": "void data_iterator_new(data_iter_t *iter, data_t *data);",
           "addr": "0x1197b0"
+        },
+        {
+          "decl": "void *data_iterator_next(data_iter_t *iterator);",
+          "addr": "0x119810"
         }
       ]
     },

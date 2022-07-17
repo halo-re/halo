@@ -27,6 +27,41 @@ void data_iterator_new(data_iter_t *iter, data_t *data)
 
   iter->data = data;
   iter->cookie = (unsigned int)data ^ 0x69746572;
-  iter->unk_4 = 0;
-  iter->unk_8 = -1;
+  iter->index = 0;
+  iter->datum_handle = -1;
+}
+
+void *data_iterator_next(data_iter_t *iterator)
+{
+  int16_t index; // cx
+  void *result; // eax
+  int handle; // edx
+  size_t size; // [esp+14h] [ebp+8h]
+
+  assert_halt_msg(iterator->cookie == ((int)iterator->data->name ^ 0x69746572),
+                  "uninitialized iterator passed to iterator_next()");
+  data_verify(iterator->data);
+  assert_halt(iterator->data->valid);
+
+  index = iterator->index;
+  size = iterator->data->size;
+  result = (char *)iterator->data->data + iterator->data->size * index;
+  if (index >= iterator->data->current_count) {
+    iterator->index = index;
+    return 0;
+  } else {
+    while (1) {
+      handle = index++ | (*(__int16 *)result << 16);
+      if (*(_WORD *)result)
+        break;
+      result = (char *)result + size;
+      if (index >= iterator->data->current_count) {
+        iterator->index = index;
+        return 0;
+      }
+    }
+    iterator->datum_handle = handle;
+    iterator->index = index;
+  }
+  return result;
 }

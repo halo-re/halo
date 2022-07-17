@@ -18,10 +18,15 @@ static const bool true = 1;
 static const bool false = 0;
 
 typedef struct {
-  char unk_0[276];
+  char unk_0;
+  bool active;
+  char unk_2[274];
 } game_globals_t;
 
 cs(game_globals_t, 276);
+co(game_globals_t, unk_0,  0);
+co(game_globals_t, active, 1);
+co(game_globals_t, unk_2,  2);
 
 typedef struct {
   char unk_0[104];

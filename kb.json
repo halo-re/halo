@@ -1085,6 +1085,10 @@
           "addr": "0x46bfc4"
         },
         {
+          "decl": "int dword_46CC44;",
+          "addr": "0x46cc44"
+        },
+        {
           "decl": "wchar_t ui_widget_game_data_build_version_wide_str[128];",
           "addr": "0x46ce68"
         },

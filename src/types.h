@@ -2,8 +2,8 @@
 #include <stddef.h>
 
 #pragma pack(1)
-#define cs(s, e)    static_assert(sizeof(s) == e)
-#define co(s, f, o) static_assert(offsetof(s, f) == o)
+#define cs(t, s)    static_assert(sizeof(t) == s)
+#define co(t, f, o) static_assert(offsetof(t, f) == o)
 
 typedef unsigned int size_t;
 typedef unsigned char bool;

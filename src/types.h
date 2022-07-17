@@ -82,7 +82,10 @@ typedef struct {
     bool valid;
     char unk_37[3];
     int magic;
-    char unk_44[8];
+    char unk_44[2];
+    int16_t unk_46;
+    int16_t unk_48;
+    char unk_50[2];
     void *data;
 } data_t;
 
@@ -91,7 +94,11 @@ co(data_t, name,          0);
 co(data_t, maximum_count, 32);
 co(data_t, size,          34);
 co(data_t, valid,         36);
+co(data_t, unk_37,        37);
 co(data_t, magic,         40);
+co(data_t, unk_44,        44);
+co(data_t, unk_46,        46);
+co(data_t, unk_48,        48);
 co(data_t, data,          52);
 
 typedef struct {

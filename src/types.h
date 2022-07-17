@@ -17,11 +17,11 @@ static const bool true = 1;
 static const bool false = 0;
 
 typedef struct {
-    uint32_t unk_0;
-    uint16_t unk_4;
-    uint16_t difficulty; /* Must be < 4 */
-    uint32_t unk_8;
-    char map_name[256];
+  uint32_t unk_0;
+  uint16_t unk_4;
+  uint16_t difficulty; /* Must be < 4 */
+  uint32_t unk_8;
+  char map_name[256];
 } game_options_t;
 
 co(game_options_t, unk_0,      0);
@@ -32,14 +32,14 @@ co(game_options_t, map_name,   12);
 cs(game_options_t, 0x10C);
 
 typedef struct {
-    bool initialized;
-    bool active;
-    char unk_2[10];
-    uint32_t local_time;
-    uint16_t elapsed;
-    char unk_17[6];
-    float speed;
-    uint32_t unk_28;
+  bool initialized;
+  bool active;
+  char unk_2[10];
+  uint32_t local_time;
+  uint16_t elapsed;
+  char unk_17[6];
+  float speed;
+  uint32_t unk_28;
 } game_time_globals_t;
 
 co(game_time_globals_t, initialized, 0);
@@ -52,41 +52,41 @@ co(game_time_globals_t, unk_28,      28);
 cs(game_time_globals_t, 0x20);
 
 typedef struct {
-    char unk_0[212];
+  char unk_0[212];
 } player_data_t;
 
 cs(player_data_t, 212);
 
 typedef struct {
-    char unk_0[64];
+  char unk_0[64];
 } team_data_t;
 
 cs(team_data_t, 64);
 
 typedef struct {
-    char unk_0[176];
+  char unk_0[176];
 } players_globals_t;
 
 cs(players_globals_t, 176);
 
 typedef struct {
-    char unk_0[272];
+  char unk_0[272];
 } player_control_globals_t;
 
 cs(player_control_globals_t, 272);
 
 typedef struct {
-    char name[32];
-    int16_t maximum_count;
-    int16_t size;
-    bool valid;
-    char unk_37[3];
-    int magic;
-    char unk_44[2];
-    int16_t unk_46;
-    int16_t unk_48;
-    char unk_50[2];
-    void *data;
+  char name[32];
+  int16_t maximum_count;
+  int16_t size;
+  bool valid;
+  char unk_37[3];
+  int magic;
+  char unk_44[2];
+  int16_t unk_46;
+  int16_t unk_48;
+  char unk_50[2];
+  void *data;
 } data_t;
 
 cs(data_t, 56);
@@ -102,11 +102,11 @@ co(data_t, unk_48,        48);
 co(data_t, data,          52);
 
 typedef struct {
-    data_t *data;
-    uint16_t unk_4;
-    char unk_6[2];
-    uint32_t unk_8;
-    uint32_t cookie;
+  data_t *data;
+  uint16_t unk_4;
+  char unk_6[2];
+  uint32_t unk_8;
+  uint32_t cookie;
 } data_iter_t;
 
 cs(data_iter_t, 16);

@@ -1329,6 +1329,30 @@
           "addr": "0x457090"
         },
         {
+          "decl": "char byte_46BA4C[40];",
+          "addr": "0x46ba4c"
+        },
+        {
+          "decl": "char byte_46BB38[57];",
+          "addr": "0x46bb38"
+        },
+        {
+          "decl": "char byte_46BBA0[104];",
+          "addr": "0x46bba0"
+        },
+        {
+          "decl": "int word_46BC08;",
+          "addr": "0x46bc08"
+        },
+        {
+          "decl": "int word_46BC0A;",
+          "addr": "0x46bc0a"
+        },
+        {
+          "decl": "int dword_46BC0C[64];",
+          "addr": "0x46bc0c"
+        },
+        {
           "decl": "__int16 word_46BFC4[4];",
           "addr": "0x46bfc4"
         },

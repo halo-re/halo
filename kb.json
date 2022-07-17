@@ -401,6 +401,10 @@
       "source": "game/game_engine.c",
       "functions": [
         {
+          "decl": "int game_engine_game_starting();",
+          "addr": "0xa8380"
+        },
+        {
           "decl": "bool game_engine_running(void);",
           "addr": "0xa8e30"
         },
@@ -411,6 +415,10 @@
         {
           "decl": "void game_engine_update_non_deterministic(float);",
           "addr": "0xacdd0"
+        },
+        {
+          "decl": "void game_engine_player_added(int player_data_handle);",
+          "addr": "0xae7e0"
         }
       ]
     },

@@ -24,4 +24,12 @@ extern const char *build_ui_widget_text;
         }                                                    \
     } while (0)
 
+#define assert_halt_msg(cond, msg)                         \
+    do {                                                   \
+        if (!(cond)) {                                     \
+            display_assert(msg, __FILE__, __LINE__, true); \
+            system_exit(-1);                               \
+        }                                                  \
+    } while (0)
+
 #endif

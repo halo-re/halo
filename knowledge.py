@@ -4,13 +4,17 @@ from typing import Sequence, Union, Optional
 import logging
 import os.path
 
-import clang.cindex
+try:
+	import clang.cindex as clang
+except ImportError:
+	clang = None
 
 log = logging.getLogger(__name__)
+root_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def parse_string(s: str):
-	index = clang.cindex.Index.create()
+	index = clang.Index.create()
 	tu = index.parse('tmp.h', unsaved_files=[('tmp.h', s)], options=0)
 	return tu
 
@@ -31,6 +35,8 @@ class Symbol:
 
 	@property
 	def name(self):
+		if clang is None:
+			return self.decl
 		return self.cursor.spelling
 
 	@classmethod
@@ -53,7 +59,7 @@ class Function(Symbol):
 
 class KnowledgeBase:
 
-	kb_filename: str = 'kb.json'
+	kb_path: str = os.path.join(root_dir, 'kb.json')
 
 	def __init__(self):
 		self.symbols = []
@@ -62,6 +68,7 @@ class KnowledgeBase:
 		self.object_to_source = {}
 		self.name_to_addr = {}
 		self.expected_md5 = 'c7869590a1c64ad034e49a5ee0c02465'
+		self.addr_to_symbols = {}
 
 	def add_symbols(self, symbols: Sequence[Symbol]):
 		self.symbols.extend(symbols)
@@ -106,10 +113,17 @@ class KnowledgeBase:
 				f.write(f'\t{s.cursor.mangled_name}{" DATA" if isinstance(s, Data) else ""}\n')
 
 	def serialize(self):
-		log.info('Saving knowledge base...')
+		log.info('Saving knowledge base to %s...', self.kb_path)
 
-		with open(self.kb_filename, 'w') as f:
+		with open(self.kb_path, 'w') as f:
 			out = {'objects': []}
+
+			# Make sure symbols are associated with an object (or the None object)
+			for s in self.symbols:
+				if s not in self.symbol_to_object:
+					self.object_to_symbols[None].append(s)
+					self.symbol_to_object[s] = None
+
 			objs_sorted = sorted(n for n in self.object_to_symbols if n is not None)
 			for obj in (objs_sorted + [None]):
 				symbols = self.object_to_symbols[obj]
@@ -130,7 +144,7 @@ class KnowledgeBase:
 	@classmethod
 	def deserialize(cls) -> 'KnowledgeBase':
 		log.info('Loading knowledge base...')
-		with open(cls.kb_filename) as f:
+		with open(cls.kb_path) as f:
 			serialized_kb = json.load(f)
 
 		kb = KnowledgeBase()
@@ -153,6 +167,8 @@ class KnowledgeBase:
 		if os.path.exists('misc/load_truth.py'):
 			from misc.load_truth import load_truth
 			load_truth(kb)
+
+		kb.addr_to_symbol = {s.addr:s for s in kb.symbols}
 
 		num_symbols_with_truth = len([s for s in kb.symbols if kb.symbol_to_object[s]])
 		num_symbols_without_truth = len(kb.symbols) - num_symbols_with_truth

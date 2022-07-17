@@ -18,23 +18,6 @@ static const bool true = 1;
 static const bool false = 0;
 
 typedef struct {
-  char unk_0;
-  bool active;
-  char unk_2[274];
-} game_globals_t;
-
-cs(game_globals_t, 276);
-co(game_globals_t, unk_0,  0);
-co(game_globals_t, active, 1);
-co(game_globals_t, unk_2,  2);
-
-typedef struct {
-  char unk_0[104];
-} game_variant_t;
-
-cs(game_variant_t, 104);
-
-typedef struct {
   uint32_t unk_0;
   uint16_t unk_4;
   uint16_t difficulty; /* Must be < 4 */
@@ -48,6 +31,25 @@ co(game_options_t, difficulty, 6);
 co(game_options_t, unk_8,      8);
 co(game_options_t, map_name,   12);
 cs(game_options_t, 0x10C);
+
+typedef struct {
+  bool map_loaded;
+  bool active;
+  char unk_2[6];
+  game_options_t game_options;
+} game_globals_t;
+
+cs(game_globals_t, 276);
+co(game_globals_t, map_loaded,   0);
+co(game_globals_t, active,       1);
+co(game_globals_t, unk_2,        2);
+co(game_globals_t, game_options, 8);
+
+typedef struct {
+  char unk_0[104];
+} game_variant_t;
+
+cs(game_variant_t, 104);
 
 typedef struct {
   bool initialized;

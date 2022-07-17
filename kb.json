@@ -217,6 +217,10 @@
         {
           "decl": "void csstrcpy(char *dst, const char *src);",
           "addr": "0x8dff0"
+        },
+        {
+          "decl": "void *csmemcpy(void *destination, void *source, unsigned int size);",
+          "addr": "0x8e0b0"
         }
       ]
     },
@@ -419,6 +423,10 @@
         {
           "decl": "void game_initial_pulse(void);",
           "addr": "0xa73c0"
+        },
+        {
+          "decl": "char game_load(game_options_t *options);",
+          "addr": "0xa76b0"
         },
         {
           "decl": "void game_initialize_for_new_map(void);",
@@ -1007,6 +1015,16 @@
       ]
     },
     {
+      "name": "random_math.obj",
+      "source": "math/random_math.c",
+      "functions": [
+        {
+          "decl": "void random_seed_debug_log(bool a1);",
+          "addr": "0x10b130"
+        }
+      ]
+    },
+    {
       "name": "rasterizer.obj",
       "source": "rasterizer/rasterizer.c",
       "functions": [
@@ -1091,6 +1109,10 @@
         {
           "decl": "void scenario_switch_structure_bsp(__int16 a1);",
           "addr": "0x18eb40"
+        },
+        {
+          "decl": "bool scenario_load(const char *map_name);",
+          "addr": "0x18f090"
         }
       ]
     },

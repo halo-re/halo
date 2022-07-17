@@ -85,10 +85,29 @@ void game_initialize(void)
   progress_bar_initialize();
 }
 
-void game_options_new(game_options_t *game_options)
+static bool game_options_verify(game_options_t *options)
 {
-  csmemset(game_options, 0, sizeof(*game_options));
-  game_options->unk_4 = 0;
-  game_options->difficulty = 1;
-  game_options->unk_8 = 0xDEADBEEF;
+  return options->difficulty < 4;
+}
+
+char game_load(game_options_t *options)
+{
+  assert_halt(!game_globals->active);
+  assert_halt(!game_globals->map_loaded);
+  assert_halt(game_options_verify(options));
+
+  random_seed_debug_log(1);
+  csmemcpy(&game_globals->game_options, options, sizeof(*options));
+  if (scenario_load(options->map_name)) {
+    game_globals->map_loaded = 1;
+  }
+  return game_globals->map_loaded;
+}
+
+void game_options_new(game_options_t *options)
+{
+  csmemset(options, 0, sizeof(*options));
+  options->unk_4 = 0;
+  options->difficulty = 1;
+  options->unk_8 = 0xDEADBEEF;
 }

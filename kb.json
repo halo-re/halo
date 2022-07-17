@@ -234,6 +234,14 @@
         {
           "decl": "void data_initialize(data_t *data, char *name, __int16 maximum_count, __int16 size);",
           "addr": "0x1191a0"
+        },
+        {
+          "decl": "void data_verify(data_t *a1);",
+          "addr": "0x1193f0"
+        },
+        {
+          "decl": "void data_iterator_new(data_iter_t *iter, data_t *data);",
+          "addr": "0x1197b0"
         }
       ]
     },

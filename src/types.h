@@ -94,6 +94,21 @@ co(data_t, valid,         36);
 co(data_t, magic,         40);
 co(data_t, data,          52);
 
+typedef struct {
+    data_t *data;
+    uint16_t unk_4;
+    char unk_6[2];
+    uint32_t unk_8;
+    uint32_t cookie;
+} data_iter_t;
+
+cs(data_iter_t, 16);
+co(data_iter_t, data,   0);
+co(data_iter_t, unk_4,  4);
+co(data_iter_t, unk_6,  6);
+co(data_iter_t, unk_8,  8);
+co(data_iter_t, cookie, 12);
+
 #undef co
 #undef cs
 #pragma pack()

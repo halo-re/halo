@@ -32,7 +32,7 @@ BreakBeforeTernaryOperators: false
 BreakStringLiterals: true
 ColumnLimit:     80
 # CommentPragmas:  '^ IWYU pragma:'
-ContinuationIndentWidth: 4
+ContinuationIndentWidth: 2
 Cpp11BracedListStyle: false
 DerivePointerAlignment: false
 DisableFormat:   false
@@ -67,7 +67,7 @@ IncludeCategories:
     Priority:        1
 IncludeIsMainRegex: '$'
 IndentCaseLabels: false
-IndentWidth:     4
+IndentWidth:     2
 AccessModifierOffset: -4
 IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: false

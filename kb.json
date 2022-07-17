@@ -401,7 +401,7 @@
       "source": "game/game_engine.c",
       "functions": [
         {
-          "decl": "int game_engine_game_starting();",
+          "decl": "int game_engine_game_starting(void);",
           "addr": "0xa8380"
         },
         {
@@ -543,7 +543,7 @@
           "addr": "0xce9f0"
         },
         {
-          "decl": "void input_abstraction_update();",
+          "decl": "void input_abstraction_update(void);",
           "addr": "0xcea90"
         }
       ]
@@ -871,7 +871,7 @@
           "addr": "0x91540"
         },
         {
-          "decl": "void profile_frame_start();",
+          "decl": "void profile_frame_start(void);",
           "addr": "0x91780"
         },
         {
@@ -955,7 +955,7 @@
       "source": "scenario/scenario.c",
       "functions": [
         {
-          "decl": "void scenario_switch_structure_bsp();",
+          "decl": "void scenario_switch_structure_bsp(__int16 a1);",
           "addr": "0x18eb40"
         }
       ]
@@ -972,7 +972,7 @@
           "addr": "0x191140"
         },
         {
-          "decl": "bool shell_application_is_paused();",
+          "decl": "bool shell_application_is_paused(void);",
           "addr": "0x191170"
         }
       ]

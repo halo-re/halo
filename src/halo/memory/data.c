@@ -20,6 +20,12 @@ int data_allocation_size(__int16 count, __int16 size)
   return size * count + sizeof(data_t);
 }
 
+void data_make_invalid(data_t *data)
+{
+  data_verify(data);
+  data->valid = 0;
+}
+
 void data_iterator_new(data_iter_t *iter, data_t *data)
 {
   data_verify(data);

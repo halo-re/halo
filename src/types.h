@@ -12,9 +12,22 @@ cs(wchar_t, 2);
 // FIXME: Normalize
 typedef uint32_t _DWORD;
 typedef uint16_t _WORD;
+typedef uint8_t  _BYTE;
 
 static const bool true = 1;
 static const bool false = 0;
+
+typedef struct {
+  char unk_0[276];
+} game_globals_t;
+
+cs(game_globals_t, 276);
+
+typedef struct {
+  char unk_0[104];
+} game_variant_t;
+
+cs(game_variant_t, 104);
 
 typedef struct {
   uint32_t unk_0;

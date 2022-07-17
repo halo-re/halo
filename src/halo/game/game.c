@@ -1,8 +1,8 @@
 void game_initialize(void)
 {
-  game_globals = game_state_malloc("game globals", 0, 276);
-  csmemset(game_globals, 0, 0x114u);
-  csmemset(&game_variant_global, 0, 0x68u);
+  game_globals = (game_globals_t *)game_state_malloc("game globals", 0, sizeof(game_globals_t));
+  csmemset(game_globals, 0, sizeof(game_globals_t));
+  csmemset(&game_variant_global, 0, sizeof(game_variant_global));
   real_math_reset_precision();
   game_time_initialize();
   game_engine_initialize(&game_variant_global);

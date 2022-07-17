@@ -16,7 +16,7 @@
           "addr": "0x5aa6d4"
         },
         {
-          "decl": "int game_variant_global;",
+          "decl": "game_variant_t game_variant_global;",
           "addr": "0x5aa820"
         }
       ]
@@ -1119,7 +1119,7 @@
           "addr": "0x325678"
         },
         {
-          "decl": "void *game_globals;",
+          "decl": "game_globals_t *game_globals;",
           "addr": "0x4566ec"
         },
         {

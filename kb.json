@@ -41,6 +41,10 @@
         {
           "decl": "void ai_dispose_from_old_map(void);",
           "addr": "0x3f720"
+        },
+        {
+          "decl": "void ai_initialize_for_new_map(void);",
+          "addr": "0x41090"
         }
       ]
     },
@@ -75,6 +79,10 @@
         {
           "decl": "void breakable_surfaces_initialize(void);",
           "addr": "0x1458a0"
+        },
+        {
+          "decl": "void breakable_surfaces_initialize_for_new_map(void);",
+          "addr": "0x1458f0"
         },
         {
           "decl": "void breakable_surfaces_dispose_from_old_map(void);",
@@ -131,6 +139,10 @@
           "addr": "0x92d80"
         },
         {
+          "decl": "void cinematic_initialize_for_new_map(void);",
+          "addr": "0x92dd0"
+        },
+        {
           "decl": "void cinematic_dispose_from_old_map(void);",
           "addr": "0x92e00"
         },
@@ -171,6 +183,10 @@
           "addr": "0xff400"
         },
         {
+          "decl": "void console_initialize_for_new_map(void);",
+          "addr": "0xff460"
+        },
+        {
           "decl": "void console_startup(void);",
           "addr": "0xff8a0"
         },
@@ -188,6 +204,10 @@
       "name": "contrails.obj",
       "source": "effects/contrails.c",
       "functions": [
+        {
+          "decl": "void contrails_initialize_for_new_map(void);",
+          "addr": "0x97890"
+        },
         {
           "decl": "void contrails_dispose_from_old_map(void);",
           "addr": "0x978b0"
@@ -300,6 +320,10 @@
           "addr": "0x98ca0"
         },
         {
+          "decl": "void decals_initialize_for_new_map(void);",
+          "addr": "0x98d40"
+        },
+        {
           "decl": "void decals_dispose_from_old_map(void);",
           "addr": "0x98df0"
         }
@@ -316,6 +340,10 @@
         {
           "decl": "void director_dispose_from_old_map(void);",
           "addr": "0x86890"
+        },
+        {
+          "decl": "void director_initialize_for_new_map(void);",
+          "addr": "0x87520"
         },
         {
           "decl": "void director_update(float);",
@@ -339,6 +367,10 @@
           "addr": "0x97820"
         },
         {
+          "decl": "void editor_initialize_for_new_map(void);",
+          "addr": "0x97850"
+        },
+        {
           "decl": "void editor_dispose_from_old_map(void);",
           "addr": "0x97860"
         }
@@ -351,6 +383,10 @@
         {
           "decl": "void effects_initialize(void);",
           "addr": "0x9c650"
+        },
+        {
+          "decl": "void effects_initialize_for_new_map(void);",
+          "addr": "0x9c6a0"
         },
         {
           "decl": "void effects_dispose_from_old_map(void);",
@@ -439,6 +475,10 @@
           "addr": "0xa7940"
         },
         {
+          "decl": "void game_allegiance_initialize_for_new_map(void);",
+          "addr": "0xa7980"
+        },
+        {
           "decl": "void game_allegiance_dispose_from_old_map(void);",
           "addr": "0xa7a20"
         }
@@ -448,6 +488,10 @@
       "name": "game_engine.obj",
       "source": "game/game_engine.c",
       "functions": [
+        {
+          "decl": "void game_engine_dispose(void);",
+          "addr": "0xa81c0"
+        },
         {
           "decl": "void game_engine_dispose_from_old_map(void);",
           "addr": "0xa8340"
@@ -467,6 +511,10 @@
         {
           "decl": "void game_engine_update_non_deterministic(float);",
           "addr": "0xacdd0"
+        },
+        {
+          "decl": "void game_engine_initialize_for_new_map(void);",
+          "addr": "0xae760"
         },
         {
           "decl": "void game_engine_player_added(int player_data_handle);",
@@ -492,6 +540,10 @@
       "name": "game_state.obj",
       "source": "saved games/game_state.c",
       "functions": [
+        {
+          "decl": "void game_state_initialize_for_new_map(void);",
+          "addr": "0x1bf7c0"
+        },
         {
           "decl": "void game_state_dispose_from_old_map(void);",
           "addr": "0x1bf870"
@@ -523,12 +575,25 @@
       ]
     },
     {
+      "name": "game_statistics.obj",
+      "functions": [
+        {
+          "decl": "void game_statistics_start(void);",
+          "addr": "0xb5640"
+        }
+      ]
+    },
+    {
       "name": "game_time.obj",
       "source": "game/game_time.c",
       "functions": [
         {
           "decl": "void game_time_initialize(void);",
           "addr": "0xb59b0"
+        },
+        {
+          "decl": "void game_time_initialize_for_new_map(void);",
+          "addr": "0xb59e0"
         },
         {
           "decl": "void game_time_dispose_from_old_map(void);",
@@ -568,6 +633,10 @@
       "name": "hs.obj",
       "source": "hs/hs.c",
       "functions": [
+        {
+          "decl": "void hs_initialize_for_new_map(void);",
+          "addr": "0xc4d90"
+        },
         {
           "decl": "void hs_dispose_from_old_map(void);",
           "addr": "0xc4dd0"
@@ -649,6 +718,10 @@
         {
           "decl": "void interface_dispose_from_old_map(void);",
           "addr": "0xdec70"
+        },
+        {
+          "decl": "void interface_initialize_for_new_map(void);",
+          "addr": "0xdfea0"
         }
       ]
     },
@@ -803,8 +876,16 @@
       "source": "objects/objects.c",
       "functions": [
         {
+          "decl": "void objects_place(void);",
+          "addr": "0x13f060"
+        },
+        {
           "decl": "void objects_initialize(void);",
           "addr": "0x13f810"
+        },
+        {
+          "decl": "void objects_initialize_for_new_map(void);",
+          "addr": "0x13f950"
         },
         {
           "decl": "void objects_dispose_from_old_map(void);",
@@ -819,6 +900,10 @@
         {
           "decl": "void observer_initialize(void);",
           "addr": "0x8a340"
+        },
+        {
+          "decl": "int observer_initialize_for_new_map(void);",
+          "addr": "0x8a480"
         },
         {
           "decl": "void observer_dispose_from_old_map(void);",
@@ -839,6 +924,10 @@
           "addr": "0x9f680"
         },
         {
+          "decl": "void particle_systems_initialize_for_new_map(void);",
+          "addr": "0x9f6c0"
+        },
+        {
           "decl": "void particle_systems_dispose_from_old_map(void);",
           "addr": "0x9fcd0"
         }
@@ -851,6 +940,10 @@
         {
           "decl": "void particles_initialize(void);",
           "addr": "0xa1480"
+        },
+        {
+          "decl": "void particles_initialize_for_new_map(void);",
+          "addr": "0xa14b0"
         },
         {
           "decl": "void particles_dispose_from_old_map(void);",
@@ -873,6 +966,10 @@
       "source": "game/player_control.c",
       "functions": [
         {
+          "decl": "void player_control_initialize_for_new_map(void);",
+          "addr": "0xb85c0"
+        },
+        {
           "decl": "void player_control_update(float);",
           "addr": "0xb8c70"
         },
@@ -891,6 +988,10 @@
           "addr": "0xa2700"
         },
         {
+          "decl": "void player_effect_initialize_for_new_map(void);",
+          "addr": "0xa2750"
+        },
+        {
           "decl": "void player_effect_dispose_from_old_map(void);",
           "addr": "0xa2790"
         }
@@ -905,12 +1006,20 @@
           "addr": "0xb8e40"
         },
         {
+          "decl": "void update_server_new(void);",
+          "addr": "0xb90d0"
+        },
+        {
           "decl": "void update_server_delete(void);",
           "addr": "0xb9150"
         },
         {
           "decl": "void update_server_start(void);",
           "addr": "0xb91b0"
+        },
+        {
+          "decl": "void update_client_delete(void);",
+          "addr": "0x1c7080"
         }
       ]
     },
@@ -918,6 +1027,10 @@
       "name": "player_rumble.obj",
       "source": "game/player_rumble.c",
       "functions": [
+        {
+          "decl": "void rumble_initialize_for_new_map(void);",
+          "addr": "0xb9b60"
+        },
         {
           "decl": "void rumble_dispose_from_old_map(void);",
           "addr": "0xb9dd0"
@@ -951,6 +1064,10 @@
           "addr": "0xba100"
         },
         {
+          "decl": "void players_initialize_for_new_map(void);",
+          "addr": "0xba170"
+        },
+        {
           "decl": "void players_dispose_from_old_map(void);",
           "addr": "0xba220"
         },
@@ -972,6 +1089,10 @@
       "name": "point_physics.obj",
       "source": "physics/point_physics.c",
       "functions": [
+        {
+          "decl": "void point_physics_initialize_for_new_map(void);",
+          "addr": "0x154860"
+        },
         {
           "decl": "void point_physics_dispose_from_old_map(void);",
           "addr": "0x154890"
@@ -1015,6 +1136,10 @@
       "source": "math/random_math.c",
       "functions": [
         {
+          "decl": "int *get_global_random_seed_address(void);",
+          "addr": "0x10b0d0"
+        },
+        {
           "decl": "void random_seed_debug_log(bool a1);",
           "addr": "0x10b130"
         }
@@ -1034,6 +1159,10 @@
       "name": "rasterizer_common.obj",
       "source": "rasterizer/common/rasterizer_common.c",
       "functions": [
+        {
+          "decl": "void rasterizer_initialize_for_new_map(void);",
+          "addr": "0x154fc0"
+        },
         {
           "decl": "void rasterizer_dispose_from_old_map(void);",
           "addr": "0x155070"
@@ -1071,6 +1200,10 @@
         {
           "decl": "void recorded_animations_dispose_from_old_map(void);",
           "addr": "0x94c60"
+        },
+        {
+          "decl": "void recorded_animations_initialize_for_new_map(void);",
+          "addr": "0x95280"
         }
       ]
     },
@@ -1081,6 +1214,10 @@
         {
           "decl": "void render_initialize(void);",
           "addr": "0x184b80"
+        },
+        {
+          "decl": "void render_initialize_for_new_map(void);",
+          "addr": "0x184b90"
         }
       ]
     },
@@ -1098,6 +1235,10 @@
       "name": "scenario.obj",
       "source": "scenario/scenario.c",
       "functions": [
+        {
+          "decl": "void scenario_initialize_for_new_map(void);",
+          "addr": "0x18e2a0"
+        },
         {
           "decl": "void scenario_dispose_from_old_map(void);",
           "addr": "0x18e2f0"
@@ -1149,6 +1290,10 @@
         {
           "decl": "void sound_classes_dispose_from_old_map(void);",
           "addr": "0x1c89b0"
+        },
+        {
+          "decl": "void sound_classes_initialize_for_new_map(void);",
+          "addr": "0x1c8b70"
         }
       ]
     },
@@ -1156,6 +1301,10 @@
       "name": "sound_manager.obj",
       "source": "sound/sound_manager.c",
       "functions": [
+        {
+          "decl": "void sound_initialize_for_new_map(void);",
+          "addr": "0x1cb810"
+        },
         {
           "decl": "void sound_dispose_from_old_map(void);",
           "addr": "0x1cf640"
@@ -1179,6 +1328,10 @@
         {
           "decl": "void structure_decals_initialize(void);",
           "addr": "0x1983c0"
+        },
+        {
+          "decl": "void structure_decals_reconnect_to_structure_bsp(void);",
+          "addr": "0x1983d0"
         }
       ]
     },
@@ -1290,6 +1443,10 @@
         {
           "decl": "void weather_particle_systems_initialize(void);",
           "addr": "0xa3ef0"
+        },
+        {
+          "decl": "void weather_particle_systems_initialize_for_new_map(void);",
+          "addr": "0xa3f20"
         },
         {
           "decl": "void weather_particle_systems_dispose_from_old_map(void);",
@@ -1506,6 +1663,14 @@
         }
       ],
       "functions": [
+        {
+          "decl": "int j__encounters_create_for_new_map(void);",
+          "addr": "0x3f760"
+        },
+        {
+          "decl": "void j__cheats_load(void);",
+          "addr": "0xa6820"
+        },
         {
           "decl": "void ui_widget_game_data_build_version(int a2);",
           "addr": "0xf0ea0"

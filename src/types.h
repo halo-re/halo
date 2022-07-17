@@ -21,15 +21,15 @@ typedef struct {
   uint32_t unk_0;
   uint16_t unk_4;
   uint16_t difficulty; /* Must be < 4 */
-  uint32_t unk_8;
+  uint32_t random_seed;
   char map_name[256];
 } game_options_t;
 
-co(game_options_t, unk_0,      0);
-co(game_options_t, unk_4,      4);
-co(game_options_t, difficulty, 6);
-co(game_options_t, unk_8,      8);
-co(game_options_t, map_name,   12);
+co(game_options_t, unk_0,       0);
+co(game_options_t, unk_4,       4);
+co(game_options_t, difficulty,  6);
+co(game_options_t, random_seed, 8);
+co(game_options_t, map_name,    12);
 cs(game_options_t, 0x10C);
 
 typedef struct {

@@ -85,6 +85,58 @@ void game_initialize(void)
   progress_bar_initialize();
 }
 
+void game_initialize_for_new_map(void)
+{
+  assert_halt(game_globals->map_loaded);
+  assert_halt(!game_globals->active);
+
+  *get_global_random_seed_address() = game_globals->game_options.random_seed;
+  game_engine_dispose();
+  game_engine_initialize(&game_variant_global);
+  real_math_reset_precision();
+  rasterizer_initialize_for_new_map();
+  game_state_initialize_for_new_map();
+  game_time_initialize_for_new_map();
+  interface_initialize_for_new_map();
+  game_allegiance_initialize_for_new_map();
+  players_initialize_for_new_map();
+  scenario_initialize_for_new_map();
+  objects_initialize_for_new_map();
+  render_initialize_for_new_map();
+  structure_decals_reconnect_to_structure_bsp();
+  breakable_surfaces_initialize_for_new_map();
+  decals_initialize_for_new_map();
+  director_initialize_for_new_map();
+  observer_initialize_for_new_map();
+  contrails_initialize_for_new_map();
+  particles_initialize_for_new_map();
+  effects_initialize_for_new_map();
+  particle_systems_initialize_for_new_map();
+  sound_initialize_for_new_map();
+  sound_classes_initialize_for_new_map();
+  update_client_delete();
+  weather_particle_systems_initialize_for_new_map();
+  point_physics_initialize_for_new_map();
+  game_engine_initialize_for_new_map();
+  game_statistics_start();
+  update_server_new();
+  player_control_initialize_for_new_map();
+  rumble_initialize_for_new_map();
+  player_effect_initialize_for_new_map();
+  ai_initialize_for_new_map();
+  console_initialize_for_new_map();
+  editor_initialize_for_new_map();
+  cinematic_initialize_for_new_map();
+  hs_initialize_for_new_map();
+  recorded_animations_initialize_for_new_map();
+  j__cheats_load();
+  game_globals->active = 1;
+  objects_place();
+  if ( !game_in_editor() )
+    j__encounters_create_for_new_map();
+  ui_widgets_safe_to_load(1);
+}
+
 static bool game_options_verify(game_options_t *options)
 {
   return options->difficulty < 4;
@@ -109,5 +161,5 @@ void game_options_new(game_options_t *options)
   csmemset(options, 0, sizeof(*options));
   options->unk_4 = 0;
   options->difficulty = 1;
-  options->unk_8 = 0xDEADBEEF;
+  options->random_seed = 0xDEADBEEF;
 }

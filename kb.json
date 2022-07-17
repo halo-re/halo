@@ -207,19 +207,15 @@
           "addr": "0x8d9f0"
         },
         {
-          "decl": "void *csmemset(void *buffer, int v, int size);",
+          "decl": "void *csmemset(void *buffer, int v, size_t size);",
           "addr": "0x8db80"
         },
         {
-          "decl": "void csstrncpy(char *dst, const char *src, size_t size);",
+          "decl": "void *csstrncpy(char *destination, const char *source, size_t size);",
           "addr": "0x8de70"
         },
         {
-          "decl": "void csstrcpy(char *dst, const char *src);",
-          "addr": "0x8dff0"
-        },
-        {
-          "decl": "void *csmemcpy(void *destination, void *source, unsigned int size);",
+          "decl": "void *csmemcpy(void *destination, void *source, size_t size);",
           "addr": "0x8e0b0"
         }
       ]

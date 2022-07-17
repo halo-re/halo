@@ -224,6 +224,20 @@
       ]
     },
     {
+      "name": "data.obj",
+      "source": "memory/data.c",
+      "functions": [
+        {
+          "decl": "int data_allocation_size(__int16 count, __int16 size);",
+          "addr": "0x119180"
+        },
+        {
+          "decl": "void data_initialize(data_t *data, char *name, __int16 maximum_count, __int16 size);",
+          "addr": "0x1191a0"
+        }
+      ]
+    },
+    {
       "name": "debug_keys.obj",
       "source": "main/debug_keys.c",
       "functions": [

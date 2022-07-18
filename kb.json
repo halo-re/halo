@@ -227,7 +227,7 @@
           "addr": "0x8d9f0"
         },
         {
-          "decl": "void *csmemset(void *buffer, int v, size_t size);",
+          "decl": "void *csmemset(void *buffer, int c, size_t size);",
           "addr": "0x8db80"
         },
         {
@@ -423,7 +423,7 @@
       "source": "interface/first_person_weapons.c",
       "functions": [
         {
-          "decl": "void first_person_weapons_initialize(void);",
+          "decl": "void interface_initialize(void);",
           "addr": "0xdec50"
         }
       ]
@@ -505,7 +505,7 @@
           "addr": "0xa8e30"
         },
         {
-          "decl": "void game_engine_initialize(void *);",
+          "decl": "void game_engine_initialize(game_variant_t *variant);",
           "addr": "0xaba30"
         },
         {
@@ -561,7 +561,7 @@
           "addr": "0x1bf990"
         },
         {
-          "decl": "void *game_state_malloc(const char *name, const char *unk1, int unk2);",
+          "decl": "void *game_state_malloc(const char *name, const char *a2, int size);",
           "addr": "0x1bfbf0"
         },
         {
@@ -666,7 +666,7 @@
       "source": "interface/hud_messaging.c",
       "functions": [
         {
-          "decl": "void hud_messaging_initialize(void);",
+          "decl": "void sound_classes_initialize(void);",
           "addr": "0x1c8990"
         }
       ]
@@ -974,7 +974,7 @@
           "addr": "0xb8c70"
         },
         {
-          "decl": "void player_control_initialize(void);",
+          "decl": "void rumble_initialize(void);",
           "addr": "0xb9b30"
         }
       ]
@@ -1036,7 +1036,7 @@
           "addr": "0xb9dd0"
         },
         {
-          "decl": "void rumble_initialize(void);",
+          "decl": "void scenario_initialize(void);",
           "addr": "0x18e280"
         }
       ]
@@ -1326,7 +1326,7 @@
       "source": "structures/structure_runtime_decals.c",
       "functions": [
         {
-          "decl": "void structure_decals_initialize(void);",
+          "decl": "void structures_initialize(void);",
           "addr": "0x1983c0"
         },
         {
@@ -1466,7 +1466,7 @@
           "addr": "0x325678"
         },
         {
-          "decl": "game_globals_t *game_globals;",
+          "decl": "game_globals_t * game_globals;",
           "addr": "0x4566ec"
         },
         {

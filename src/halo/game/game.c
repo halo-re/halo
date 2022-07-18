@@ -47,13 +47,13 @@ void game_initialize(void)
   game_time_initialize();
   game_engine_initialize(&game_variant_global);
   game_allegiance_initialize();
-  first_person_weapons_initialize();
-  rumble_initialize();
+  interface_initialize();
+  scenario_initialize();
   director_initialize();
   observer_initialize();
   render_initialize();
   objects_initialize();
-  structure_decals_initialize();
+  structures_initialize();
   breakable_surfaces_initialize();
   decals_initialize();
   collision_log_initialize();
@@ -63,9 +63,9 @@ void game_initialize(void)
   effects_initialize();
   weather_particle_systems_initialize();
   particle_systems_initialize();
-  hud_messaging_initialize();
+  sound_classes_initialize();
   game_sound_initialize();
-  player_control_initialize();
+  rumble_initialize();
   player_effect_initialize();
   ai_initialize();
   editor_initialize();

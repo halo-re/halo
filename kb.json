@@ -245,7 +245,7 @@
       "source": "cseries/cseries_windows.c",
       "functions": [
         {
-          "decl": "void system_exit(unsigned int);",
+          "decl": "void __noreturn system_exit(int a2);",
           "addr": "0x8e2f0"
         },
         {
@@ -1018,7 +1018,7 @@
           "addr": "0xb91b0"
         },
         {
-          "decl": "void update_client_delete(void);",
+          "decl": "void game_sound_initialize_for_new_map(void);",
           "addr": "0x1c7080"
         }
       ]
@@ -1330,7 +1330,7 @@
           "addr": "0x1983c0"
         },
         {
-          "decl": "void structure_decals_reconnect_to_structure_bsp(void);",
+          "decl": "void structures_initialize_for_new_map(void);",
           "addr": "0x1983d0"
         }
       ]
@@ -1664,11 +1664,11 @@
       ],
       "functions": [
         {
-          "decl": "int j__encounters_create_for_new_map(void);",
+          "decl": "void ai_place(void);",
           "addr": "0x3f760"
         },
         {
-          "decl": "void j__cheats_load(void);",
+          "decl": "void cheats_initialize_for_new_map(void);",
           "addr": "0xa6820"
         },
         {

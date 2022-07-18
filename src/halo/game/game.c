@@ -103,7 +103,7 @@ void game_initialize_for_new_map(void)
   scenario_initialize_for_new_map();
   objects_initialize_for_new_map();
   render_initialize_for_new_map();
-  structure_decals_reconnect_to_structure_bsp();
+  structures_initialize_for_new_map();
   breakable_surfaces_initialize_for_new_map();
   decals_initialize_for_new_map();
   director_initialize_for_new_map();
@@ -114,7 +114,7 @@ void game_initialize_for_new_map(void)
   particle_systems_initialize_for_new_map();
   sound_initialize_for_new_map();
   sound_classes_initialize_for_new_map();
-  update_client_delete();
+  game_sound_initialize_for_new_map();
   weather_particle_systems_initialize_for_new_map();
   point_physics_initialize_for_new_map();
   game_engine_initialize_for_new_map();
@@ -129,11 +129,11 @@ void game_initialize_for_new_map(void)
   cinematic_initialize_for_new_map();
   hs_initialize_for_new_map();
   recorded_animations_initialize_for_new_map();
-  j__cheats_load();
+  cheats_initialize_for_new_map();
   game_globals->active = 1;
   objects_place();
   if ( !game_in_editor() )
-    j__encounters_create_for_new_map();
+    ai_place();
   ui_widgets_safe_to_load(1);
 }
 

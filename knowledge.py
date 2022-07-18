@@ -14,6 +14,7 @@ root_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def parse_string(s: str):
+	s = '#include "src/common.h"\n' + s
 	index = clang.Index.create()
 	tu = index.parse('tmp.h', unsaved_files=[('tmp.h', s)], options=0)
 	return tu
@@ -30,7 +31,7 @@ class Symbol:
 	@property
 	def cursor(self):
 		if self._parsed is None:
-			self._parsed = next(parse_string(self.decl).cursor.get_children())
+			self._parsed = list(parse_string(self.decl).cursor.get_children())[-1]
 		return self._parsed
 
 	@property

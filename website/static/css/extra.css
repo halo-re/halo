@@ -1,0 +1,76 @@
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fff;
+  border: .05rem solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+
+body {
+  background-color: #202020;
+  color: #fff;
+  margin: 0;
+  width: 100%;
+  font-family:  'Roboto', sans-serif;
+}
+
+#bg-scene {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index:  -1;
+}
+
+.jumbotron {
+  position: relative;
+  display:flex;
+  flex-direction:column;
+}
+
+
+.button-icon {
+  display: inline-block;
+  margin-right: 0.75em;
+}
+
+.disclaimer {
+  align-self: bottom;
+  color:  #bbb;
+  background-color: rgba(0.2,0.2,0.2,0.6);
+  padding: 0.5em;
+  font-size: 0.8em;
+}
+
+.project-info {
+  margin: auto;
+}
+
+.logo-text {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  background: -webkit-linear-gradient(#55b9ff, #007ace);
+  color: #007ace;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  filter: drop-shadow(0px 0px 5px #222);
+}

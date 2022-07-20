@@ -1,0 +1,4 @@
+baseURL = 'https://blam.info/'
+languageCode = 'en-us'
+title = 'Halo Decompilation Project'
+disableHugoGeneratorInject = true

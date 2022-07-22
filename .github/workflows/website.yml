@@ -10,23 +10,23 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-    - name: Clone Tree
-      uses: actions/checkout@v2
+      - name: Clone Tree
+        uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: sudo apt-get install hugo
+      - name: Install dependencies
+        run: sudo apt-get install hugo
 
-    - name: Build
-      run: |
-        cd website
-        hugo --minify
-        cd public
-        echo "blam.info" > CNAME
+      - name: Build
+        run: |
+          cd website
+          hugo --minify
+          cd public
+          echo "blam.info" > CNAME
 
-    - name: Deploy
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./website/public
-        force_orphan: true
+      - name: Deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/public
+          force_orphan: true

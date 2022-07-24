@@ -7,9 +7,6 @@
 #define DECOMP_CUSTOM 1 // Logic that is added to aid decompilation, etc
 #define DEBUG_BUILD 1 // Logic that appears only in debug builds
 
-#define static_assert(cond) _Static_assert(cond, #cond)
-#define __noreturn __attribute__((noreturn))
-
 extern const char *build_rev;
 extern const char *build_date;
 extern const char *build_ui_widget_text;

@@ -1,18 +1,25 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#define static_assert(cond) _Static_assert(cond, #cond)
+#define __noreturn __attribute__((noreturn))
+
 #pragma pack(1)
 #define cs(t, s)    static_assert(sizeof(t) == s)
 #define co(t, f, o) static_assert(offsetof(t, f) == o)
 
 typedef unsigned int size_t;
 typedef unsigned char bool;
+cs(long long, 8);
+cs(int, 4);
+cs(short, 2);
 cs(wchar_t, 2);
 
 // FIXME: Normalize
 typedef uint32_t _DWORD;
 typedef uint16_t _WORD;
 typedef uint8_t  _BYTE;
+#define __int16 short
 
 static const bool true = 1;
 static const bool false = 0;

@@ -30,6 +30,7 @@ endif
 
 SRCS = \
 	$(CURDIR)/entrypoint.c \
+	$(CURDIR)/thunks.c \
 	$(CURDIR)/build_info.c \
 	$(shell find halo -name '*.c')
 

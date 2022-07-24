@@ -7,3 +7,4 @@ private
 decl_generated.h
 halo.xbe.def
 build_info.c
+thunks.c

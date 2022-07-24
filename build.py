@@ -130,8 +130,13 @@ def main():
         vstart, vstart + size, name, hdr.virtual_addr, hdr.virtual_addr + hdr.virtual_size, size))
     xbe.sections[name] = XbeSection(name, hdr, pe_header_data)
 
+    thunk_section_bounds = None
+
     for section in pe.sections:
         name = section.Name.rstrip(b'\x00').decode('ascii')
+        if name == 'thunks':
+            start = section.VirtualAddress + base_addr
+            thunk_section_bounds = (start, start + section.Misc_VirtualSize)
         if name.startswith('/') or name in ['.reloc']:
             log.info('Skipping section "%s"' % name)
             continue
@@ -236,6 +241,9 @@ def main():
             exit(1)
         addr_of_original_in_xbe = kb.name_to_addr[n]
         addr_of_reimplementation = export_name_to_addr[n]
+        if thunk_section_bounds and thunk_section_bounds[0] <= addr_of_reimplementation < thunk_section_bounds[1]:
+            log.info('Skipping thunk "%s" export', n)
+            continue
         log.info('Patching "%s" at %x in XBE with redirect to re-implementation at %x', n, addr_of_original_in_xbe, addr_of_reimplementation)
         patch_bytes = b'\x68' + struct.pack('<I', addr_of_reimplementation) + b'\xc3'  # push addr, ret
         write_to_vaddr(xbe, addr_of_original_in_xbe, patch_bytes)

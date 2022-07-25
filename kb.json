@@ -43,6 +43,10 @@
           "addr": "0x3f720"
         },
         {
+          "decl": "void ai_place(void);",
+          "addr": "0x3f760"
+        },
+        {
           "decl": "void ai_initialize_for_new_map(void);",
           "addr": "0x41090"
         }
@@ -127,6 +131,10 @@
         {
           "decl": "void cheats_update(void);",
           "addr": "0xa6620"
+        },
+        {
+          "decl": "void cheats_initialize_for_new_map(void);",
+          "addr": "0xa6820"
         }
       ]
     },
@@ -419,16 +427,6 @@
       ]
     },
     {
-      "name": "first_person_weapons.obj",
-      "source": "interface/first_person_weapons.c",
-      "functions": [
-        {
-          "decl": "void interface_initialize(void);",
-          "addr": "0xdec50"
-        }
-      ]
-    },
-    {
       "name": "game.obj",
       "source": "game/game.c",
       "functions": [
@@ -529,6 +527,10 @@
         {
           "decl": "void game_sound_initialize(void);",
           "addr": "0x1c7030"
+        },
+        {
+          "decl": "void game_sound_initialize_for_new_map(void);",
+          "addr": "0x1c7080"
         },
         {
           "decl": "void game_sound_dispose_from_old_map(void);",
@@ -662,16 +664,6 @@
       ]
     },
     {
-      "name": "hud_messaging.obj",
-      "source": "interface/hud_messaging.c",
-      "functions": [
-        {
-          "decl": "void sound_classes_initialize(void);",
-          "addr": "0x1c8990"
-        }
-      ]
-    },
-    {
       "name": "input_abstraction.obj",
       "source": "input/input_abstraction.c",
       "functions": [
@@ -715,6 +707,10 @@
       "name": "interface.obj",
       "source": "interface/interface.c",
       "functions": [
+        {
+          "decl": "void interface_initialize(void);",
+          "addr": "0xdec50"
+        },
         {
           "decl": "void interface_dispose_from_old_map(void);",
           "addr": "0xdec70"
@@ -972,10 +968,6 @@
         {
           "decl": "void player_control_update(float);",
           "addr": "0xb8c70"
-        },
-        {
-          "decl": "void rumble_initialize(void);",
-          "addr": "0xb9b30"
         }
       ]
     },
@@ -1016,10 +1008,6 @@
         {
           "decl": "void update_server_start(void);",
           "addr": "0xb91b0"
-        },
-        {
-          "decl": "void game_sound_initialize_for_new_map(void);",
-          "addr": "0x1c7080"
         }
       ]
     },
@@ -1028,16 +1016,16 @@
       "source": "game/player_rumble.c",
       "functions": [
         {
+          "decl": "void rumble_initialize(void);",
+          "addr": "0xb9b30"
+        },
+        {
           "decl": "void rumble_initialize_for_new_map(void);",
           "addr": "0xb9b60"
         },
         {
           "decl": "void rumble_dispose_from_old_map(void);",
           "addr": "0xb9dd0"
-        },
-        {
-          "decl": "void scenario_initialize(void);",
-          "addr": "0x18e280"
         }
       ]
     },
@@ -1236,6 +1224,10 @@
       "source": "scenario/scenario.c",
       "functions": [
         {
+          "decl": "void scenario_initialize(void);",
+          "addr": "0x18e280"
+        },
+        {
           "decl": "void scenario_initialize_for_new_map(void);",
           "addr": "0x18e2a0"
         },
@@ -1288,6 +1280,10 @@
       "source": "sound/sound_classes.c",
       "functions": [
         {
+          "decl": "void sound_classes_initialize(void);",
+          "addr": "0x1c8990"
+        },
+        {
           "decl": "void sound_classes_dispose_from_old_map(void);",
           "addr": "0x1c89b0"
         },
@@ -1322,8 +1318,8 @@
       ]
     },
     {
-      "name": "structure_runtime_decals.obj",
-      "source": "structures/structure_runtime_decals.c",
+      "name": "structures.obj",
+      "source": "structures/structures.c",
       "functions": [
         {
           "decl": "void structures_initialize(void);",
@@ -1332,13 +1328,7 @@
         {
           "decl": "void structures_initialize_for_new_map(void);",
           "addr": "0x1983d0"
-        }
-      ]
-    },
-    {
-      "name": "structures.obj",
-      "source": "structures/structures.c",
-      "functions": [
+        },
         {
           "decl": "void structures_dispose_from_old_map(void);",
           "addr": "0x1983e0"
@@ -1663,14 +1653,6 @@
         }
       ],
       "functions": [
-        {
-          "decl": "void ai_place(void);",
-          "addr": "0x3f760"
-        },
-        {
-          "decl": "void cheats_initialize_for_new_map(void);",
-          "addr": "0xa6820"
-        },
         {
           "decl": "void ui_widget_game_data_build_version(int a2);",
           "addr": "0xf0ea0"

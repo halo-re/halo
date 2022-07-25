@@ -112,6 +112,84 @@ void main_initialize_time(void)
   flip_count_ptr = d3d_find_flipcount();
 }
 
+void main_game_render(double a2)
+{
+  bool force_single_screen; // bl MAPDST
+  int v2; // edi
+  int player_index; // ebx
+  unsigned __int8 *v4; // esi
+  unsigned __int8 *v5; // edi
+  unsigned __int8 *v6; // esi
+  float a7; // [esp+0h] [ebp-24h]
+  float *camera; // [esp+10h] [ebp-14h]
+  int num_players; // [esp+14h] [ebp-10h]
+  __int16 next_player; // [esp+18h] [ebp-Ch]
+  int player_count; // [esp+1Ch] [ebp-8h]
+
+  lock_global_random_seed();
+  collision_log_continue_period(1);
+  sound_render();
+  force_single_screen = game_engine_force_single_screen();
+  next_player = -1;
+  if (local_player_count() >= 1) {
+    if (local_player_count() <= 4) {
+      player_count = local_player_count();
+    } else {
+      player_count = 4;
+    }
+  } else {
+    player_count = 1;
+  }
+  v2 = player_count;
+  num_players = player_count;
+  if (force_single_screen || cinematic_in_progress()) {
+    player_count = 1;
+    num_players = 1;
+    v2 = 1;
+  }
+  player_index = 0;
+  if (v2 > 0) {
+    v4 = window;
+    do {
+      v5 = v4 + 132;
+      compute_window_bounds(player_index, num_players, v4 + 132,
+                            (_WORD *)v4 + 70);
+      if (force_single_screen || player_index >= player_count) {
+        *(_WORD *)v4 = -1;
+        set_window_camera_values(v4, 0);
+      } else {
+        if (!byte_325714 || next_player == -1) {
+          if (word_46DA0C == 3) {
+            next_player = 0;
+          } else {
+            next_player = local_player_get_next(next_player);
+          }
+        }
+        *(_WORD *)v4 = next_player;
+        camera = (float *)observer_get_camera(next_player);
+        set_window_camera_values(v4, camera);
+      }
+      ++player_index;
+      v4 += 172;
+      *(v5 - 130) = 0;
+    } while (player_index < num_players);
+    v2 = num_players;
+  }
+  v6 = &window[172 * v2];
+  compute_window_bounds(0, 1, v6 + 132, (_WORD *)v6 + 70);
+  *(_WORD *)v6 = -1;
+  v6[2] = 1;
+  set_window_camera_values(v6, 0);
+  if (global_screenshot_count > 0) {
+    screenshot_render(window);
+  } else {
+    a7 = a2;
+    render_frame(window, v2 + 1, 0, 0, (int)dword_46DA10, a7);
+  }
+  collision_log_end_period();
+  unlock_global_random_seed();
+}
+
 #ifdef DECOMP_CUSTOM
 static void print_startup_banner(void)
 {
@@ -119,8 +197,6 @@ static void print_startup_banner(void)
   error(2, "--------------------------------------------------------------");
 }
 #endif
-
-// FIXME: Add debug macros
 
 void main_loop(void)
 {

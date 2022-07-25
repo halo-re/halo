@@ -173,7 +173,7 @@
           "addr": "0x14d010"
         },
         {
-          "decl": "void collision_log_continue_period(int16_t);",
+          "decl": "void collision_log_continue_period(__int16 time_period);",
           "addr": "0x14d120"
         },
         {
@@ -503,6 +503,10 @@
           "addr": "0xa8e30"
         },
         {
+          "decl": "bool game_engine_force_single_screen(void);",
+          "addr": "0xa8e60"
+        },
+        {
           "decl": "void game_engine_initialize(game_variant_t *variant);",
           "addr": "0xaba30"
         },
@@ -736,6 +740,10 @@
         {
           "decl": "bool debug_no_drawing;",
           "addr": "0x46e001"
+        },
+        {
+          "decl": "__int16 global_screenshot_count;",
+          "addr": "0x46e008"
         }
       ],
       "functions": [
@@ -746,6 +754,10 @@
         {
           "decl": "void create_local_players(void);",
           "addr": "0x1000d0"
+        },
+        {
+          "decl": "void compute_window_bounds(int player_index, int num_players, void *a3, _WORD *a4);",
+          "addr": "0x100910"
         },
         {
           "decl": "void main_new_map(game_options_t *game_options);",
@@ -796,6 +808,10 @@
           "addr": "0x102090"
         },
         {
+          "decl": "void set_window_camera_values(void *window, float *a3);",
+          "addr": "0x1021c0"
+        },
+        {
           "decl": "void main_present_frame(void);",
           "addr": "0x102370"
         },
@@ -808,7 +824,11 @@
           "addr": "0x1024c0"
         },
         {
-          "decl": "void main_game_render(double);",
+          "decl": "void screenshot_render(void *a1@<edi>);",
+          "addr": "0x102510"
+        },
+        {
+          "decl": "void main_game_render(double a2);",
           "addr": "0x102c80"
         },
         {
@@ -904,6 +924,10 @@
         {
           "decl": "void observer_dispose_from_old_map(void);",
           "addr": "0x8a4d0"
+        },
+        {
+          "decl": "void *observer_get_camera(unsigned __int16 local_player_index);",
+          "addr": "0x8a4e0"
         },
         {
           "decl": "void observer_update(float);",
@@ -1064,6 +1088,14 @@
           "addr": "0xba410"
         },
         {
+          "decl": "__int16 local_player_count(void);",
+          "addr": "0xba4b0"
+        },
+        {
+          "decl": "__int16 local_player_get_next(__int16 a1);",
+          "addr": "0xba4c0"
+        },
+        {
           "decl": "int player_new(unsigned __int16 a1, int a2, unsigned __int16 a3, char *a4);",
           "addr": "0xbb2f0"
         },
@@ -1123,6 +1155,14 @@
       "name": "random_math.obj",
       "source": "math/random_math.c",
       "functions": [
+        {
+          "decl": "void lock_global_random_seed(void);",
+          "addr": "0x10b090"
+        },
+        {
+          "decl": "void unlock_global_random_seed(void);",
+          "addr": "0x10b0a0"
+        },
         {
           "decl": "int *get_global_random_seed_address(void);",
           "addr": "0x10b0d0"
@@ -1206,6 +1246,10 @@
         {
           "decl": "void render_initialize_for_new_map(void);",
           "addr": "0x184b90"
+        },
+        {
+          "decl": "void render_frame(void *a2, __int16 a3, _WORD *a4, _WORD *a5, int a6, float a7);",
+          "addr": "0x185680"
         }
       ]
     },
@@ -1304,6 +1348,10 @@
         {
           "decl": "void sound_dispose_from_old_map(void);",
           "addr": "0x1cf640"
+        },
+        {
+          "decl": "void sound_render(void);",
+          "addr": "0x1cf730"
         }
       ]
     },
@@ -1456,6 +1504,10 @@
           "addr": "0x325678"
         },
         {
+          "decl": "char byte_325714;",
+          "addr": "0x325714"
+        },
+        {
           "decl": "game_globals_t * game_globals;",
           "addr": "0x4566ec"
         },
@@ -1524,11 +1576,11 @@
           "addr": "0x46da08"
         },
         {
-          "decl": "short word_46DA0C;",
+          "decl": "__int16 word_46DA0C;",
           "addr": "0x46da0c"
         },
         {
-          "decl": "void *dword_46DA10;",
+          "decl": "__int16 * dword_46DA10;",
           "addr": "0x46da10"
         },
         {
@@ -1650,6 +1702,10 @@
         {
           "decl": "short word_46DDDE[15];",
           "addr": "0x46ddde"
+        },
+        {
+          "decl": "unsigned __int8 window[860];",
+          "addr": "0x46e010"
         }
       ],
       "functions": [

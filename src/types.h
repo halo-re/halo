@@ -20,6 +20,7 @@ typedef uint32_t _DWORD;
 typedef uint16_t _WORD;
 typedef uint8_t  _BYTE;
 #define __int16 short
+#define __int8 char
 
 static const bool true = 1;
 static const bool false = 0;

@@ -6,7 +6,7 @@ LDFLAGS = -flavor link \
 	-base:0x00010000 \
 	-stack:65536 \
     -merge:.edata=.edataxb \
-	/fixed:no \
+	-fixed:no \
 	-entry:_start
 
 CC = clang

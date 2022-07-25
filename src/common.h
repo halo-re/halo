@@ -33,4 +33,7 @@ extern const char *build_ui_widget_text;
         }                                                  \
     } while (0)
 
+#define MAXIMUM_GAMEPADS 4
+#define MAXIMUM_NUMBER_OF_LOCAL_PLAYERS 4
+
 #endif

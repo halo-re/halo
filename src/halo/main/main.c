@@ -1,6 +1,3 @@
-
-#define MAXIMUM_GAMEPADS 4
-
 static const short _game_connection_local = 0;
 
 short game_connection(void)

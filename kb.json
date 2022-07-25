@@ -1162,7 +1162,7 @@
       "source": "rasterizer/xbox/rasterizer_xbox.c",
       "functions": [
         {
-          "decl": "void rasterizer_preinitialize__fill_you_up_with_the_devils_cock(void);",
+          "decl": "void rasterizer_preinitialize(void);",
           "addr": "0x1553f0"
         }
       ]

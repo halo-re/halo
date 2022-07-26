@@ -214,6 +214,17 @@ co(pregame_render_info_t, unk_3, 3);
 co(pregame_render_info_t, cam0,  4);
 co(pregame_render_info_t, cam1,  88);
 
+typedef struct {
+  __int16 unk_0[4];
+  camera_t camera;
+  float frustum[127];
+} window_parameters_t;
+
+cs(window_parameters_t, 0x258);
+co(window_parameters_t, unk_0,   0);
+co(window_parameters_t, camera,  8);
+co(window_parameters_t, frustum, 0x5c);
+
 #undef co
 #undef cs
 #pragma pack()

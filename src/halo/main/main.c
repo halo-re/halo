@@ -94,7 +94,7 @@ void main_pregame_render(void)
   pregame_render_info.cam1.z_near = 0.0099999998;
   pregame_render_info.cam1.z_far = 1.0;
   qmemcpy(&pregame_render_info.cam0, &pregame_render_info.cam1, sizeof(pregame_render_info.cam0));
-  render_frame_pregame(&pregame_render_info);
+  render_frame_pregame(&pregame_render_info, bitmap);
   collision_log_end_period();
 }
 
@@ -210,7 +210,7 @@ void main_game_render(double a2)
     screenshot_render(window);
   } else {
     a7 = a2;
-    render_frame(window, v2 + 1, 0, 0, (int)dword_46DA10, a7);
+    render_frame(window, v2 + 1, 0, 0, (int)bitmap, a7);
   }
   collision_log_end_period();
   unlock_global_random_seed();
@@ -400,9 +400,9 @@ void main_loop(void)
     if (!game_in_editor() &&
           (input_key_is_down(0x55u) || input_key_is_down(0)) ||
         editor_should_exit()) {
-      if (dword_46DA10) {
-        bitmap_delete(dword_46DA10);
-        dword_46DA10 = 0;
+      if (bitmap) {
+        bitmap_delete(bitmap);
+        bitmap = 0;
       }
       if (!game_engine_running()) {
         word_46DA40 = -1;

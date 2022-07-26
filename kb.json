@@ -4,6 +4,10 @@
       "name": "<common>",
       "data": [
         {
+          "decl": "int render;",
+          "addr": "0x506540"
+        },
+        {
           "decl": "players_globals_t * players_globals;",
           "addr": "0x5aa6cc"
         },
@@ -59,6 +63,10 @@
         {
           "decl": "void bink_playback_initialize(void);",
           "addr": "0x1c61a0"
+        },
+        {
+          "decl": "void bink_playback_render(void);",
+          "addr": "0x1c63e0"
         },
         {
           "decl": "void bink_playback_update(void);",
@@ -441,6 +449,10 @@
         {
           "decl": "void game_precache_new_map(char *map_name, int a2);",
           "addr": "0xa6dc0"
+        },
+        {
+          "decl": "bool game_map_loading_in_progress(float *progress);",
+          "addr": "0xa6fb0"
         },
         {
           "decl": "void game_dispose_from_old_map(void);",
@@ -1132,6 +1144,14 @@
           "addr": "0x91540"
         },
         {
+          "decl": "void profile_render_window_start(char a1);",
+          "addr": "0x915b0"
+        },
+        {
+          "decl": "void profile_render_window_end(void);",
+          "addr": "0x91640"
+        },
+        {
           "decl": "void profile_frame_start(void);",
           "addr": "0x91780"
         },
@@ -1148,6 +1168,10 @@
         {
           "decl": "void progress_bar_initialize(void);",
           "addr": "0xe1c70"
+        },
+        {
+          "decl": "void progress_bar_display(float progress);",
+          "addr": "0xe3300"
         }
       ]
     },
@@ -1177,6 +1201,30 @@
       "name": "rasterizer.obj",
       "source": "rasterizer/rasterizer.c",
       "functions": [
+        {
+          "decl": "void rasterizer_frame_begin(float *a1);",
+          "addr": "0x17c7e0"
+        },
+        {
+          "decl": "int rasterizer_windows_begin(void);",
+          "addr": "0x17c8c0"
+        },
+        {
+          "decl": "int rasterizer_window_begin(window_parameters_t *a1);",
+          "addr": "0x17c8d0"
+        },
+        {
+          "decl": "void rasterizer_window_end(void);",
+          "addr": "0x17c900"
+        },
+        {
+          "decl": "void rasterizer_windows_end(void);",
+          "addr": "0x17c910"
+        },
+        {
+          "decl": "void rasterizer_frame_end(void);",
+          "addr": "0x17c920"
+        },
         {
           "decl": "void rasterizer_set_vblank_callback(void *);",
           "addr": "0x17c950"
@@ -1248,7 +1296,7 @@
           "addr": "0x184b90"
         },
         {
-          "decl": "void render_frame_pregame(pregame_render_info_t *a1);",
+          "decl": "void render_frame_pregame(pregame_render_info_t *pregame_info, void *bitmap);",
           "addr": "0x184cd0"
         },
         {
@@ -1264,6 +1312,10 @@
         {
           "decl": "double render_camera_get_adjusted_field_of_view_tangent(float a1);",
           "addr": "0x186460"
+        },
+        {
+          "decl": "void render_camera_build_frustum(camera_t *camera, _DWORD *a2, float *frustum, bool a4);",
+          "addr": "0x187250"
         }
       ]
     },
@@ -1459,6 +1511,10 @@
           "addr": "0xe58c0"
         },
         {
+          "decl": "void render_ui_widgets(__int16 a1, viewport_bounds_t *window_bounds);",
+          "addr": "0xe78e0"
+        },
+        {
           "decl": "void process_ui_widgets(void);",
           "addr": "0xe9450"
         }
@@ -1598,7 +1654,7 @@
           "addr": "0x46da0c"
         },
         {
-          "decl": "__int16 * dword_46DA10;",
+          "decl": "__int16 * bitmap;",
           "addr": "0x46da10"
         },
         {
@@ -1724,6 +1780,14 @@
         {
           "decl": "unsigned __int8 window[860];",
           "addr": "0x46e010"
+        },
+        {
+          "decl": "camera_t unknown_global_camera;",
+          "addr": "0x506550"
+        },
+        {
+          "decl": "float global_frustum[4];",
+          "addr": "0x5065a4"
         }
       ],
       "functions": [

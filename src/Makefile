@@ -32,12 +32,13 @@ SRCS = \
 	$(CURDIR)/entrypoint.c \
 	$(CURDIR)/thunks.c \
 	$(CURDIR)/build_info.c \
+	$(CURDIR)/typechecks.c \
 	$(shell find halo -name '*.c')
 
 OBJS = $(SRCS:.c=.obj)
 DEPFILES = $(addsuffix .d, $(SRCS))
 IMPORTLIBS = xboxkrnl.exe.lib halo.xbe.lib
-GENERATED_FILES = main.exe $(OBJS) $(DEPFILES) $(IMPORTLIBS)
+GENERATED_FILES = main.exe $(OBJS) $(DEPFILES) $(IMPORTLIBS) typechecks.c build_info.c
 
 ifneq ("$(wildcard private/Makefile.inc)","")
 	-include private/Makefile.inc
@@ -59,6 +60,9 @@ $(CURDIR)/build_info.c:
 
 %.obj: %.c
 	$(CC) $(CFLAGS) -MD -MP -MT '$@' -MF '$(patsubst %.obj,%.c.d,$@)' -c -o '$@' '$<'
+
+$(CURDIR)/typechecks.c: $(CURDIR)/types.h
+	python ../misc/gen-struct-checks.py $< > $@
 
 .PHONY: clean
 clean:

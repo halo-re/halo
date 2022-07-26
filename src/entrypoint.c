@@ -1,4 +1,3 @@
-#include <stdint.h>
 int _fltused = 1;
 
 #define EXPORT __declspec(dllexport)

@@ -90,7 +90,7 @@ void main_pregame_render(void)
   pregame_render_info.cam1.unk_32 = 0;
   pregame_render_info.cam1.unk_36 = 0;
   pregame_render_info.cam1.vertical_field_of_view = 2 * atan2(render_camera_get_adjusted_field_of_view_tangent(1.3962634) * 0.75, 1.0);
-  compute_window_bounds(0, 1, pregame_render_info.cam1.window_bounds, pregame_render_info.cam1.unk_52);
+  compute_window_bounds(0, 1, &pregame_render_info.cam1.viewport_bounds, pregame_render_info.cam1.unk_52);
   pregame_render_info.cam1.z_near = 0.0099999998;
   pregame_render_info.cam1.z_far = 1.0;
   qmemcpy(&pregame_render_info.cam0, &pregame_render_info.cam1, sizeof(pregame_render_info.cam0));
@@ -177,8 +177,8 @@ void main_game_render(double a2)
     v4 = window;
     do {
       v5 = v4 + 132;
-      compute_window_bounds(player_index, num_players, v4 + 132,
-                            (_WORD *)v4 + 70);
+      compute_window_bounds(player_index, num_players,
+                            (viewport_bounds_t *)(v4 + 132), (_WORD *)v4 + 70);
       if (force_single_screen || player_index >= player_count) {
         *(_WORD *)v4 = -1;
         set_window_camera_values(v4, 0);
@@ -201,7 +201,8 @@ void main_game_render(double a2)
     v2 = num_players;
   }
   v6 = &window[172 * v2];
-  compute_window_bounds(0, 1, v6 + 132, (_WORD *)v6 + 70);
+  compute_window_bounds(0, 1, (viewport_bounds_t *)(v6 + 132),
+                        (_WORD *)v6 + 70);
   *(_WORD *)v6 = -1;
   v6[2] = 1;
   set_window_camera_values(v6, 0);

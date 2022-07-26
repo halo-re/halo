@@ -756,7 +756,7 @@
           "addr": "0x1000d0"
         },
         {
-          "decl": "void compute_window_bounds(int player_index, int num_players, void *a3, _WORD *a4);",
+          "decl": "void compute_window_bounds(int player_index, int num_players, viewport_bounds_t *a3, _WORD *a4);",
           "addr": "0x100910"
         },
         {

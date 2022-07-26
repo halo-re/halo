@@ -146,6 +146,20 @@ co(data_iter_t, unk_6,        6);
 co(data_iter_t, datum_handle, 8);
 co(data_iter_t, cookie,       12);
 
+typedef struct
+{
+  int16_t y0;
+  int16_t x0;
+  int16_t y1;
+  int16_t x1;
+} viewport_bounds_t;
+
+cs(viewport_bounds_t, 8);
+co(viewport_bounds_t, y0, 0);
+co(viewport_bounds_t, x0, 2);
+co(viewport_bounds_t, y1, 4);
+co(viewport_bounds_t, x1, 6);
+
 typedef struct {
   uint32_t unk_0;
   uint32_t unk_4;
@@ -159,7 +173,7 @@ typedef struct {
   uint8_t unk_36;
   char unk_37[3];
   float vertical_field_of_view;
-  _WORD window_bounds[4];
+  viewport_bounds_t viewport_bounds;
   _WORD unk_52[4];
   float z_near;
   float z_far;
@@ -179,7 +193,7 @@ co(camera_t, unk_32,                 32);
 co(camera_t, unk_36,                 36);
 co(camera_t, unk_37,                 37);
 co(camera_t, vertical_field_of_view, 40);
-co(camera_t, window_bounds,          44);
+co(camera_t, viewport_bounds,        44);
 co(camera_t, unk_52,                 52);
 co(camera_t, z_near,                 60);
 co(camera_t, z_far,                  64);

@@ -236,7 +236,6 @@ void main_loop(void)
   float a2_4; // [esp+8h] [ebp-10h]
   float a2_4a; // [esp+8h] [ebp-10h]
   char v9[4]; // [esp+10h] [ebp-8h] BYREF
-  int v10; // [esp+14h] [ebp-4h]
 
   if (!game_in_editor()) {
     csstrncpy(map_name, "levels\\b30\\b30", 0xFFu);
@@ -397,8 +396,8 @@ void main_loop(void)
     main_update_time();
     process_ui_widgets();
     bink_playback_update();
-    if (!game_in_editor() &&
-          (input_key_is_down(0x55u) || input_key_is_down(0)) ||
+    if ((!game_in_editor() &&
+         (input_key_is_down(0x55u) || input_key_is_down(0))) ||
         editor_should_exit()) {
       if (bitmap) {
         bitmap_delete(bitmap);
@@ -416,7 +415,6 @@ void main_loop(void)
       if (!console_update() || word_46DA0C) {
         debug_keys_update();
         cheats_update();
-        v10 = (unsigned __int8)byte_46DA46;
         a2 = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
         player_control_update(a2);
         if (word_46DA0C > 0 && word_46DA0C <= 2 &&
@@ -424,23 +422,19 @@ void main_loop(void)
           display_error_when_main_menu_loaded(1);
           network_game_abort();
         }
-        v10 = (unsigned __int8)byte_46DA46;
         a2a = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
         game_time_update(a2a);
-        v2 = byte_46DA42 || byte_46DA46 && ((unsigned __int8)game_time_end() ||
-                                            game_time_get_elapsed() > 0 ||
-                                            game_time_get_speed() < 1.0);
+        v2 = byte_46DA42 || (byte_46DA46 && ((unsigned __int8)game_time_end() ||
+                                             game_time_get_elapsed() > 0 ||
+                                             game_time_get_speed() < 1.0));
         v3 = !game_engine_running() || game_time_get() >= 3;
         v1 = v3 && v2;
         collision_log_continue_period(1);
-        v10 = (unsigned __int8)byte_46DA46;
         a2b = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
         director_update(a2b);
-        v10 = (unsigned __int8)byte_46DA46;
         a2_4 = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
         observer_update(a2_4);
         collision_log_end_period();
-        v10 = (unsigned __int8)byte_46DA46;
         a2_4a = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
         game_engine_update_non_deterministic(a2_4a);
       }

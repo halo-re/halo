@@ -1,25 +1,25 @@
 DEBUG = y
 
 LD = lld
-LDFLAGS = -flavor link \
+LDFLAGS = \
+	-flavor link \
 	-subsystem:windows \
-	-base:0x00010000 \
-	-stack:65536 \
-    -merge:.edata=.edataxb \
 	-fixed:no \
+	-base:0x10000 \
 	-entry:_start
 
 CC = clang
 CFLAGS = \
+	-Wall \
+	-Werror \
 	-target i386-pc-win32 \
 	-march=pentium3 \
-	-ffreestanding \
 	-nostdlib \
+	-ffreestanding \
 	-fno-builtin \
 	-fno-exceptions \
 	-I"$(CURDIR)" \
-	-include common.h \
-	-Werror
+	-include common.h
 
 ifeq ($(DEBUG),y)
 	CFLAGS += -Og -gdwarf-4

@@ -12,6 +12,7 @@ extern const char *build_date;
 extern const char *build_ui_widget_text;
 
 #include "types.h"
+#include "inlines.h"
 #include "decl_generated.h"
 
 #define assert_halt(cond)                                    \

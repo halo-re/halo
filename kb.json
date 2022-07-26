@@ -1248,8 +1248,22 @@
           "addr": "0x184b90"
         },
         {
+          "decl": "void render_frame_pregame(pregame_render_info_t *a1);",
+          "addr": "0x184cd0"
+        },
+        {
           "decl": "void render_frame(void *a2, __int16 a3, _WORD *a4, _WORD *a5, int a6, float a7);",
           "addr": "0x185680"
+        }
+      ]
+    },
+    {
+      "name": "render_cameras.obj",
+      "source": "render/render_cameras.c",
+      "functions": [
+        {
+          "decl": "double render_camera_get_adjusted_field_of_view_tangent(float a1);",
+          "addr": "0x186460"
         }
       ]
     },
@@ -1562,6 +1576,10 @@
         {
           "decl": "wchar_t ui_widget_game_data_build_version_wide_str[128];",
           "addr": "0x46ce68"
+        },
+        {
+          "decl": "pregame_render_info_t pregame_render_info;",
+          "addr": "0x46d930"
         },
         {
           "decl": "int dword_46D9E0;",

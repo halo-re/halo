@@ -73,6 +73,31 @@ void create_local_players(void)
   }
 }
 
+void main_pregame_render(void)
+{
+  collision_log_continue_period(1);
+  sound_render();
+  pregame_render_info.cam1.unk_0 = 0;
+  pregame_render_info.cam1.unk_4 = 0;
+  pregame_render_info.cam1.unk_8 = 0;
+  pregame_render_info.cam1.unk_12 = 0;
+  pregame_render_info.cam1.unk_16 = 0;
+  pregame_render_info.cam1.unk_20 = 1.0;
+  pregame_render_info.unk_0 = -1;
+  pregame_render_info.unk_2 = 1;
+  pregame_render_info.cam1.unk_24 = 0;
+  pregame_render_info.cam1.unk_28 = 1.0;
+  pregame_render_info.cam1.unk_32 = 0;
+  pregame_render_info.cam1.unk_36 = 0;
+  pregame_render_info.cam1.vertical_field_of_view = 2 * atan2(render_camera_get_adjusted_field_of_view_tangent(1.3962634) * 0.75, 1.0);
+  compute_window_bounds(0, 1, pregame_render_info.cam1.window_bounds, pregame_render_info.cam1.unk_52);
+  pregame_render_info.cam1.z_near = 0.0099999998;
+  pregame_render_info.cam1.z_far = 1.0;
+  qmemcpy(&pregame_render_info.cam0, &pregame_render_info.cam1, sizeof(pregame_render_info.cam0));
+  render_frame_pregame(&pregame_render_info);
+  collision_log_end_period();
+}
+
 void main_setup_connection(void)
 {
   game_options_t game_options; // [esp+0h] [ebp-10Ch] BYREF

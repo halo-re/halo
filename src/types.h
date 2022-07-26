@@ -146,6 +146,60 @@ co(data_iter_t, unk_6,        6);
 co(data_iter_t, datum_handle, 8);
 co(data_iter_t, cookie,       12);
 
+typedef struct {
+  uint32_t unk_0;
+  uint32_t unk_4;
+  uint32_t unk_8;
+  uint32_t unk_12;
+  uint32_t unk_16;
+  float unk_20;
+  uint32_t unk_24;
+  float unk_28;
+  uint32_t unk_32;
+  uint8_t unk_36;
+  char unk_37[3];
+  float vertical_field_of_view;
+  _WORD window_bounds[4];
+  _WORD unk_52[4];
+  float z_near;
+  float z_far;
+  char unk_68[16];
+} camera_t;
+
+cs(camera_t, 0x54);
+co(camera_t, unk_0,                  0);
+co(camera_t, unk_4,                  4);
+co(camera_t, unk_8,                  8);
+co(camera_t, unk_12,                 12);
+co(camera_t, unk_16,                 16);
+co(camera_t, unk_20,                 20);
+co(camera_t, unk_24,                 24);
+co(camera_t, unk_28,                 28);
+co(camera_t, unk_32,                 32);
+co(camera_t, unk_36,                 36);
+co(camera_t, unk_37,                 37);
+co(camera_t, vertical_field_of_view, 40);
+co(camera_t, window_bounds,          44);
+co(camera_t, unk_52,                 52);
+co(camera_t, z_near,                 60);
+co(camera_t, z_far,                  64);
+co(camera_t, unk_68,                 68);
+
+typedef struct {
+  int16_t unk_0;
+  int8_t unk_2;
+  int8_t unk_3;
+  camera_t cam0;
+  camera_t cam1;
+} pregame_render_info_t;
+
+cs(pregame_render_info_t, 0xac);
+co(pregame_render_info_t, unk_0, 0);
+co(pregame_render_info_t, unk_2, 2);
+co(pregame_render_info_t, unk_3, 3);
+co(pregame_render_info_t, cam0,  4);
+co(pregame_render_info_t, cam1,  88);
+
 #undef co
 #undef cs
 #pragma pack()

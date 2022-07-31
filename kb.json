@@ -556,7 +556,7 @@
     },
     {
       "name": "game_state.obj",
-      "source": "saved games/game_state.c",
+      "source": "saved_games/game_state.c",
       "functions": [
         {
           "decl": "void game_state_initialize_for_new_map(void);",

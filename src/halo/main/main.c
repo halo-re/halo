@@ -89,11 +89,16 @@ void main_pregame_render(void)
   pregame_render_info.cam1.unk_28 = 1.0;
   pregame_render_info.cam1.unk_32 = 0;
   pregame_render_info.cam1.unk_36 = 0;
-  pregame_render_info.cam1.vertical_field_of_view = 2 * atan2(render_camera_get_adjusted_field_of_view_tangent(1.3962634) * 0.75, 1.0);
-  compute_window_bounds(0, 1, &pregame_render_info.cam1.viewport_bounds, pregame_render_info.cam1.unk_52);
+  pregame_render_info.cam1.vertical_field_of_view =
+    2 *
+    atan2(render_camera_get_adjusted_field_of_view_tangent(1.3962634) * 0.75,
+          1.0);
+  compute_window_bounds(0, 1, &pregame_render_info.cam1.viewport_bounds,
+                        pregame_render_info.cam1.unk_52);
   pregame_render_info.cam1.z_near = 0.0099999998;
   pregame_render_info.cam1.z_far = 1.0;
-  qmemcpy(&pregame_render_info.cam0, &pregame_render_info.cam1, sizeof(pregame_render_info.cam0));
+  qmemcpy(&pregame_render_info.cam0, &pregame_render_info.cam1,
+          sizeof(pregame_render_info.cam0));
   render_frame_pregame(&pregame_render_info, bitmap);
   collision_log_end_period();
 }

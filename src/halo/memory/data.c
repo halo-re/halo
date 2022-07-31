@@ -1,3 +1,8 @@
+int data_allocation_size(__int16 count, __int16 size)
+{
+  return size * count + sizeof(data_t);
+}
+
 void data_initialize(data_t *data, char *name, __int16 maximum_count,
                      __int16 size)
 {
@@ -13,11 +18,6 @@ void data_initialize(data_t *data, char *name, __int16 maximum_count,
   data->magic = 0x64407440;
   data->data = &data[1];
   data->valid = 0;
-}
-
-int data_allocation_size(__int16 count, __int16 size)
-{
-  return size * count + sizeof(data_t);
 }
 
 void data_make_invalid(data_t *data)

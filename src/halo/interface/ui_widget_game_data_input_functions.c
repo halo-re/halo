@@ -24,7 +24,7 @@ void ui_widget_game_data_build_version(int widget)
 #endif
       ui_widget_game_data_build_version_wide_str,
       sizeof(ui_widget_game_data_build_version_wide_str));
-    }
+  }
 
   if (!*(uint32_t *)(widget + 60)) {
     v1 =

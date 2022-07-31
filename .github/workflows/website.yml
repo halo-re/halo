@@ -1,10 +1,10 @@
 on:
   push:
-    paths:
-      - 'website/**'
+    branches:
+      - website
   pull_request:
-    paths:
-      - 'website/**'
+    branches:
+      - website
 
 jobs:
   Build:
@@ -18,15 +18,14 @@ jobs:
 
       - name: Build
         run: |
-          cd website
           hugo --minify
           cd public
           echo "blam.info" > CNAME
 
       - name: Deploy
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/website'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./website/public
+          publish_dir: ./public
           force_orphan: true

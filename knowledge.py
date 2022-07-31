@@ -123,10 +123,8 @@ __attribute__((section("thunks")))
 		return thunk_functions
 
 	def build_header(self):
-		log.info('Generating header...')
-
-
 		with open('src/thunks.c', 'w') as thunkf:
+			log.info('Generating header...')
 			with open('src/decl_generated.h', 'w') as f:
 				f.write('//\n'
 						'// AUTOMATICALLY GENERATED. DO NOT EDIT.\n'

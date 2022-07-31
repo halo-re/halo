@@ -21,7 +21,7 @@ Build
 * Install deps: clang, llvm toolchain, python3
 * Install Python deps: `pip install -r requirements.txt`
 * Have `extract-xiso` in your path
-* `python build.py`
+* `./build.py`
 * Run `halo-patched.iso` in xemu, or on your Xbox. You'll want to set up a debug environment.
 
 Help

@@ -235,7 +235,7 @@ class SourceManager:
 
     @staticmethod
     def reformat_file(path: str):
-        call_args = ['clang-format', '-style=file:src/.clang-format', '-i', path]
+        call_args = ['clang-format', '-style=file:.clang-format', '-i', path]
         log.debug('Calling: %s', ' '.join(call_args))
         subprocess.check_call(call_args)
 

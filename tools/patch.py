@@ -10,7 +10,7 @@ import argparse
 import pefile
 from xbe import Xbe, XbeSection, XbeSectionHeader, XbeKernelImage
 
-from misc import color
+import color
 from knowledge import KnowledgeBase
 
 

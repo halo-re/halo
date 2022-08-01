@@ -7,8 +7,8 @@ from typing import Mapping, Tuple, Optional, Sequence
 
 import clang.cindex as clang
 
-from misc import color
-from knowledge import KnowledgeBase
+import color
+from .knowledge import KnowledgeBase
 
 
 log = logging.getLogger(__name__)

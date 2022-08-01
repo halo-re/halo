@@ -13,7 +13,7 @@ except ImportError:
 	clang = None
 
 log = logging.getLogger(__name__)
-root_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 reg_filter_re = re.compile(r'@<(\w+)>')
 
 def filter_reg_assignments(s: str) -> str:
@@ -232,8 +232,8 @@ __attribute__((section("thunks")))
 					if s.addr:
 						kb.name_to_addr[s.name] = s.addr
 
-		if os.path.exists('misc/load_truth.py'):
-			from misc.load_truth import load_truth
+		if os.path.exists(os.path.join(root_dir, 'tools', 'load_truth.py')):
+			from load_truth import load_truth
 			load_truth(kb)
 
 		kb.addr_to_symbol = {s.addr:s for s in kb.symbols}

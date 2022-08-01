@@ -62,10 +62,10 @@ $(CURDIR)/build_info.c:
 	$(CC) $(CFLAGS) -MD -MP -MT '$@' -MF '$(patsubst %.obj,%.c.d,$@)' -c -o '$@' '$<'
 
 $(CURDIR)/typechecks.c: $(CURDIR)/types.h
-	python ../misc/gen-struct-checks.py $< > $@
+	python ../tools/gen-struct-checks.py $< > $@
 
 $(CURDIR)/decl_generated.h $(CURDIR)/halo.xbe.def $(CURDIR)/thunks.c: ../kb.json
-	python ../knowledge.py \
+	python ../tools/knowledge.py \
 		--gen-header $(CURDIR)/decl_generated.h \
 		--gen-def $(CURDIR)/halo.xbe.def \
 		--gen-thunks $(CURDIR)/thunks.c

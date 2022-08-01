@@ -5,6 +5,7 @@ from typing import Sequence, Union, Optional
 import logging
 import os.path
 import re
+import argparse
 
 try:
 	import clang.cindex as clang
@@ -18,8 +19,11 @@ reg_filter_re = re.compile(r'@<(\w+)>')
 def filter_reg_assignments(s: str) -> str:
 	return reg_filter_re.sub('', s)
 
+with open(os.path.join(root_dir, 'src', 'types.h')) as f:
+	types_file = f.read()
+
 def parse_string(s: str) -> str:
-	s = '#include "src/types.h"\n' + filter_reg_assignments(s)
+	s = types_file + filter_reg_assignments(s)
 	index = clang.Index.create()
 	tu = index.parse('tmp.h', unsaved_files=[('tmp.h', s)], options=0)
 	return tu
@@ -123,45 +127,52 @@ __attribute__((section("thunks")))
 		# FIXME: Generate special XBE->EXE thunker
 		return thunk_functions
 
-	def build_header(self):
-		with open('src/thunks.c', 'w') as thunkf:
-			log.info('Generating header...')
-			with open('src/decl_generated.h', 'w') as f:
-				f.write('//\n'
-						'// AUTOMATICALLY GENERATED. DO NOT EDIT.\n'
-						'//\n\n'
-						'#define HFUNC __declspec(dllexport)\n'
-						'#define HDATA __declspec(dllimport)\n'
-						'\n')
+	def build_header(self, path: str):
+		log.info('Generating header...')
+		with open(path, 'w') as f:
+			f.write('//\n'
+					'// AUTOMATICALLY GENERATED. DO NOT EDIT.\n'
+					'//\n\n'
+					'#define HFUNC __declspec(dllexport)\n'
+					'#define HDATA __declspec(dllimport)\n'
+					'\n')
 
-				objs_sorted = sorted(n for n in self.object_to_symbols if n is not None)
-				for object_name in (objs_sorted + [None]):
-					symbols = self.object_to_symbols[object_name]
-					f.write(f'// obj:{object_name or "?"} src:{self.object_to_source.get(object_name, "?")}\n')
-					for s in sorted(symbols, key=lambda s: (isinstance(s, Function), s.name)):
-						if isinstance(s, Data):
-							f.write(f'HDATA {s.decl}\n')
-						elif isinstance(s, Function):
-							if s.requires_reg_thunk:
-								t = self.gen_thunk(s)
-								thunkf.write(t)
-								# FIXME: If we have an implementation, export
-								#        the thunker to the patcher
-							f.write(f'HFUNC {filter_reg_assignments(s.decl)}\n')
-					f.write('\n')
+			objs_sorted = sorted(n for n in self.object_to_symbols if n is not None)
+			for object_name in (objs_sorted + [None]):
+				symbols = self.object_to_symbols[object_name]
+				f.write(f'// obj:{object_name or "?"} src:{self.object_to_source.get(object_name, "?")}\n')
+				for s in sorted(symbols, key=lambda s: (isinstance(s, Function), s.name)):
+					if isinstance(s, Data):
+						f.write(f'HDATA {s.decl}\n')
+					elif isinstance(s, Function):
+						f.write(f'HFUNC {filter_reg_assignments(s.decl)}\n')
+				f.write('\n')
 
-				f.write('\n'
-						'#undef HFUNC\n'
-						'#undef HDATA\n'
-						'\n'
-						'//\n'
-						'// AUTOMATICALLY GENERATED. DO NOT EDIT.\n'
-						'//\n')
+			f.write('\n'
+					'#undef HFUNC\n'
+					'#undef HDATA\n'
+					'\n'
+					'//\n'
+					'// AUTOMATICALLY GENERATED. DO NOT EDIT.\n'
+					'//\n')
 
-	def build_def(self):
+	def build_thunks(self, path: str):
+		log.info('Generating thunks...')
+		with open(path, 'w') as f:
+			objs_sorted = sorted(n for n in self.object_to_symbols if n is not None)
+			for object_name in (objs_sorted + [None]):
+				symbols = self.object_to_symbols[object_name]
+				for s in sorted(symbols, key=lambda s: (isinstance(s, Function), s.name)):
+					if isinstance(s, Function) and s.requires_reg_thunk:
+							t = self.gen_thunk(s)
+							f.write(t)
+							# FIXME: If we have an implementation, export
+							#        the thunker to the patcher
+
+	def build_def(self, path: str):
 		log.info('Generating XBE export .def file...')
 
-		with open('src/halo.xbe.def', 'w') as f:
+		with open(path, 'w') as f:
 			f.write('LIBRARY halo.xbe\n'
 					'EXPORTS\n')
 			for s in sorted(self.symbols, key=lambda s: (isinstance(s, Function), s.name)):
@@ -238,9 +249,27 @@ __attribute__((section("thunks")))
 
 
 def main():
+	ap = argparse.ArgumentParser()
+	ap.add_argument('--gen-header', help='Generate import header')
+	ap.add_argument('--gen-thunks', help='Generate import thunks')
+	ap.add_argument('--gen-def', help='Generate import linker def file')
+	ap.add_argument('--update', action='store_true', help='Re-serialize the KB')
+	args = ap.parse_args()
+
 	logging.basicConfig(level=logging.INFO)
 	kb = KnowledgeBase.deserialize()
-	kb.serialize()
+
+	if args.gen_header:
+		kb.build_header(args.gen_header)
+
+	if args.gen_thunks:
+		kb.build_thunks(args.gen_thunks)
+
+	if args.gen_def:
+		kb.build_def(args.gen_def)
+
+	if args.update:
+		kb.serialize()
 
 
 if __name__ == '__main__':

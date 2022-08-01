@@ -64,6 +64,12 @@ $(CURDIR)/build_info.c:
 $(CURDIR)/typechecks.c: $(CURDIR)/types.h
 	python ../misc/gen-struct-checks.py $< > $@
 
+$(CURDIR)/decl_generated.h $(CURDIR)/halo.xbe.def $(CURDIR)/thunks.c: ../kb.json
+	python ../knowledge.py \
+		--gen-header $(CURDIR)/decl_generated.h \
+		--gen-def $(CURDIR)/halo.xbe.def \
+		--gen-thunks $(CURDIR)/thunks.c
+
 .PHONY: clean
 clean:
 	rm -f $(GENERATED_FILES)

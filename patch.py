@@ -5,6 +5,7 @@ import subprocess
 import os
 import logging
 import hashlib
+import argparse
 
 import pefile
 from xbe import Xbe, XbeSection, XbeSectionHeader, XbeKernelImage
@@ -51,26 +52,22 @@ def write_to_vaddr(xbe: Xbe, vaddr: int, data: bytes):
 
 
 def main():
-    output_dir = 'halo-patched'
-    input_xbe_path = os.path.join(output_dir, 'cachebeta.xbe')
-    output_xbe_path = os.path.join(output_dir, 'default.xbe')
-    output_iso_path = f'{output_dir}.iso'
+    ap = argparse.ArgumentParser(description='Patches re-implementation EXE into original Halo XBE')
+    ap.add_argument('input_xbe', help='Original input XBE path')
+    ap.add_argument('input_exe', help='Re-implementation EXE path')
+    ap.add_argument('output_xbe', help='Output XBE path')
+    args = ap.parse_args()
 
-    if not os.path.isdir(output_dir):
-        log.error('Output directory %s does not exist. Prepare with disc content.', output_dir)
+    if not os.path.isfile(args.input_xbe):
+        log.error('Could not find input XBE %s', args.input_xbe)
         exit(1)
-
-    if not os.path.isfile(input_xbe_path):
-        log.error('Could not find input XBE %s', input_xbe_path)
-        exit(1)
-    log.info('Original XBE: %s', input_xbe_path)
+    log.info('Original XBE: %s', args.input_xbe)
 
     kb = KnowledgeBase.deserialize()
 
-
     # Load xbe
     log.info('Verifying original XBE MD5')
-    with open(input_xbe_path, 'rb') as f:
+    with open(args.input_xbe, 'rb') as f:
         md5 = hashlib.md5(f.read()).hexdigest()
         if md5 == kb.expected_md5:
             log.info('Ok')
@@ -79,27 +76,15 @@ def main():
             exit(1)
 
     log.info('Loading original XBE')
-    xbe = Xbe.from_file(input_xbe_path)
+    xbe = Xbe.from_file(args.input_xbe)
+
+    # Patch EXE into XBE
+    log.info('Loading EXE %s', args.input_exe)
+    pe = pefile.PE(args.input_exe)
+    log.info('EXE image base %x', pe.OPTIONAL_HEADER.ImageBase)
 
     # Determine new base address for EXE
     base_addr = round_up(max(s.header.virtual_addr + s.header.virtual_size for s in xbe.sections.values()), 0x1000)
-
-    # Rebuild re-implementation from source
-    log.info('Generating definitions...')
-    kb.build_header() # FIXME: Only build if different
-    kb.build_def()
-
-    log.info('Compiling source...')
-    subprocess.check_call(['make', '-C', 'src', '-j8'])
-    input_exe_path = 'src/main.exe'
-    if not os.path.exists(input_exe_path):
-        log.error('Failed to generate patch executable')
-        exit(1)
-
-    # Patch EXE into XBE
-    log.info('Loading EXE %s', input_exe_path)
-    pe = pefile.PE(input_exe_path)
-    log.info('EXE image base %x', pe.OPTIONAL_HEADER.ImageBase)
 
     pe_original_base = pe.OPTIONAL_HEADER.ImageBase
     if pe_original_base != base_addr:
@@ -248,15 +233,9 @@ def main():
         patch_bytes = b'\x68' + struct.pack('<I', addr_of_reimplementation) + b'\xc3'  # push addr, ret
         write_to_vaddr(xbe, addr_of_original_in_xbe, patch_bytes)
 
-    log.info('Generating patched XBE (%s)...', output_xbe_path)
-    with open(output_xbe_path, 'wb') as f:
+    log.info('Generating patched XBE (%s)...', args.output_xbe)
+    with open(args.output_xbe, 'wb') as f:
         f.write(xbe.pack())
-
-    # Generate new ISO image
-    log.info('Generating new ISO (%s)...', output_iso_path)
-    if os.path.exists(output_iso_path):
-        os.unlink(output_iso_path)
-    subprocess.check_call(['extract-xiso', '-c', output_dir])
 
     # Generate GDB init script
     log.info('Generating GDB init script')
@@ -271,8 +250,7 @@ def main():
         # FIXME: Add other symbols
 
     log.info('Build complete')
-    log.info('- Patched XBE: %s', output_xbe_path)
-    log.info('- Patched ISO: %s', output_iso_path)
+    log.info('- Patched XBE: %s', args.output_xbe)
 
 
 if __name__ == '__main__':

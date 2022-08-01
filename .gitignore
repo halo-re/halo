@@ -1,2 +1,12 @@
 __pycache__
 .gdbinit
+src/decl.h
+src/halo.xbe.def
+src/build_info.c
+src/thunks.c
+src/typechecks.c
+*.d
+*.lib
+*.obj
+*.exe
+*.pdb

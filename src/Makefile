@@ -29,16 +29,16 @@ else
 endif
 
 SRCS = \
-	$(CURDIR)/entrypoint.c \
-	$(CURDIR)/thunks.c \
-	$(CURDIR)/build_info.c \
-	$(CURDIR)/typechecks.c \
+	entrypoint.c \
+	thunks.c \
+	build_info.c \
+	typechecks.c \
 	$(shell find halo -name '*.c')
 
 OBJS = $(SRCS:.c=.obj)
 DEPFILES = $(addsuffix .d, $(SRCS))
 IMPORTLIBS = xboxkrnl.exe.lib halo.xbe.lib
-GENERATED_FILES = main.exe $(OBJS) $(DEPFILES) $(IMPORTLIBS) typechecks.c build_info.c
+GENERATED_FILES = main.exe $(OBJS) $(DEPFILES) $(IMPORTLIBS) typechecks.c build_info.c decl_generated.h halo.xbe.def thunks.c main.pdb main.lib
 
 ifneq ("$(wildcard private/Makefile.inc)","")
 	-include private/Makefile.inc
@@ -47,8 +47,8 @@ endif
 main.exe: $(OBJS) $(IMPORTLIBS)
 	$(LD) $(LDFLAGS) -out:'$@' $^
 
-.PHONY: $(CURDIR)/build_info.c
-$(CURDIR)/build_info.c:
+.PHONY: build_info.c
+build_info.c:
 	echo "#define BUILD_REV \"$(shell git rev-parse HEAD 2>/dev/null | tr -d '\n' | cut -c-7)\"" > $@
 	echo "#define BUILD_DATE \"$(shell date)\"" >> $@
 	echo "const char *build_rev = BUILD_REV;" >> $@
@@ -61,14 +61,18 @@ $(CURDIR)/build_info.c:
 %.obj: %.c
 	$(CC) $(CFLAGS) -MD -MP -MT '$@' -MF '$(patsubst %.obj,%.c.d,$@)' -c -o '$@' '$<'
 
-$(CURDIR)/typechecks.c: $(CURDIR)/types.h
+typechecks.c: types.h
 	python ../tools/gen-struct-checks.py $< > $@
 
-$(CURDIR)/decl_generated.h $(CURDIR)/halo.xbe.def $(CURDIR)/thunks.c: ../kb.json
+$(OBJS): decl_generated.h
+
+halo.xbe.lib: halo.xbe.def
+
+decl_generated.h halo.xbe.def thunks.c: ../kb.json
 	python ../tools/knowledge.py \
-		--gen-header $(CURDIR)/decl_generated.h \
-		--gen-def $(CURDIR)/halo.xbe.def \
-		--gen-thunks $(CURDIR)/thunks.c
+		--gen-header decl_generated.h \
+		--gen-def halo.xbe.def \
+		--gen-thunks thunks.c
 
 .PHONY: clean
 clean:

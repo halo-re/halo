@@ -49,7 +49,7 @@ DEPFILES = $(addsuffix .d, $(SRCS))
 IMPORTLIBS = src/xboxkrnl.exe.lib src/halo.xbe.lib
 GENERATED_FILES = \
 	main.exe main.pdb main.lib $(OBJS) $(DEPFILES) $(IMPORTLIBS) \
-	src/typechecks.c src/build_info.c src/decl_generated.h src/halo.xbe.def src/thunks.c
+	src/typechecks.c src/build_info.c src/decl.h src/halo.xbe.def src/thunks.c
 
 $(OUTPUT_ISO): $(OUTPUT_XBE)
 	extract-xiso -c $(shell dirname $(OUTPUT_XBE))
@@ -79,11 +79,11 @@ src/build_info.c:
 src/typechecks.c: src/types.h
 	python tools/gen-struct-checks.py $< > $@
 
-$(OBJS): src/decl_generated.h
+$(OBJS): src/decl.h
 
-src/decl_generated.h src/halo.xbe.def src/thunks.c: kb.json
+src/decl.h src/halo.xbe.def src/thunks.c: kb.json
 	python tools/knowledge.py \
-		--gen-header src/decl_generated.h \
+		--gen-header src/decl.h \
 		--gen-def src/halo.xbe.def \
 		--gen-thunks src/thunks.c
 

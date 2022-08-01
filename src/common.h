@@ -13,7 +13,7 @@ extern const char *build_ui_widget_text;
 
 #include "types.h"
 #include "inlines.h"
-#include "decl_generated.h"
+#include "decl.h"
 
 #define assert_halt(cond)                                    \
     do {                                                     \

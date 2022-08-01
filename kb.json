@@ -668,14 +668,38 @@
     {
       "name": "hud.obj",
       "source": "interface/hud.c",
+      "data": [
+        {
+          "decl": "void * hud_globals;",
+          "addr": "0x46bd0c"
+        }
+      ],
       "functions": [
         {
-          "decl": "void hud_load(char);",
+          "decl": "wchar_t *hud_get_item_string(int a1);",
+          "addr": "0xd0ba0"
+        },
+        {
+          "decl": "void hud_load(bool a1);",
           "addr": "0xd0d50"
         },
         {
           "decl": "void hud_autosave(int16_t);",
           "addr": "0xd0db0"
+        }
+      ]
+    },
+    {
+      "name": "hud_messaging.obj",
+      "source": "interface/hud_messaging.c",
+      "functions": [
+        {
+          "decl": "_BYTE *scripted_hud_messages_clear(void);",
+          "addr": "0xd5120"
+        },
+        {
+          "decl": "void hud_print_message(__int16 player, wchar_t *message);",
+          "addr": "0xd51c0"
         }
       ]
     },

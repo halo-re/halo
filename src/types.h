@@ -24,7 +24,6 @@ typedef unsigned long long uint64_t;
 
 typedef unsigned char bool;
 typedef signed short wchar_t;
-
 typedef unsigned int size_t;
 
 // FIXME: Normalize

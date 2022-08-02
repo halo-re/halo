@@ -1,6 +1,12 @@
+#ifdef MSVC
+#define __noreturn __declspec(noreturn)
+#define offsetof(t, f) ( (int) &((t*)0)->f )
+#define static_assert(cond) static_assert(cond, #cond)
+#else
+#define __noreturn __attribute__((noreturn))
 #define offsetof(t, f) __builtin_offsetof(t, f)
 #define static_assert(cond) _Static_assert(cond, #cond)
-#define __noreturn __attribute__((noreturn))
+#endif
 #define NULL ((void*)0)
 
 #define cs(t, s)    static_assert(sizeof(t) == s)
@@ -18,6 +24,7 @@ typedef unsigned long long uint64_t;
 
 typedef unsigned char bool;
 typedef signed short wchar_t;
+
 typedef unsigned int size_t;
 
 // FIXME: Normalize

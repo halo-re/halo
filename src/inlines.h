@@ -1,7 +1,17 @@
+#define atan2 atan2_
 static inline double atan2(double y, double x)
 {
   double r = 0;
+#ifdef MSVC
+  __asm {
+    fld y
+    fld x
+    fpatan
+    fstp r
+  }
+#else
   asm volatile ("fpatan" : "=t"(r) : "u"(y), "0"(x) : "st(1)");
+#endif
   return r;
 }
 

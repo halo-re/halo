@@ -4,6 +4,10 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#ifdef MSVC
+#pragma runtime_checks("scu", off)
+#endif
+
 #define DECOMP_CUSTOM 1 // Logic that is added to aid decompilation, etc
 #define DEBUG_BUILD 1 // Logic that appears only in debug builds
 

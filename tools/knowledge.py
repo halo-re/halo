@@ -7,10 +7,10 @@ import os.path
 import re
 import argparse
 
-try:
-	import clang.cindex as clang
-except ImportError:
-	clang = None
+#try:
+import clang.cindex as clang
+#except ImportError:
+#	clang = None
 
 log = logging.getLogger(__name__)
 root_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
@@ -117,8 +117,7 @@ class KnowledgeBase:
 		# better though
 		thunk_functions = f'''\
 {new_func_decl} = (void*){s.addr:#x};
-__attribute__((weak))
-__attribute__((section("thunks")))
+THUNK_ATTRS
 { filter_reg_assignments(s.decl)[:-1] } {{
   asm mov { reg }, { args[0].spelling };
   { "return " if rtype != 'void' else ''}{fname}__xbe({', '.join(a.spelling for a in args[1:])});
@@ -159,6 +158,18 @@ __attribute__((section("thunks")))
 	def build_thunks(self, path: str):
 		log.info('Generating thunks...')
 		with open(path, 'w') as f:
+			f.write("""
+#ifdef _MSC_VER
+#pragma code_seg(".thunks")
+#define asm __asm
+#define THUNK_ATTRS
+#else
+#define THUNK_ATTRS \
+	__attribute__((weak)) \
+	__attribute__((section("thunks")))
+#endif
+""")
+
 			objs_sorted = sorted(n for n in self.object_to_symbols if n is not None)
 			for object_name in (objs_sorted + [None]):
 				symbols = self.object_to_symbols[object_name]

@@ -23,6 +23,10 @@ Build with the Docker container:
 * `docker build -t halo .`
 * `docker run -it --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo make`
 
+Build with CMake:
+* `cmake -AWin32 -Bbuild -S.`
+* `cmake --build build`
+
 Or build on your host system:
 * Install deps: clang, llvm toolchain, python3
 * Install Python deps: `pip install -r requirements.txt`

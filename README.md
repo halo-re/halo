@@ -17,23 +17,35 @@ Current State
 
 Build
 -----
-First prepare `halo-patched` directory with disc files and original executable.
+* First prepare `halo-patched` directory with disc files and original executable.
+* You can build in a Docker container, or normally with system tools (e.g. clang, MSVC).
+* If building outside a container, install system deps:
+  * On Windows you can use MSVC (Visual Studio). You'll need Python 3+.
+  * On Linux/macOS you can use clang:
+    * `sudo apt install cmake clang lld python3-pip`
+  * Install Python deps: `pip install --user -r requirements.txt`
+
+### Build options
 
 Build with the Docker container:
-* `docker build -t halo .`
-* `docker run -it --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo make`
+```
+docker build -t halo .
+docker run -it --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash -c "cmake -Bbuild -S. -DCMAKE_C_COMPILER=clang && cmake --build build"
+```
 
-Build with CMake:
-* `cmake -AWin32 -Bbuild -S.`
-* `cmake --build build`
+Build with CMake (Linux, clang):
+```
+cmake -Bbuild -S. -DCMAKE_C_COMPILER=clang
+cmake --build build
+```
 
-Or build on your host system:
-* Install deps: clang, llvm toolchain, python3
-* Install Python deps: `pip install -r requirements.txt`
-* Have `extract-xiso` in your path
-* `make`
+Build with CMake (Windows, MSVC):
+```
+cmake -AWin32 -Bbuild -S.
+cmake --build build
+```
 
-Run `halo-patched.iso` in xemu, or on your Xbox. You'll want to set up a debug environment.
+The updated build with re-implementation patched in will be at `halo-patched/default.xbe`. Use `extract-xiso` to create an ISO from your `halo-patched` directory. Run `halo-patched.iso` in xemu, or on your Xbox. You'll want to set up a debug environment.
 
 Help
 ----

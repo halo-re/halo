@@ -10,7 +10,10 @@ EXPORT void *original_xbe_entry;
 static const uint32_t kernel_image_base = 0x80010000;
 static void init_kernel_imports(void);
 
-__attribute__((no_stack_protector)) void _start(void)
+#ifndef MSVC
+__attribute__((no_stack_protector))
+#endif
+void _start(void)
 {
   init_kernel_imports();
   ((void (*)())original_xbe_entry)();

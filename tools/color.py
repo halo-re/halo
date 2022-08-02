@@ -11,9 +11,8 @@ else:
     class ColorLogHandler(logging.StreamHandler):
         def emit(self, record):
             color = {
-                'INFO': 'bright_red',
                 'WARNING': 'bright_yellow',
-                'ERROR': 'red'
+                'ERROR': 'bright_red'
             }.get(record.levelname)
 
             record.name = self.ansi_color(record.name, color)

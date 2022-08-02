@@ -7,14 +7,13 @@ import os.path
 import re
 import argparse
 
-#try:
 import clang.cindex as clang
-#except ImportError:
-#	clang = None
+
 
 log = logging.getLogger(__name__)
 root_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 reg_filter_re = re.compile(r'@<(\w+)>')
+
 
 def filter_reg_assignments(s: str) -> str:
 	return reg_filter_re.sub('', s)

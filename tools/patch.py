@@ -15,6 +15,7 @@ from knowledge import KnowledgeBase
 
 
 log = logging.getLogger(__name__)
+root_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 
 
 def round_up(value, round_to):
@@ -239,9 +240,9 @@ def main():
 
     # Generate GDB init script
     log.info('Generating GDB init script')
-    with open('.gdbinit', 'w') as f:
+    with open(root_dir + '/.gdbinit', 'w') as f:
         f.write('set arch i386\n')
-        f.write('add-symbol-file src/main.exe ' + hex(exe_to_xbe_section_map['.text']) + ' ' +
+        f.write('add-symbol-file build/halo ' + hex(exe_to_xbe_section_map['.text']) + ' ' +
                 ' '.join(f'-s {n} {addr:#x}' for n, addr in exe_to_xbe_section_map.items() if
                          n != '.text' and not n.startswith('/')) + '\n')
         f.write('layout src\n')

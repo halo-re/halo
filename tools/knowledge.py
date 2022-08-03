@@ -24,7 +24,7 @@ with open(os.path.join(root_dir, 'src', 'types.h')) as f:
 def parse_string(s: str) -> str:
 	s = types_file + filter_reg_assignments(s)
 	index = clang.Index.create()
-	tu = index.parse('tmp.h', unsaved_files=[('tmp.h', s)], options=0)
+	tu = index.parse('tmp.h', args=['-target', 'i386-pc-win32'], unsaved_files=[('tmp.h', s)])
 	return tu
 
 
@@ -114,10 +114,21 @@ class KnowledgeBase:
 
 		# clang apparently avoids clobbering the register we just wrote to. This should really be replaced with something
 		# better though
+		name = s.name
+		mangled_name = s.cursor.mangled_name
+		name_alternate = name + '__thunk'
+		mangled_name_alternate = mangled_name.replace(name, name_alternate)
+		decl = filter_reg_assignments(s.decl)[:-1]
+
 		thunk_functions = f'''\
+#ifdef MSVC
+#pragma comment(linker, "/alternatename:{mangled_name}={mangled_name_alternate}")
+#endif
+
 {new_func_decl} = (void*){s.addr:#x};
-THUNK_ATTRS
-{ filter_reg_assignments(s.decl)[:-1] } {{
+
+{ decl.replace(name, 'THUNK('+name+')') }
+{{
   asm mov { reg }, { args[0].spelling };
   { "return " if rtype != 'void' else ''}{fname}__xbe({', '.join(a.spelling for a in args[1:])});
 }}
@@ -158,15 +169,14 @@ THUNK_ATTRS
 		log.info('Generating thunks...')
 		with open(path, 'w') as f:
 			f.write("""
-#ifdef _MSC_VER
+#ifdef MSVC
 #pragma code_seg(".thunks")
 #define asm __asm
-#define THUNK_ATTRS
+#define THUNK(x) x ## __thunk
 #else
-#define THUNK_ATTRS \
-	__attribute__((weak)) \
-	__attribute__((section("thunks")))
+#define THUNK(x) __attribute__((weak, section(".thunks"))) x
 #endif
+
 """)
 
 			objs_sorted = sorted(n for n in self.object_to_symbols if n is not None)
@@ -188,7 +198,11 @@ THUNK_ATTRS
 			for s in sorted(self.symbols, key=lambda s: (isinstance(s, Function), s.name)):
 				if s.requires_reg_thunk:
 					continue
-				f.write(f'\t{s.cursor.mangled_name}{" DATA" if isinstance(s, Data) else ""}\n')
+				f.write('\t' + s.name)
+				if isinstance(s, Data):
+					f.write(' DATA\n')
+				else:
+					f.write('\n')
 
 	def serialize(self):
 		log.info('Saving knowledge base to %s...', self.kb_path)

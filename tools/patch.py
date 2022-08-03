@@ -119,7 +119,7 @@ def main():
 
     for section in pe.sections:
         name = section.Name.rstrip(b'\x00').decode('ascii')
-        if name == 'thunks':
+        if name == '.thunks':
             start = section.VirtualAddress + base_addr
             thunk_section_bounds = (start, start + section.Misc_VirtualSize)
         if name.startswith('/') or name in ['.reloc']:

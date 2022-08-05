@@ -1,7 +1,7 @@
 project(halo)
 cmake_minimum_required(VERSION 3.16)
 
-find_package(PythonInterp)
+find_package(Python3 COMPONENTS Interpreter)
 
 set(gen_dir "${PROJECT_BINARY_DIR}/generated")
 add_custom_target(create_gen_dir ALL
@@ -9,11 +9,12 @@ add_custom_target(create_gen_dir ALL
 
 add_custom_command(
 	OUTPUT "${gen_dir}/decl.h" "${gen_dir}/halo.xbe.def" "${gen_dir}/thunks.c"
-	COMMAND "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/knowledge.py"
+	COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/knowledge.py"
 		--gen-header "${gen_dir}/decl.h"
 		--gen-def "${gen_dir}/halo.xbe.def"
 		--gen-thunks "${gen_dir}/thunks.c"
 	DEPENDS "${CMAKE_CURRENT_LIST_DIR}/tools/knowledge.py" "${CMAKE_CURRENT_LIST_DIR}/kb.json" create_gen_dir
+	VERBATIM
 )
 
 if(MSVC)
@@ -38,14 +39,14 @@ add_custom_command(
 
 add_custom_command(
 	OUTPUT "${gen_dir}/build_info.c" "${gen_dir}/.force"
-	COMMAND "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/gen-build-info.py" > ${gen_dir}/build_info.c
+	COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/gen-build-info.py" > ${gen_dir}/build_info.c
 	DEPENDS "${CMAKE_CURRENT_LIST_DIR}/tools/gen-build-info.py" create_gen_dir
 	VERBATIM
 )
 
 add_custom_command(
 	OUTPUT "${gen_dir}/typechecks.c"
-	COMMAND "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/gen-struct-checks.py" "${CMAKE_SOURCE_DIR}/src/types.h" > "${gen_dir}/typechecks.c"
+	COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/gen-struct-checks.py" "${CMAKE_SOURCE_DIR}/src/types.h" > "${gen_dir}/typechecks.c"
 	DEPENDS "${CMAKE_CURRENT_LIST_DIR}/tools/gen-struct-checks.py" "${CMAKE_SOURCE_DIR}/src/types.h" create_gen_dir
 	VERBATIM
 )
@@ -100,7 +101,7 @@ add_custom_target(
 	DEPENDS "$<TARGET_FILE:halo>" "${CMAKE_CURRENT_LIST_DIR}/tools/patch.py"
 	BYPRODUCTS ${CMAKE_CURRENT_LIST_DIR}/halo-patched/default.xbe
 	COMMAND
-		"${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/patch.py"
+		"${Python3_EXECUTABLE}" "${CMAKE_CURRENT_LIST_DIR}/tools/patch.py"
 			"${CMAKE_CURRENT_LIST_DIR}/halo-patched/cachebeta.xbe"
 			"$<TARGET_FILE:halo>"
 			"${CMAKE_CURRENT_LIST_DIR}/halo-patched/default.xbe"

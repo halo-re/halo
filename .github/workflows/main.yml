@@ -22,7 +22,7 @@ jobs:
 
       - name: Build
         run: |
-          docker run --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash -c "cmake -Bbuild -S. -DCMAKE_C_COMPILER=clang && cmake --build build --target halo"
+          docker run --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash -c "cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/clang.cmake && cmake --build build --target halo"
 
   BuildWindows:
     name: Build on Windows with MSVC
@@ -31,8 +31,27 @@ jobs:
       - name: Clone Tree
         uses: actions/checkout@v3
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+
       - name: Build
         run: |
-          pip install -r requirements.txt
+          python -m pip install --user -r requirements.txt
           cmake -AWin32 -Bbuild -S.
+          cmake --build build --target halo
+
+  BuildMacos:
+    name: Build on macOS with clang
+    runs-on: macos-latest
+    steps:
+      - name: Clone Tree
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          brew install llvm
+          python3 -m pip install --user -r requirements.txt
+          export PATH="/opt/homebrew/opt/llvm/bin:/usr/local/opt/llvm/bin:$PATH"
+          cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/clang.cmake
           cmake --build build --target halo

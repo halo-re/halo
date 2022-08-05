@@ -16,7 +16,7 @@ add_custom_command(
 	DEPENDS "${CMAKE_CURRENT_LIST_DIR}/tools/knowledge.py" "${CMAKE_CURRENT_LIST_DIR}/kb.json" create_gen_dir
 )
 
-if (MSVC)
+if(MSVC)
 	set(lib_tool "lib")
 else()
 	set(lib_tool "lld-link")
@@ -52,15 +52,33 @@ add_custom_command(
 
 include_directories(${gen_dir} ${CMAKE_SOURCE_DIR}/src)
 
-if (MSVC)
+if(CMAKE_BUILD_TYPE STREQUAL "")
+	set(CMAKE_BUILD_TYPE "Release")
+endif()
+
+if(MSVC)
 	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-		message(FATAL_ERROR "You are attempting to build for 64 bit. Delete the build directory, then specify -AWin32 when configuring with CMake to build for 32 bit.")
+		message(FATAL_ERROR "You are attempting to build for x86-64 (64-bit). Delete the build directory, then specify -AWin32 when configuring with CMake to build for x86 (32-bit).")
 	endif()
 	set(CMAKE_C_FLAGS "/FI\"${CMAKE_SOURCE_DIR}/src/common.h\" /GS- /DMSVC")
 	set(CMAKE_EXE_LINKER_FLAGS "/entry:_start /nodefaultlib:msvcrtd.lib /nodefaultlib:msvcrt.lib /incremental:no")
+
+	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Zi")
+		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEBUG")
+	endif()
 else()
+	if(NOT CMAKE_C_COMPILER_ID STREQUAL "Clang")
+		# FIXME: We can support other toolchains, but currently do not
+		message(FATAL_ERROR "You are attempting to compile with ${CMAKE_CXX_COMPILER_ID}. Please use LLVM toolchain (clang, lld). Specify -DCMAKE_C_COMPILER=clang during configuration.")
+	endif()
 	set(CMAKE_C_FLAGS "-Wall -Werror -target i386-pc-win32 -march=pentium3 -nostdlib -ffreestanding -fno-builtin -fno-exceptions -I${CMAKE_SOURCE_DIR}/src -include ${CMAKE_SOURCE_DIR}/src/common.h")
 	set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=lld-link -Xlinker -entry:_start")
+
+	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Og -gdwarf-4")
+		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Xlinker -debug")
+	endif()
 endif()
 
 add_executable(halo)

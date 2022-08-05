@@ -37,7 +37,7 @@ You can build with Visual Studio or clang, on Windows/macOS/Linux. You'll also n
 Build with the Docker container:
 ```
 docker build -t halo .
-docker run -it --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash -c "cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/clang.cmake && cmake --build build"
+docker run -it --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash -c "cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake && cmake --build build"
 ```
 
 Build on Windows with CMake and Visual Studio:
@@ -51,7 +51,7 @@ Build on Linux (Ubuntu) with CMake and clang:
 ```
 sudo apt install cmake clang lld python3-pip
 python3 -m pip install --user -r requirements.txt
-cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/clang.cmake
+cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake
 cmake --build build
 ```
 
@@ -60,7 +60,7 @@ Build on macOS (works on both Intel and Apple Silicon macs) with CMake and clang
 brew install llvm cmake
 python3 -m pip install --user -r requirements.txt
 export PATH="/opt/homebrew/opt/llvm/bin:/usr/local/opt/llvm/bin:$PATH"
-cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=$PWD/toolchains/clang.cmake
+cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=$PWD/toolchains/llvm.cmake
 cmake --build build --target halo
 ```
 

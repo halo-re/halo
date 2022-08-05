@@ -71,7 +71,7 @@ if(MSVC)
 else()
 	if(NOT CMAKE_C_COMPILER_ID STREQUAL "Clang")
 		# FIXME: We can support other toolchains, but currently do not
-		message(FATAL_ERROR "You are attempting to compile with ${CMAKE_CXX_COMPILER_ID}. Please use LLVM toolchain (clang, lld). Specify -DCMAKE_C_COMPILER=clang during configuration.")
+		message(FATAL_ERROR "You are attempting to compile with ${CMAKE_CXX_COMPILER_ID}. Please use LLVM toolchain (clang, lld). Specify -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake during configuration.")
 	endif()
 	set(CMAKE_C_FLAGS "-Wall -Werror -target i386-pc-win32 -march=pentium3 -nostdlib -ffreestanding -fno-builtin -fno-exceptions -I${CMAKE_SOURCE_DIR}/src -include ${CMAKE_SOURCE_DIR}/src/common.h")
 	set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=lld-link -Xlinker -entry:_start")

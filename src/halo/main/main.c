@@ -144,8 +144,8 @@ void main_initialize_time(void)
 //        provide function reference here until we re-implement it.
 #define main_vertical_blank_interrupt_handler (void *)0x101CD0
 
-  dword_46D9E0 = system_milliseconds();
-  qword_46D9E8 = 0LL;
+  unk_time_globals.unk_0 = system_milliseconds();
+  unk_time_globals.unk_8 = 0L;
   rasterizer_set_vblank_callback(main_vertical_blank_interrupt_handler);
   word_46DDDC = 0;
   csmemset(word_46DDDE, 0, 0x1Eu);
@@ -171,14 +171,14 @@ void main_game_render(double a2)
   sound_render();
   force_single_screen = game_engine_force_single_screen();
   next_player = -1;
-  if (local_player_count() >= 1) {
-    if (local_player_count() <= 4) {
-      player_count = local_player_count();
-    } else {
-      player_count = 4;
-    }
-  } else {
+  if (local_player_count() < 1) {
     player_count = 1;
+  } else {
+    if (local_player_count() > 4) {
+      player_count = 4;
+    } else {
+      player_count = local_player_count();
+    }
   }
   v2 = player_count;
   num_players = player_count;
@@ -192,12 +192,10 @@ void main_game_render(double a2)
     v4 = window;
     do {
       v5 = v4 + 132;
+      camera = NULL;
       compute_window_bounds(player_index, num_players,
                             (viewport_bounds_t *)(v4 + 132), (_WORD *)v4 + 70);
-      if (force_single_screen || player_index >= player_count) {
-        *(_WORD *)v4 = -1;
-        set_window_camera_values(v4, 0);
-      } else {
+      if (!force_single_screen && player_index < player_count) {
         if (!byte_325714 || next_player == -1) {
           if (word_46DA0C == 3) {
             next_player = 0;
@@ -206,9 +204,11 @@ void main_game_render(double a2)
           }
         }
         *(_WORD *)v4 = next_player;
-        camera = (float *)observer_get_camera(next_player);
-        set_window_camera_values(v4, camera);
+        camera = observer_get_camera(next_player);
+      } else {
+        *(_WORD *)v4 = -1;
       }
+      set_window_camera_values(v4, camera);
       ++player_index;
       v4 += 172;
       *(v5 - 130) = 0;
@@ -221,11 +221,11 @@ void main_game_render(double a2)
   *(_WORD *)v6 = -1;
   v6[2] = 1;
   set_window_camera_values(v6, 0);
-  if (global_screenshot_count > 0) {
-    screenshot_render(window);
-  } else {
+  if (global_screenshot_count <= 0) {
     a7 = a2;
-    render_frame(window, v2 + 1, 0, 0, (int)bitmap, a7);
+    render_frame(window, v2 + 1, 0, 0, bitmap, a7);
+  } else {
+    screenshot_render(window);
   }
   collision_log_end_period();
   unlock_global_random_seed();
@@ -239,18 +239,24 @@ static void print_startup_banner(void)
 }
 #endif
 
+static __inline void abort_with_error_message(int16_t message_id)
+{
+  display_error_when_main_menu_loaded(message_id);
+  error(2, "the game host went down");
+  network_game_abort();
+}
+
 void main_loop(void)
 {
   bool v0; // cc
-  char v1; // bl
-  bool v2; // bl
-  bool v3; // al
+  bool v1; // bl
   float a2; // [esp+4h] [ebp-14h]
   float a2a; // [esp+4h] [ebp-14h]
   float a2b; // [esp+4h] [ebp-14h]
   float a2_4; // [esp+8h] [ebp-10h]
   float a2_4a; // [esp+8h] [ebp-10h]
   char v9[4]; // [esp+10h] [ebp-8h] BYREF
+  int x;
 
   if (!game_in_editor()) {
     csstrncpy(map_name, "levels\\b30\\b30", 0xFFu);
@@ -271,19 +277,7 @@ void main_loop(void)
   main_setup_connection();
   main_initialize_time();
   while (1) {
-    if (game_in_editor()) {
-      if (game_reset_pending && !(unsigned __int8)game_time_end()) {
-        scenario_switch_structure_bsp(0);
-        game_dispose_from_old_map();
-        input_flush();
-        game_initialize_for_new_map();
-        create_local_players();
-        game_time_start();
-        game_initial_pulse();
-        ui_widgets_disable_pause_game(30);
-        game_reset_pending = 0;
-      }
-    } else {
+    if (!game_in_editor()) {
       if (word_46DA40 != -1) {
         scenario_switch_structure_bsp(word_46DA40);
         word_46DA40 = -1;
@@ -299,8 +293,9 @@ void main_loop(void)
           }
         }
       }
-      if (main_won_map_private_pending)
+      if (main_won_map_private_pending) {
         main_won_map_private();
+      }
       if (byte_46DA3C) {
         if (!(unsigned __int8)game_time_end() && !cinematic_in_progress()) {
           v0 = word_46DA4E++ <= 90;
@@ -317,8 +312,9 @@ void main_loop(void)
         hud_autosave(0);
         game_state_save_pending = 0;
       }
-      if (main_change_map_name_pending)
+      if (main_change_map_name_pending) {
         main_change_map_name();
+      }
       if (game_state_revert_pending) {
         game_state_revert();
         ui_widgets_disable_pause_game(30);
@@ -351,16 +347,19 @@ void main_loop(void)
         game_state_load_core(core_name);
         game_state_load_core_pending = 0;
       }
-      if (main_menu_load_pending)
+      if (main_menu_load_pending) {
         main_menu_load();
-      if (main_load_last_solo_map_pending)
+      }
+      if (main_load_last_solo_map_pending) {
         main_load_last_solo_map();
+      }
       if (xbox_demos_launch_pending) {
         xbox_demos_launch_pending = 0;
         xbox_demos_launch();
       }
-      if (main_skip_private_pending)
+      if (main_skip_private_pending) {
         main_skip_private();
+      }
       if (byte_46DA50) {
         if (cache_files_precache_in_progress() &&
             (unsigned __int16)cache_files_precache_map_status((float *)v9) == 1)
@@ -369,6 +368,18 @@ void main_loop(void)
           cache_files_precache_map_begin(&byte_46DC55, 0);
           byte_46DA50 = 0;
         }
+      }
+    } else {
+      if (game_reset_pending && !(unsigned __int8)game_time_end()) {
+        scenario_switch_structure_bsp(0);
+        game_dispose_from_old_map();
+        input_flush();
+        game_initialize_for_new_map();
+        create_local_players();
+        game_time_start();
+        game_initial_pulse();
+        ui_widgets_disable_pause_game(30);
+        game_reset_pending = 0;
       }
     }
     profile_frame_start();
@@ -380,20 +391,18 @@ void main_loop(void)
     telnet_console_process();
     if (!shell_application_is_paused()) {
       v1 = 1;
-      if (word_46DA0C == 1) {
+      x = word_46DA0C;
+      if (x == 1) {
         if (!network_game_client_start_frame()) {
-          display_error_when_main_menu_loaded(6);
-          error(2, "the game host went down");
-          network_game_abort();
+          abort_with_error_message(6);
         }
-      } else if (word_46DA0C == 2) {
-        if (!network_game_client_start_frame() ||
-            !network_game_server_start_frame()) {
-          display_error_when_main_menu_loaded(1);
-          error(2, "the game host went down");
-          network_game_abort();
+      } else if (x == 2) {
+        if (!network_game_client_start_frame()) {
+          abort_with_error_message(1);
+        } else if (!network_game_server_start_frame()) {
+          abort_with_error_message(1);
         }
-      } else if (word_46DA0C == 3) {
+      } else if (x == 3) {
         break;
       }
       main_update_time();
@@ -418,27 +427,33 @@ void main_loop(void)
         if (!console_update() || word_46DA0C) {
           debug_keys_update();
           cheats_update();
-          a2 = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
+          a2 = (double)(unsigned __int8)byte_46DA46;
+          a2 *= flt_46DA08;
           player_control_update(a2);
-          if (word_46DA0C > 0 && word_46DA0C <= 2 &&
-              !network_game_client_end_frame()) {
+          x = word_46DA0C;
+          if (x > 0 && x <= 2 && !network_game_client_end_frame()) {
             display_error_when_main_menu_loaded(1);
             network_game_abort();
           }
-          a2a = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
+          a2a = (double)(unsigned __int8)byte_46DA46;
+          a2a *= flt_46DA08;
           game_time_update(a2a);
-          v2 = byte_46DA42 || (byte_46DA46 && ((unsigned __int8)game_time_end() ||
+          v1 = byte_46DA42 || (byte_46DA46 && ((unsigned __int8)game_time_end() ||
                                                game_time_get_elapsed() > 0 ||
                                                game_time_get_speed() < 1.0));
-          v3 = !game_engine_running() || game_time_get() >= 3;
-          v1 = v3 && v2;
+
+          v1 &= !game_engine_running() || game_time_get() >= 3;
+
           collision_log_continue_period(1);
-          a2b = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
+          a2b = (double)(unsigned __int8)byte_46DA46;
+          a2b *= flt_46DA08;
           director_update(a2b);
-          a2_4 = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
+          a2_4 = (double)(unsigned __int8)byte_46DA46;
+          a2_4 *= flt_46DA08;
           observer_update(a2_4);
           collision_log_end_period();
-          a2_4a = (double)(unsigned __int8)byte_46DA46 * flt_46DA08;
+          a2_4a = (double)(unsigned __int8)byte_46DA46;
+          a2_4a *= flt_46DA08;
           game_engine_update_non_deterministic(a2_4a);
         }
         if (byte_46DA28) {
@@ -464,17 +479,21 @@ void main_loop(void)
     main_frame_rate_debug();
     if (byte_46DA47) {
       byte_46DA47 = 0;
-      dword_46D9E0 = system_milliseconds();
-      qword_46D9E8 = qword_325678;
+      unk_time_globals.unk_0 = system_milliseconds();
+      unk_time_globals.unk_8 = qword_325678;
       byte_46DA46 = 1;
     }
   }
   error(2, "end of saved film");
-  if (word_46DA0C == 1) {
-    dispose_global_network_game_server();
-  } else if (word_46DA0C == 2) {
+  x = word_46DA0C;
+  switch (x) {
+  case 2:
     dispose_global_network_game_server();
     dispose_global_network_game_client();
+    break;
+  case 1:
+    dispose_global_network_game_server();
+    break;
   }
   game_dispose_from_old_map();
   game_dispose();

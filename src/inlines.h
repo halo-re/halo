@@ -1,5 +1,10 @@
+#ifdef MSVC_EARLY
+#define qmemcpy memcpy
+#pragma intrinsic(atan2, memcpy)
+#else
 #define atan2 atan2_
-static inline double atan2(double y, double x)
+
+static inline double atan2_(double y, double x)
 {
   double r = 0;
 #ifdef MSVC
@@ -24,3 +29,5 @@ static inline void *qmemcpy(void *s1, const void *s2, size_t n)
   }
   return s1;
 }
+
+#endif // MSVC_EARLY

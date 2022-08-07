@@ -1324,7 +1324,7 @@
           "addr": "0x184cd0"
         },
         {
-          "decl": "void render_frame(void *a2, __int16 a3, _WORD *a4, _WORD *a5, int a6, float a7);",
+          "decl": "void render_frame(void *a2, __int16 a3, _WORD *a4, _WORD *a5, void *a6, float a7);",
           "addr": "0x185680"
         }
       ]
@@ -1402,6 +1402,10 @@
         {
           "decl": "void shell_idle(void);",
           "addr": "0x191250"
+        },
+        {
+          "decl": "void update_loaded_module_section_attributes(void);",
+          "addr": "0x191260"
         },
         {
           "decl": "int __cdecl main(int argc, const char **argv, const char **envp);",
@@ -1594,7 +1598,7 @@
           "addr": "0x31e500"
         },
         {
-          "decl": "long long int qword_325678;",
+          "decl": "volatile int64_t qword_325678;",
           "addr": "0x325678"
         },
         {
@@ -1662,12 +1666,8 @@
           "addr": "0x46d930"
         },
         {
-          "decl": "int dword_46D9E0;",
+          "decl": "unk_time_globals_t unk_time_globals;",
           "addr": "0x46d9e0"
-        },
-        {
-          "decl": "long long int qword_46D9E8;",
-          "addr": "0x46d9e8"
         },
         {
           "decl": "float flt_46DA08;",
@@ -1826,10 +1826,6 @@
         {
           "decl": "void j__render_dispose_from_old_map(void);",
           "addr": "0x184ba0"
-        },
-        {
-          "decl": "void update_loaded_module_section_attributes(void);",
-          "addr": "0x191260"
         }
       ]
     }

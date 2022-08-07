@@ -1,5 +1,5 @@
 #ifdef MSVC
-#define __noreturn __declspec(noreturn)
+#define __noreturn
 #define offsetof(t, f) ( (int) &((t*)0)->f )
 #define static_assert(cond) static_assert(cond, #cond)
 #else
@@ -15,12 +15,15 @@
 typedef signed char int8_t;
 typedef signed short int16_t;
 typedef signed int int32_t;
+#ifdef MSVC
+typedef __int64 int64_t;
+#else
 typedef signed long long int64_t;
+#endif
 
 typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;
 typedef unsigned int uint32_t;
-typedef unsigned long long uint64_t;
 
 typedef unsigned char bool;
 typedef signed short wchar_t;
@@ -163,5 +166,15 @@ typedef struct {
   camera_t camera;       ///< offset=0x08
   float    frustum[127]; ///< offset=0x5c
 } window_parameters_t;
+
+/// size=0x28
+typedef struct {
+  uint32_t unk_0;  ///< offset=0x00
+  uint32_t unk_4;  ///< offset=0x04
+  int64_t  unk_8;  ///< offset=0x08
+  int64_t  unk_16; ///< offset=0x10
+  int64_t  unk_24; ///< offset=0x18
+  int64_t  unk_32; ///< offset=0x20
+} unk_time_globals_t;
 
 #pragma pack()

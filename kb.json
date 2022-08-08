@@ -1634,11 +1634,11 @@
           "addr": "0x46bba0"
         },
         {
-          "decl": "int word_46BC08;",
+          "decl": "short word_46BC08;",
           "addr": "0x46bc08"
         },
         {
-          "decl": "int word_46BC0A;",
+          "decl": "short word_46BC0A;",
           "addr": "0x46bc0a"
         },
         {

@@ -126,17 +126,18 @@ typedef struct
   int16_t x1; ///< offset=0x06
 } viewport_bounds_t;
 
+/// size=0x0C
+typedef struct {
+  float x; ///< offset=0x00
+  float y; ///< offset=0x04
+  float z; ///< offset=0x08
+} vector3_t;
+
 /// size=0x54
 typedef struct {
-  uint32_t          unk_0;                  ///< offset=0x00
-  uint32_t          unk_4;                  ///< offset=0x04
-  uint32_t          unk_8;                  ///< offset=0x08
-  uint32_t          unk_12;                 ///< offset=0x0c
-  uint32_t          unk_16;                 ///< offset=0x10
-  float             unk_20;                 ///< offset=0x14
-  uint32_t          unk_24;                 ///< offset=0x18
-  float             unk_28;                 ///< offset=0x1c
-  uint32_t          unk_32;                 ///< offset=0x20
+  vector3_t         unk_0;                  ///< offset=0x00
+  vector3_t         unk_12;                 ///< offset=0x0c
+  vector3_t         unk_24;                 ///< offset=0x18
   uint8_t           unk_36;                 ///< offset=0x24
   char              unk_37[3];              ///< offset=0x25
   float             vertical_field_of_view; ///< offset=0x28

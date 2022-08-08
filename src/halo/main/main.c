@@ -75,19 +75,29 @@ void create_local_players(void)
 
 void main_pregame_render(void)
 {
+  vector3_t unk[3];
+
   collision_log_continue_period(1);
   sound_render();
-  pregame_render_info.cam1.unk_0 = 0;
-  pregame_render_info.cam1.unk_4 = 0;
-  pregame_render_info.cam1.unk_8 = 0;
-  pregame_render_info.cam1.unk_12 = 0;
-  pregame_render_info.cam1.unk_16 = 0;
-  pregame_render_info.cam1.unk_20 = 1.0;
+
+  unk[2].x = 0;
+  unk[2].y = 0;
+  unk[2].z = 0;
+  pregame_render_info.cam1.unk_0 = unk[2];
+
+  unk[1].x = 0;
+  unk[1].y = 0;
+  unk[1].z = 1.0;
+  pregame_render_info.cam1.unk_12 = unk[1];
+
   pregame_render_info.unk_0 = -1;
   pregame_render_info.unk_2 = 1;
-  pregame_render_info.cam1.unk_24 = 0;
-  pregame_render_info.cam1.unk_28 = 1.0;
-  pregame_render_info.cam1.unk_32 = 0;
+
+  unk[0].x = 0;
+  unk[0].y = 1.0;
+  unk[0].z = 0;
+  pregame_render_info.cam1.unk_24 = unk[0];
+
   pregame_render_info.cam1.unk_36 = 0;
   pregame_render_info.cam1.vertical_field_of_view =
     2 *

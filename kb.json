@@ -29,7 +29,7 @@
       "name": "LIBCMT:qsort.obj",
       "functions": [
         {
-          "decl": "void qsort(void *base, unsigned int nmemb, unsigned int size, int (__cdecl *compar)(unsigned int, unsigned int));",
+          "decl": "void __cdecl qsort(void *base, size_t nmemb, size_t size, int (__cdecl *compar)(const void *, const void *));",
           "addr": "0x1d9260"
         }
       ]
@@ -1820,7 +1820,7 @@
           "addr": "0xf0ea0"
         },
         {
-          "decl": "int sub_100090(__int16 *a1, __int16 *a2);",
+          "decl": "int __cdecl sub_100090(const void *a1, const void *a2);",
           "addr": "0x100090"
         },
         {

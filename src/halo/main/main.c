@@ -1,75 +1,67 @@
-static const short _game_connection_local = 0;
-
 short game_connection(void)
 {
   return word_46DA0C;
 }
 
+static const short _game_connection_local = 0;
+
 void create_local_players(void)
 {
-  int v0; // eax
-  int v1; // edi
-  int i; // esi
-  __int16 single_player_local_player_controller; // ax
-  __int16 v4; // ax
-  int j; // eax
-  unsigned __int16 gamepad_index; // si
-  int v7; // eax
-  __int16 a2[4]; // [esp+0h] [ebp-18h] BYREF
-  __int16 v9[4]; // [esp+8h] [ebp-10h]
-  int16_t desired_controllers[4]; // [esp+10h] [ebp-8h] BYREF
+  int i;
+  int j;
+  int player;
+  int16_t gamepad_index;
+  int16_t assigned_controllers[4];
+  int16_t desired_controllers[4];
+  int16_t default_controllers[4];
 
   if (byte_46DA42) {
-    v0 = player_new(0, -1, 0, 0);
-    local_player_set_player_index(0, v0);
-  } else {
-    csmemset(a2, -1, sizeof(a2));
-    csmemset(desired_controllers, -1, sizeof(desired_controllers));
-    v1 = 0;
-    v9[0] = 0;
-    v9[1] = 1;
-    v9[2] = 2;
-    v9[3] = 3;
+    local_player_set_player_index(0, player_new(0, -1, 0, 0));
+    return;
+  }
 
-    assert_halt(game_connection() == _game_connection_local);
+  csmemset(assigned_controllers, -1, sizeof(assigned_controllers));
+  csmemset(desired_controllers, -1, sizeof(desired_controllers));
+  default_controllers[0] = 0;
+  default_controllers[1] = 1;
+  default_controllers[2] = 2;
+  default_controllers[3] = 3;
 
-    for (i = 0; i < player_spawn_count; ++i) {
-      single_player_local_player_controller =
-        player_ui_get_single_player_local_player_controller(i);
-      desired_controllers[i] = single_player_local_player_controller;
-      if (single_player_local_player_controller == -1) {
-        desired_controllers[i] = v9[i];
-      }
+  assert_halt(game_connection() == _game_connection_local);
 
-      assert_halt((desired_controllers[i] >= 0) &&
-                  (desired_controllers[i] < MAXIMUM_GAMEPADS));
+  for (i = 0; i < player_spawn_count; i++) {
+    gamepad_index = player_ui_get_single_player_local_player_controller(i);
+    desired_controllers[i] = gamepad_index;
+    if (gamepad_index == -1) {
+      desired_controllers[i] = default_controllers[i];
+    }
 
-      v4 = desired_controllers[i];
-      if (a2[v4] == -1) {
-        a2[v4] = v4;
-      } else {
-        j = 0;
-        while (a2[j] != -1) {
-          j++;
-          assert_halt(j < MAXIMUM_GAMEPADS);
+    assert_halt((desired_controllers[i] >= 0) &&
+                (desired_controllers[i] < MAXIMUM_GAMEPADS));
+
+    gamepad_index = desired_controllers[i];
+    if (assigned_controllers[gamepad_index] != -1) {
+      for (j = 0; j < MAXIMUM_GAMEPADS; j++) {
+        if (assigned_controllers[j] == -1) {
+          desired_controllers[i] = j;
+          assigned_controllers[(int16_t)j] = j;
+          break;
         }
-        desired_controllers[i] = j;
-        a2[j] = j;
       }
+      assert_halt(j < MAXIMUM_GAMEPADS);
+    } else {
+      assigned_controllers[gamepad_index] = gamepad_index;
     }
-    qsort(desired_controllers, 4, 2,
-          (int(__cdecl *)(unsigned int, unsigned int))sub_100090);
-    if (player_spawn_count > 0) {
-      do {
-        gamepad_index = desired_controllers[v1];
+  }
 
-        assert_halt((gamepad_index >= 0) && (gamepad_index < MAXIMUM_GAMEPADS));
+  qsort(desired_controllers, 4, 2,
+        (int(__cdecl *)(unsigned int, unsigned int))sub_100090);
 
-        v7 = player_new(0, -1, gamepad_index, 0);
-        local_player_set_player_index(gamepad_index, v7);
-        ++v1;
-      } while (v1 < player_spawn_count);
-    }
+  for (i = 0; i < player_spawn_count; i++) {
+    gamepad_index = desired_controllers[i];
+    assert_halt((gamepad_index >= 0) && (gamepad_index < MAXIMUM_GAMEPADS));
+    player = player_new(0, -1, gamepad_index, 0);
+    local_player_set_player_index(gamepad_index, player);
   }
 }
 

@@ -107,27 +107,29 @@ void main_pregame_render(void)
 
 void main_setup_connection(void)
 {
-  game_options_t game_options; // [esp+0h] [ebp-10Ch] BYREF
+  game_options_t game_options;
 
   if (byte_46DA45) {
     main_menu_load_pending = 0;
     word_46DA0C = 3;
     error(2, "error opening saved film");
     main_menu_load_pending = 1;
-    main_menu_load();
-  } else if (main_menu_load_pending) {
-    main_menu_load();
-  } else {
-    word_46DA0C = 0;
-    game_options_new(&game_options);
-    csstrncpy(game_options.map_name, map_name,
-              sizeof(game_options.map_name) - 1);
-    game_options.map_name[sizeof(game_options.map_name) - 1] = 0;
-    game_options.difficulty = global_difficulty_level;
-    game_precache_new_map(game_options.map_name, 1);
-    game_dispose_from_old_map();
-    main_new_map(&game_options);
   }
+
+  if (main_menu_load_pending) {
+    main_menu_load();
+    return;
+  }
+
+  word_46DA0C = 0;
+  game_options_new(&game_options);
+  csstrncpy(game_options.map_name, map_name,
+            sizeof(game_options.map_name) - 1);
+  game_options.map_name[sizeof(game_options.map_name) - 1] = 0;
+  game_options.difficulty = global_difficulty_level;
+  game_precache_new_map(game_options.map_name, 1);
+  game_dispose_from_old_map();
+  main_new_map(&game_options);
 }
 
 void main_initialize_time(void)

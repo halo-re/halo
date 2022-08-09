@@ -25,11 +25,11 @@ static void init_kernel_imports(void)
     return;
   }
 
-  // FIXME: Be smarter about resolving imports
-  // int import_table_offset = 0x2e8; // release
-  int import_table_offset = 0x328; // debug
-  uint32_t *kernel_export_table =
-    (uint32_t *)(kernel_image_base + import_table_offset);
+  uint32_t pe_offset = *(uint32_t *)(kernel_image_base + 0x3c);
+  uint32_t export_dir_offset = *(uint32_t *)(kernel_image_base + pe_offset + 0x78);
+  uint32_t export_table_offset = *(uint32_t *)(kernel_image_base + export_dir_offset + 0x1c);
+  uint32_t *kernel_export_table = (uint32_t *)(kernel_image_base + export_table_offset);
+
   for (int i = 0;; i++) {
     uint32_t ordinal = exe_import_table[i] & 0xffff;
     if (ordinal == 0) {

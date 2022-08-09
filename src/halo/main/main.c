@@ -104,7 +104,7 @@ void main_pregame_render(void)
     atan2(render_camera_get_adjusted_field_of_view_tangent(1.3962634) * 0.75,
           1.0);
   compute_window_bounds(0, 1, &pregame_render_info.cam1.viewport_bounds,
-                        pregame_render_info.cam1.unk_52);
+                        &pregame_render_info.cam1.unk_52);
   pregame_render_info.cam1.z_near = 0.0099999998;
   pregame_render_info.cam1.z_far = 1.0;
   qmemcpy(&pregame_render_info.cam0, &pregame_render_info.cam1,
@@ -154,76 +154,62 @@ void main_initialize_time(void)
 
 void main_game_render(double a2)
 {
-  bool force_single_screen; // bl MAPDST
-  int v2; // edi
-  int player_index; // ebx
-  unsigned __int8 *v4; // esi
-  unsigned __int8 *v5; // edi
-  unsigned __int8 *v6; // esi
-  float a7; // [esp+0h] [ebp-24h]
-  float *camera; // [esp+10h] [ebp-14h]
-  int num_players; // [esp+14h] [ebp-10h]
-  __int16 next_player; // [esp+18h] [ebp-Ch]
-  int player_count; // [esp+1Ch] [ebp-8h]
+  bool force_single_screen;
+  int player_index;
+  window_t *current_window;
+  void *camera;
+  int num_players;
+  int num_screens;
+  __int16 next_player;
 
   lock_global_random_seed();
   collision_log_continue_period(1);
   sound_render();
+
   force_single_screen = game_engine_force_single_screen();
   next_player = -1;
-  if (local_player_count() < 1) {
-    player_count = 1;
-  } else {
-    if (local_player_count() > 4) {
-      player_count = 4;
-    } else {
-      player_count = local_player_count();
-    }
-  }
-  v2 = player_count;
-  num_players = player_count;
+  num_screens = CLAMP(local_player_count(), 1, 4);
+  num_players = num_screens;
+
   if (force_single_screen || cinematic_in_progress()) {
-    player_count = 1;
+    num_screens = 1;
     num_players = 1;
-    v2 = 1;
   }
-  player_index = 0;
-  if (v2 > 0) {
-    v4 = window;
-    do {
-      v5 = v4 + 132;
-      camera = NULL;
-      compute_window_bounds(player_index, num_players,
-                            (viewport_bounds_t *)(v4 + 132), (_WORD *)v4 + 70);
-      if (!force_single_screen && player_index < player_count) {
-        if (!byte_325714 || next_player == -1) {
-          if (word_46DA0C == 3) {
-            next_player = 0;
-          } else {
-            next_player = local_player_get_next(next_player);
-          }
+
+  for (player_index = 0; player_index < num_players; player_index++) {
+    current_window = &window[player_index];
+    camera = NULL;
+
+    compute_window_bounds(player_index, num_players, &current_window->unk_132,
+                          &current_window->unk_140);
+
+    if (!force_single_screen && player_index < num_screens) {
+      if (!byte_325714 || next_player == -1) {
+        if (word_46DA0C == 3) {
+          next_player = 0;
+        } else {
+          next_player = local_player_get_next(next_player);
         }
-        *(_WORD *)v4 = next_player;
-        camera = observer_get_camera(next_player);
-      } else {
-        *(_WORD *)v4 = -1;
       }
-      set_window_camera_values(v4, camera);
-      ++player_index;
-      v4 += 172;
-      *(v5 - 130) = 0;
-    } while (player_index < num_players);
-    v2 = num_players;
+      current_window->player = next_player;
+      camera = observer_get_camera(next_player);
+    } else {
+      current_window->player = -1;
+    }
+
+    set_window_camera_values(current_window, camera);
+    current_window->unk_2 = 0;
   }
-  v6 = &window[172 * v2];
-  compute_window_bounds(0, 1, (viewport_bounds_t *)(v6 + 132),
-                        (_WORD *)v6 + 70);
-  *(_WORD *)v6 = -1;
-  v6[2] = 1;
-  set_window_camera_values(v6, 0);
+
+  current_window = &window[num_players];
+  compute_window_bounds(0, 1, &current_window->unk_132,
+                        &current_window->unk_140);
+  current_window->player = -1;
+  current_window->unk_2 = 1;
+  set_window_camera_values(current_window, 0);
+
   if (global_screenshot_count <= 0) {
-    a7 = a2;
-    render_frame(window, v2 + 1, 0, 0, bitmap, a7);
+    render_frame(window, num_players + 1, 0, 0, bitmap, a2);
   } else {
     screenshot_render(window);
   }

@@ -145,7 +145,7 @@ typedef struct {
   char              unk_37[3];              ///< offset=0x25
   float             vertical_field_of_view; ///< offset=0x28
   viewport_bounds_t viewport_bounds;        ///< offset=0x2c
-  _WORD             unk_52[4];              ///< offset=0x34
+  viewport_bounds_t unk_52;                 ///< offset=0x34
   float             z_near;                 ///< offset=0x3c
   float             z_far;                  ///< offset=0x40
   char              unk_68[16];             ///< offset=0x44
@@ -176,5 +176,17 @@ typedef struct {
   int64_t  unk_24; ///< offset=0x18
   int64_t  unk_32; ///< offset=0x20
 } unk_time_globals_t;
+
+/// size=0xAC
+typedef struct
+{
+  __int16           player;      ///< offset=0x00
+  bool              unk_2;       ///< offset=0x02
+  char              unk_3[129];  ///< offset=0x03
+  viewport_bounds_t unk_132;     ///< offset=0x84
+  viewport_bounds_t unk_140;     ///< offset=0x8c
+  char              unk_148[24]; ///< offset=0x94
+} window_t;
+
 
 #pragma pack()

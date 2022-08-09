@@ -5,7 +5,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -qy \
       cmake \
       clang \
       lld \
-      python3-pip
+      python3-pip \
+      git
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt

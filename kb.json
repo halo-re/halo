@@ -1094,7 +1094,7 @@
       "source": "interface/player_ui.c",
       "functions": [
         {
-          "decl": "__int16 player_ui_get_single_player_local_player_controller(unsigned __int16 a1);",
+          "decl": "__int16 player_ui_get_single_player_local_player_controller(__int16 a1);",
           "addr": "0xe07c0"
         },
         {

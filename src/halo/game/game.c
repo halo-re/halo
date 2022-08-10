@@ -133,10 +133,13 @@ bool game_load(game_options_t *options)
 
 void game_initialize_for_new_map(void)
 {
+  int random_seed;
+
   assert_halt(game_globals->map_loaded);
   assert_halt(!game_globals->active);
 
-  *get_global_random_seed_address() = game_globals->game_options.random_seed;
+  random_seed = game_globals->game_options.random_seed;
+  *get_global_random_seed_address() = random_seed;
   game_engine_dispose();
   game_engine_initialize(&game_variant_global);
   real_math_reset_precision();
@@ -178,7 +181,8 @@ void game_initialize_for_new_map(void)
   cheats_initialize_for_new_map();
   game_globals->active = 1;
   objects_place();
-  if (!game_in_editor())
+  if (!game_in_editor()) {
     ai_place();
+  }
   ui_widgets_safe_to_load(1);
 }

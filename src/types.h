@@ -45,7 +45,7 @@ static const bool false = 0;
 typedef struct {
   uint32_t unk_0;         ///< offset=0x00
   uint16_t unk_4;         ///< offset=0x04
-  uint16_t difficulty;    ///< offset=0x06
+  int16_t  difficulty;    ///< offset=0x06
   uint32_t random_seed;   ///< offset=0x08
   char     map_name[256]; ///< offset=0x0c
 } game_options_t;

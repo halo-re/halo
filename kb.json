@@ -467,7 +467,7 @@
           "addr": "0xa73c0"
         },
         {
-          "decl": "char game_load(game_options_t *options);",
+          "decl": "bool game_load(game_options_t *options);",
           "addr": "0xa76b0"
         },
         {

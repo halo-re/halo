@@ -106,21 +106,29 @@ void game_initial_pulse()
 
 static bool game_options_verify(game_options_t *options)
 {
-  return options->difficulty < 4;
+  return options->difficulty >= 0 && options->difficulty < 4;
 }
 
-char game_load(game_options_t *options)
+bool game_load(game_options_t *options)
 {
+  game_globals_t *globals;
+  bool loaded;
+
   assert_halt(!game_globals->active);
   assert_halt(!game_globals->map_loaded);
   assert_halt(game_options_verify(options));
 
   random_seed_debug_log(1);
   csmemcpy(&game_globals->game_options, options, sizeof(*options));
-  if (scenario_load(options->map_name)) {
-    game_globals->map_loaded = 1;
+
+  loaded = scenario_load(options->map_name);
+  globals = game_globals;
+
+  if (loaded) {
+    globals->map_loaded = true;
   }
-  return game_globals->map_loaded;
+
+  return globals->map_loaded;
 }
 
 void game_initialize_for_new_map(void)

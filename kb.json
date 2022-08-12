@@ -251,6 +251,10 @@
           "addr": "0x8de70"
         },
         {
+          "decl": "size_t __cdecl csstrlen(const char *s1);",
+          "addr": "0x8df60"
+        },
+        {
           "decl": "void *csmemcpy(void *destination, void *source, size_t size);",
           "addr": "0x8e0b0"
         }

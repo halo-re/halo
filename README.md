@@ -10,7 +10,7 @@ The goal of this project is to study and re-implement the original Xbox launch t
 
 Community
 ---------
-There is a Discord server for the project: https://discord.gg/z4wjN2rQ
+There is a Discord server for the project: https://discord.gg/wJFfe6c9UB
 
 Current State
 -------------

@@ -74,6 +74,6 @@ Interested in reversing the game? PRs are welcome!
 
 The process of adding re-implemented functions is mostly automated and relatively painless:
 * Add new function/data declarations to `kb.json` as they are discovered and confirmed. The definitions in `kb.json` are used to automatically generate header files and link the new implementation with the original XBE.
-* Implement new functions in the appropriate source file `src/halo/**/*.c`. Add new source files to src/CMakeLists.txt.
+* Implement new functions in the appropriate source file `src/halo/**/*.c`. Add new source files to `src/CMakeLists.txt`.
 * The build system will compile and patch the XBE with redirects from the original implementations to the re-implementations.
 * Naturally, your new code will call some function in the original binary that has not yet been re-implemented. These functions will also be automatically linked correctly, provided the definitions of data and called functions are in `kb.json`.

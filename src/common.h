@@ -42,4 +42,8 @@ extern const char *build_ui_widget_text;
 #define MAXIMUM_NUMBER_OF_LOCAL_PLAYERS 4
 #define MAXIMUM_STRING_SIZE 0x2000
 
+#ifdef DEBUG_BUILD
+#define strlen csstrlen
+#endif
+
 #endif

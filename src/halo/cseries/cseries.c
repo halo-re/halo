@@ -8,6 +8,10 @@ void display_assert(const char *reason, const char *filepath, int lineno,
         lineno, reason ? reason : "<no reason given>");
 }
 
+#ifdef strlen
+#undef strlen
+#endif
+
 int csstrlen(const char *s1)
 {
   int size;

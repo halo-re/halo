@@ -1,6 +1,8 @@
 #ifdef MSVC_EARLY
-#define qmemcpy memcpy
-#pragma intrinsic(atan2, memcpy)
+#define qmemcpy memcpy strlen
+#pragma intrinsic(atan2)
+#pragma intrinsic(memcpy)
+#pragma intrinsic(strlen)
 #else
 #define atan2 atan2_
 
@@ -28,6 +30,15 @@ static inline void *qmemcpy(void *s1, const void *s2, size_t n)
     *dest++ = *src++;
   }
   return s1;
+}
+
+static inline size_t strlen(const char *s)
+{
+  size_t c = 0;
+  while (*s++) {
+    c++;
+  }
+  return c;
 }
 
 #endif // MSVC_EARLY

@@ -8,16 +8,12 @@ void display_assert(const char *reason, const char *filepath, int lineno,
         lineno, reason ? reason : "<no reason given>");
 }
 
-size_t __cdecl csstrlen(const char *s1)
+int csstrlen(const char *s1)
 {
+  int size;
+
   assert_halt(s1);
-
-  size_t size = 0;
-
-  while (s1[size]) {
-        ++size;
-  }
-
+  size = strlen(s1);
   assert_halt(size >= 0 && size < MAXIMUM_STRING_SIZE);
 
   return size;

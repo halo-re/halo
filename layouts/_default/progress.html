@@ -360,7 +360,6 @@ function update_top_of_page_button_visibility() {
 	var btn = $("#top-of-page").parent();
 	var t = $(document).scrollTop() >= $("#title").offset().top;
 	var fs = $("#fullscreen-container").is(":visible");
-	console.log($("#fullscreen-container").is(":visible"));
 	if (t && !fs) {
 		btn.show();
 	} else {

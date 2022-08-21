@@ -207,43 +207,43 @@ a, a:hover, a:visited {
 	display: inline-block;
 	border-radius: 100%;
 	font-size: 0.5em;
-	padding: 0.5em;
+	padding: 4px;
+	margin: 10px;
 }
 
 .page-control-button-outer {
 	display: inline-block;
 }
 
-.light-bulb-icon,
-.arrow-outline-up-icon,
-.screen-full-icon,
-.close-outline-icon,
-.location-icon,
+.sun-icon,
+.arrow-sm-up-icon,
+.arrows-expand-icon,
+.x-icon,
+.location-marker-icon,
 .github-icon {
 	background-color: var(--body-fg-color);
 	display: block;
-	font-size: 0;
-	width: 30px;
-	height: 30px;
+	width: 24px;
+	height: 24px;
 }
 
-.screen-full-icon,
-.location-icon,
+.arrows-expand-icon,
+.location-marker-icon,
 .callgraph-icon {
 	width: 20px;
 	height: 20px;
 }
 
-.light-bulb-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/light-bulb.svg'); }
-.arrow-outline-up-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/arrow-outline-up.svg'); }
-.screen-full-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/screen-full.svg'); }
-.close-outline-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/close-outline.svg'); }
-.location-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/location.svg'); }
+.sun-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/sun.svg'); }
+.arrow-sm-up-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/arrow-sm-up.svg'); }
+.arrows-expand-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/arrows-expand.svg'); }
+.x-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/x.svg'); }
+.location-marker-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/location-marker.svg'); }
 .github-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/github.svg'); }
 .callgraph-icon {
 	-webkit-mask-image: url('{{ .Site.BaseURL }}icons/call-graph-icon.svg');
 	background-color: var(--body-fg-color);
-	margin-bottom: -0.35em;
+	margin-bottom: -0.3em;
 	line-height: 1.25em;
 	display: inline-block;
 }
@@ -283,9 +283,9 @@ a, a:hover, a:visited {
 <body>
 
 <div id="page-control-container">
-<div class="page-control-button-outer"><a href="#" id="exit-fullscreen" class="page-control-button" title="Exit fullscreen"><i class="ic close-outline-icon"></i></a></div>
-<div class="page-control-button-outer"><a href="#" id="top-of-page" class="page-control-button" title="Go to top of page"><i class="ic arrow-outline-up-icon"></i></a></div>
-<div class="page-control-button-outer"><a href="#" id="toggle-theme" class="page-control-button" title="Toggle light/dark theme"><i class="ic light-bulb-icon"></i></a></div>
+<div class="page-control-button-outer"><a href="#" id="exit-fullscreen" class="page-control-button" title="Exit fullscreen"><i class="ic x-icon"></i></a></div>
+<div class="page-control-button-outer"><a href="#" id="top-of-page" class="page-control-button" title="Go to top of page"><i class="ic arrow-sm-up-icon"></i></a></div>
+<div class="page-control-button-outer"><a href="#" id="toggle-theme" class="page-control-button" title="Toggle light/dark theme"><i class="ic sun-icon"></i></a></div>
 <div class="page-control-button-outer"><a href="https://github.com/mborgerson/halo" class="page-control-button" title="Visit project GitHub page"><i class="ic github-icon"></i></a></div>
 </div>
 
@@ -314,10 +314,10 @@ a, a:hover, a:visited {
 <h2 id="callgraph">Call Graph</h2>
 <p>Graph of function callers and callees.<br /><br /><b>Usage:</b> Double-click on a function node to display its call graph. Use browser back/forward buttons to quickly return to previous locations.</p>
 <div id="callgraph-outer-container">
-<a id="callgraph-view-fullscreen-link" href="#" title="Expand graph to fullscreen"><i class="screen-full-icon"></i></a>
+<a id="callgraph-view-fullscreen-link" href="#" title="Expand graph to fullscreen"><i class="arrows-expand-icon"></i></a>
 <div id="callgraph-inner-container">
 	<div id="callgraph-details-container">
-		<div id="callgraph-details-icon-container" title="Current location"><i class="location-icon"></i></div>
+		<div id="callgraph-details-icon-container" title="Current location"><i class="location-marker-icon"></i></div>
 		<span id="callgraph-details">No function selected</span>
 	</div>
 	<div id="callgraph-graph"></div>

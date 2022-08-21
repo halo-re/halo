@@ -538,7 +538,10 @@ function show_call_graph_for_name(name) {
 	show_call_graph_for_addr(name_to_addr[name]);
 }
 
+var fonts_loaded = false;
+
 document.fonts.onloadingdone = function (fontFaceSetEvent) {
+	fonts_loaded = true;
 	if (network !== null) {
 		network.setOptions({nodes: {font: {face: 'JetBrains Mono'}}});
 	}
@@ -602,7 +605,7 @@ function show_call_graph_for_addr(addr) {
 			},
 			nodes: {
 				font: {
-					face: 'monospace',
+					face: (fonts_loaded ? 'JetBrains Mono' : 'monospace'),
 					color: 'black'
 				},
 				borderWidth: 1,

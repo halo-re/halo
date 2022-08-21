@@ -9,16 +9,6 @@ a:hover {
   color: #fff;
 }
 
-/* Custom default button */
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: #fff;
-  border: .05rem solid #fff;
-}
-
 
 /*
  * Base structure
@@ -38,19 +28,13 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  z-index:  -1;
+  z-index: -1;
 }
 
 .jumbotron {
   position: relative;
   display:flex;
   flex-direction:column;
-}
-
-
-.button-icon {
-  display: inline-block;
-  margin-right: 0.75em;
 }
 
 .disclaimer {
@@ -66,11 +50,21 @@ body {
 }
 
 .logo-text {
-  font-family: 'Saira Semi Condensed', sans-serif;
+  font-family: 'Saira Semi Condensed', 'Roboto', sans-serif;
   background: -webkit-linear-gradient(#55b9ff, #007ace);
   color: #007ace;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-transform: uppercase;
   filter: drop-shadow(0px 0px 5px #222);
+}
+
+.github-icon {
+  display: inline-block;
+  background-color: white;
+  -webkit-mask-image: url('/icons/github.svg');
+  height: 24px;
+  width: 24px;
+  margin-right: 0.75em;
+  margin-bottom: -0.2em;
 }

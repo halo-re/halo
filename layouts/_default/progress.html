@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en" class="theme-light">
+<head>
+<title>Progress Report | Halo Decompilation Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="{{ .Site.BaseURL }}js/jquery.min.js"></script>
+<script src="{{ .Site.BaseURL }}js/vis-network.min.js"></script>
+<link rel="stylesheet" href="{{ .Site.BaseURL }}css/bootstrap.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400&family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style type="text/css">
+.theme-light {
+	--body-bg-color:     #eeeee8;
+	--body-alt-bg-color: #e5e6e0;
+	--body-fg-color:     #08161f;
+	--pb-border-color:   #0e6dc9;
+	--pb-fill-1:         #2896ff;
+	--pb-fill-2:         #28c6ff;
+}
+
+.theme-dark {
+	--body-bg-color:     #08161f;
+	--body-alt-bg-color: #121f28;
+	--body-fg-color:     #eeeee8;
+	--pb-border-color:   #b7e3ff;
+	--pb-fill-1:         #1a4f82;
+	--pb-fill-2:         #3c87d0;
+}
+
+body {
+	--basic-radius: 7px;
+	--monospace-font: 'JetBrains Mono', monospace;
+	font-family: 'Roboto', Arial, sans-serif;
+	background-color: var(--body-bg-color);
+	color: var(--body-fg-color);
+}
+
+header {
+	margin-top: 2em;
+	text-align:  center;
+}
+
+#title a {
+	text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+	font-family: 'Saira Semi Condensed', 'Roboto', Arial, sans-serif;
+	text-transform: uppercase;
+}
+
+h2 {
+	margin-top: 1em;
+	border-bottom: 1px var(--body-fg-color) solid;
+}
+
+table {
+	border: 1px var(--body-fg-color) solid;
+	border-radius: var(--basic-radius);
+	border-spacing: 0;
+	border-collapse: separate;
+	overflow: hidden;
+	width: 100%;
+}
+
+th {
+	background-color: var(--body-fg-color);
+	color: var(--body-bg-color);
+	font-weight: bold;
+	padding: 0.25em;
+}
+
+tbody tr:nth-child(even) {
+	background-color: var(--body-alt-bg-color);
+}
+
+td {
+	font-family: var(--monospace-font);
+}
+
+th, td {
+	padding: 0.25em 0.75em;
+}
+
+.ellipsis-column {
+	max-width: 0;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space:  nowrap;
+}
+
+th:last-child, td:last-child {
+	text-align: center;
+}
+
+th:first-child, td:first-child {
+	text-align: right;
+}
+
+p {
+	padding: 1em;
+}
+
+a, a:hover, a:visited {
+	color: var(--body-fg-color);
+}
+
+#pb-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#pb-percentage {
+	font-family: var(--monospace-font);
+	font-size: 2em;
+	margin-left: 0.5em;
+	color: var(--pb-border-color);
+}
+
+#pb {
+	overflow: hidden;
+	border-radius: 0.45em;
+	width: 100%;
+	height: 3em;
+	display: inline-block;
+	border: var(--pb-border-color) 2px solid;
+	box-shadow: inset 0 0 10px 10px #28C6ff20,
+	                  0 0 10px 10px #28C6ff20;
+}
+
+#pb-fill {
+	background: linear-gradient(90deg, var(--pb-fill-1) 0%, var(--pb-fill-2) 100%);
+	height: 100%;
+}
+
+#disclaimer {
+	background: var(--body-alt-bg-color);
+	padding: 1em;
+}
+
+#callgraph-outer-container {
+	border: 1px var(--body-fg-color) solid;
+	border-radius: var(--basic-radius);
+	overflow: hidden;
+	width: 100%;
+	height: 500px;
+	position: relative;
+}
+
+#callgraph-inner-container {
+	background-color: var(--body-bg-color);
+	width: 100%;
+	height: 100%;
+}
+
+#callgraph-graph {
+	width: 100%;
+	height: 100%;
+}
+
+#callgraph-view-fullscreen-link {
+	background-color: var(--body-bg-color);
+	border-radius: 100%;
+	display: inline-block;
+	z-index: 3;
+	padding: 0.5em;
+	position: absolute;
+	right: 0;
+}
+
+#callgraph-details-container {
+	background: var(--body-alt-bg-color);
+	z-index: 2;
+	padding: 0.5em;
+	position: absolute;
+	top: 0;
+	font-family: var(--monospace-font);
+	border-radius: 0.5em;
+}
+
+#callgraph-details-icon-container {
+	display: inline-block;
+	margin-bottom: -0.3em;
+}
+
+.code {
+	background: var(--body-alt-bg-color);
+	font-family: var(--monospace-font);
+	padding: 0.25em;
+}
+
+#page-control-container {
+	z-index: 100;
+	position: fixed;
+	top: 0.5em;
+	right: 0.5em;
+}
+
+.page-control-button {
+	background-color: var(--body-bg-color);
+	display: inline-block;
+	border-radius: 100%;
+	font-size: 0.5em;
+	padding: 0.5em;
+}
+
+.page-control-button-outer {
+	display: inline-block;
+}
+
+.light-bulb-icon,
+.arrow-outline-up-icon,
+.screen-full-icon,
+.close-outline-icon,
+.location-icon,
+.github-icon {
+	background-color: var(--body-fg-color);
+	display: block;
+	font-size: 0;
+	width: 30px;
+	height: 30px;
+}
+
+.screen-full-icon,
+.location-icon,
+.callgraph-icon {
+	width: 20px;
+	height: 20px;
+}
+
+.light-bulb-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/light-bulb.svg'); }
+.arrow-outline-up-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/arrow-outline-up.svg'); }
+.screen-full-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/screen-full.svg'); }
+.close-outline-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/close-outline.svg'); }
+.location-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/location.svg'); }
+.github-icon { -webkit-mask-image: url('{{ .Site.BaseURL }}icons/github.svg'); }
+.callgraph-icon {
+	-webkit-mask-image: url('{{ .Site.BaseURL }}icons/call-graph-icon.svg');
+	background-color: var(--body-fg-color);
+	margin-bottom: -0.35em;
+	line-height: 1.25em;
+	display: inline-block;
+}
+
+@media (hover: hover) {
+	.page-control-button-outer :hover {
+		background-color: var(--body-fg-color);
+		color: var(--body-bg-color);
+	}
+
+	.page-control-button-outer :hover .ic {
+		background-color: var(--body-bg-color);
+	}
+}
+
+.page-control-button-outer :active {
+	background-color: var(--body-fg-color);
+	color: var(--body-bg-color);
+}
+
+#fullscreen-container {
+	display: none;
+	background-color: var(--body-bg-color);
+	z-index: 99;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#main-container {
+	max-width: 1300px;
+}
+</style>
+</head>
+<body>
+
+<div id="page-control-container">
+<div class="page-control-button-outer"><a href="#" id="exit-fullscreen" class="page-control-button" title="Exit fullscreen"><i class="ic close-outline-icon"></i></a></div>
+<div class="page-control-button-outer"><a href="#" id="top-of-page" class="page-control-button" title="Go to top of page"><i class="ic arrow-outline-up-icon"></i></a></div>
+<div class="page-control-button-outer"><a href="#" id="toggle-theme" class="page-control-button" title="Toggle light/dark theme"><i class="ic light-bulb-icon"></i></a></div>
+<div class="page-control-button-outer"><a href="https://github.com/mborgerson/halo" class="page-control-button" title="Visit project GitHub page"><i class="ic github-icon"></i></a></div>
+</div>
+
+<div id="fullscreen-container">
+</div>
+
+<div class="p-3 col-md-10 mx-auto" id="main-container">
+<header>
+<h1 id="title"><a href="/">Halo Decompilation Project</a></h1>
+<h3>Progress Report</h3>
+<p>The goal of this project is to study and create an open-source re-implementation of the original Xbox launch title Halo:&nbsp;Combat&nbsp;Evolved.<br/>For more details, see the project <a href="https://github.com/mborgerson/halo/blob/main/README.md">README</a>.</p>
+<p id="disclaimer">Project not affiliated with Microsoft or Bungie. For research and educational purposes only. Buy a copy of the game. <a href="https://www.youtube.com/watch?v=p08mIRKB-Yg">Heck, buy two!</a></p>
+</header>
+
+<main>
+
+<h2>Progress</h2>
+<p>Percentage of <span class="code">.text</span> section game code that has been re-implemented.</p>
+<div id="pb-container">
+	<div id="pb">
+		<div id="pb-fill" style="width: 0%"></div>
+	</div>
+	<span id="pb-percentage">0.00%</span>
+</div>
+
+<h2 id="callgraph">Call Graph</h2>
+<p>Graph of function callers and callees.</p>
+<div id="callgraph-outer-container">
+<a id="callgraph-view-fullscreen-link" href="#" title="Expand graph to fullscreen"><i class="screen-full-icon"></i></a>
+<div id="callgraph-inner-container">
+	<div id="callgraph-details-container">
+		<div id="callgraph-details-icon-container" title="Current location"><i class="location-icon"></i></div>
+		<span id="callgraph-details">No function selected</span>
+	</div>
+	<div id="callgraph-graph"></div>
+</div>
+</div>
+
+<h2>Re-implemented Functions</h2>
+<p>Functions that have been re-implemented.</p>
+<table id="functions">
+	<thead>
+		<tr>
+			<th>Address</th>
+			<th class="ellipsis-column">Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<h2>Frontier</h2>
+<p>Functions yet to be re-implemented that are called by functions that have been re-implemented.</p>
+<table id="frontier">
+	<thead>
+		<tr>
+			<th>Address</th>
+			<th class="ellipsis-column">Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+</main>
+
+</div>
+</body>
+
+<script type="text/javascript">
+function update_top_of_page_button_visibility() {
+	var btn = $("#top-of-page").parent();
+	var t = $(document).scrollTop() >= $("#title").offset().top;
+	var fs = $("#fullscreen-container").is(":visible");
+	console.log($("#fullscreen-container").is(":visible"));
+	if (t && !fs) {
+		btn.show();
+	} else {
+		btn.hide();
+	}
+}
+$(document).scroll(update_top_of_page_button_visibility);
+
+function update_exit_button_visibility() {
+	var btn = $("#exit-fullscreen").parent();
+	var fs = $("#fullscreen-container").is(":visible");
+	if (fs) {
+		btn.show();
+	} else {
+		btn.hide();
+	}
+}
+
+function update_button_visibility() {
+	update_top_of_page_button_visibility();
+	update_exit_button_visibility();
+}
+
+update_button_visibility();
+
+$('#callgraph-view-fullscreen-link').on('click', function(e) {
+	var fs = $('#fullscreen-container');
+	$('#callgraph-inner-container').detach().appendTo(fs);
+	fs.show();
+	update_button_visibility();
+	return false;
+});
+
+$('#exit-fullscreen').on('click', function(e) {
+	var fs = $('#fullscreen-container');
+	var outer = $('#callgraph-outer-container');
+	var content = $('#callgraph-inner-container');
+	content.detach().appendTo(outer);
+	fs.hide();
+	update_button_visibility();
+	return false;
+});
+
+// Thanks https://medium.com/@haxzie/dark-and-light-theme-switcher-using-css-variables-and-pure-javascript-zocada-dd0059d72fa2
+function setTheme(themeName) {
+	localStorage.setItem('theme', themeName);
+	document.documentElement.className = themeName;
+}
+
+$('#toggle-theme').on("click", function(e) {
+	if (localStorage.getItem('theme') === 'theme-dark'){
+		setTheme('theme-light');
+	} else {
+		setTheme('theme-dark');
+	}
+	return false;
+});
+
+(function () {
+	if (localStorage.getItem('theme') === 'theme-light') {
+		setTheme('theme-light');
+	} else {
+		setTheme('theme-dark');
+	}
+})();
+
+var addr_to_name = {};
+var name_to_addr = {};
+var call_data = null;
+
+function update_percentage() {
+	$('#pb-fill').animate({percentage: call_data.coverage_percentage}, {
+		duration: 1000,
+		step: (function(now, tween) {
+			$('#pb-fill').css('width', tween.pos*Math.ceil(now) + '%');
+			$('#pb-percentage').html(now.toFixed(2) + '%');
+		})
+	});
+}
+
+function update_tables() {
+	var parent = $("#functions tbody");
+	call_data.funcs.forEach(function (item, index) {
+		markup = `
+			<tr>
+				<td>` + item[0].toString(16) + `</td>
+				<td class="ellipsis-column"><a href="https://github.com/mborgerson/halo/blob/main` + item[2] + `">` + item[1] + `</a></td>
+				<td><a href="?f=` + item[1] + `#callgraph" class="callgraph-link" title="View Call Graph for this function"><i class="callgraph-icon"></i></a></td>
+			</tr>
+		`;
+		parent.append(markup);
+	});
+
+	var parent = $("#frontier tbody");
+	call_data.funcs_unimplemented.forEach(function (item, index) {
+		markup = `
+			<tr>
+				<td>` + item[0].toString(16) + `</td>
+				<td class="ellipsis-column">` + item[1] + `</td>
+				<td><a href="?f=` + item[1] + `#callgraph" class="callgraph-link" title="View Call Graph for this function"><i class="callgraph-icon"></i></a></td>
+			</tr>
+		`;
+		parent.append(markup);
+	});
+}
+
+$.getJSON("/data.json", function(data) {
+	call_data = data;
+	data.funcs.forEach(function (item, index) {
+		addr_to_name[item[0]] = [item[1], "imp", item[2]];
+		name_to_addr[item[1]] = item[0];
+	});
+	data.funcs_unimplemented.forEach(function (item, index) {
+		addr_to_name[item[0]] = [item[1], "unimp"];
+		name_to_addr[item[1]] = item[0];
+	});
+	update_tables();
+	update_percentage();
+
+	$('.callgraph-link').click(function(e) {
+		e.preventDefault();
+		var href = $(this).attr('href');
+		window.history.pushState({}, '', href);
+		location.href = href;
+		update_call_graph_from_url();
+	});
+
+	// Re-navigate to anchor after page content shift
+	if (window.location.hash) {
+		var href = location.href;
+		location.href = location.href;
+	}
+
+	update_call_graph_from_url();
+});
+
+$(window).on('popstate', function(event) {
+	update_call_graph_from_url();
+});
+
+var nodes = null;
+var edges = null;
+var network = null;
+var current_graph_addr = null;
+
+function destroy_call_graph() {
+	if (network !== null) {
+		network.destroy();
+		network = null;
+	}
+}
+
+function navigate_to_new_call_graph_addr(addr) {
+	var name = addr_to_name[addr][0];
+	var href = `?f=` + name + `#callgraph`;
+	window.history.pushState({}, '', href);
+	show_call_graph_for_name(name);
+}
+
+function update_call_graph_from_url() {
+	const params = new URLSearchParams(window.location.search);
+	var name = params.get('f');
+	if (!name) {
+		name = 'main';
+	}
+	show_call_graph_for_name(name);
+}
+
+function show_call_graph_for_name(name) {
+	if (call_data === null) {
+		return;
+	}
+	if (!name_to_addr.hasOwnProperty(name)) {
+		return;
+	}
+	show_call_graph_for_addr(name_to_addr[name]);
+}
+
+document.fonts.onloadingdone = function (fontFaceSetEvent) {
+	if (network !== null) {
+		network.setOptions({nodes: {font: {face: 'JetBrains Mono'}}});
+	}
+};
+
+function show_call_graph_for_addr(addr) {
+	if (addr === current_graph_addr) {
+		return;
+	}
+	if (call_data === null) {
+		return;
+	}
+	destroy_call_graph();
+	if (!addr_to_name.hasOwnProperty(addr)) {
+		return;
+	}
+
+	var name = addr_to_name[addr][0];
+	if (addr_to_name[addr][1] == "imp") {
+		var src_path = addr_to_name[addr][2];
+		$("#callgraph-details").html("<a href=\"https://github.com/mborgerson/halo/blob/main" + src_path + "\">" + name + " (" + addr.toString(16) + ")</a>");
+	} else {
+		$("#callgraph-details").html(name + " (" + addr.toString(16) + ")");
+	}
+	var nodes_raw = [];
+	var edges_raw = [];
+	var node_addrs_added = [];
+
+	function add_node(node_addr, node_level) {
+		if (!node_addrs_added.includes(node_addr)) {
+			nodes_raw.push({ id: node_addr, label: addr_to_name[node_addr][0], group: addr_to_name[node_addr][1], level: node_level });
+			node_addrs_added.push(node_addr);
+		}
+	}
+
+	add_node(addr, 0);
+
+	call_data.call_edges.forEach(function (item, index) {
+		if (item[0] == addr || item[1] == addr) {
+			edges_raw.push({ from: item[0], to: item[1] });
+			add_node(item[0], -1);
+			add_node(item[1], 1);
+		}
+	});
+
+	nodes_raw.sort();
+	edges_raw.sort();
+
+	var container = document.getElementById("callgraph-graph");
+	var data = {
+		nodes: new vis.DataSet(nodes_raw),
+		edges: new vis.DataSet(edges_raw)
+	};
+	var options =
+		{
+			layout: {
+				hierarchical: {
+					direction: 'LR',
+					levelSeparation: 500
+				},
+			},
+			nodes: {
+				font: {
+					face: 'monospace',
+					color: 'black'
+				},
+				borderWidth: 1,
+				shape: 'box'
+			},
+			edges: {
+				color: {
+					inherit: 'to'
+				},
+				arrows: {
+					to: {
+						enabled: true,
+						scaleFactor: 0.5
+					}
+				},
+				width: 1,
+				smooth: {
+					enabled: true,
+					type: 'cubicBezier',
+					forceDirection: 'horizontal',
+					roundness: 0.8
+				}
+			},
+			groups: {
+				"imp": {
+					color: { background: "lightblue", border: "cornflowerblue" }
+				},
+				"unimp": {
+					color: { background: "orange", border: "orange" }
+				},
+			}
+		};
+	network = new vis.Network(container, data, options);
+	network.on("doubleClick", function (params) {
+		if (params.nodes.length > 0) {
+			navigate_to_new_call_graph_addr(params.nodes[0]);
+		}
+	});
+
+	current_graph_addr = addr;
+}
+</script>
+</html>

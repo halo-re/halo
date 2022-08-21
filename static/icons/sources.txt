@@ -1,10 +1,14 @@
 Matt Borgerson:
 	call-graph-icon.svg
 
-https://www.zondicons.com/icons.html:
-	arrow-outline-up.svg
-	close-outline.svg
-	light-bulb.svg
-	screen-full.svg
-	location.svg
+https://github.com/logos:
+	github.svg (SVG converted)
 
+https://heroicons.com/:
+	License MIT via https://github.com/tailwindlabs/heroicons/commit/d70eaaa3cddb987b62d202d51753ec146615b64c
+
+	arrows-expand.svg
+	arrow-sm-up.svg
+	location-marker.svg
+	sun.svg
+	x.svg

@@ -1738,7 +1738,7 @@
           "addr": "0x46da40"
         },
         {
-          "decl": "char byte_46DA42;",
+          "decl": "main_globals_t main_globals;",
           "addr": "0x46da42"
         },
         {
@@ -1824,12 +1824,40 @@
       ],
       "functions": [
         {
+          "decl": "void hs_runtime_dispose_from_old_map(void);",
+          "addr": "0xca800"
+        },
+        {
+          "decl": "void hs_runtime_initialize_for_new_map(void);",
+          "addr": "0xcdb30"
+        },
+        {
+          "decl": "void main_screen_shell_load(void);",
+          "addr": "0xe8700"
+        },
+        {
           "decl": "void ui_widget_game_data_build_version(int a2);",
           "addr": "0xf0ea0"
         },
         {
+          "decl": "void main_menu_precache_resources(void);",
+          "addr": "0x100640"
+        },
+        {
+          "decl": "void main_load_ui_scenario(bool a1);",
+          "addr": "0x101f00"
+        },
+        {
           "decl": "void j__render_dispose_from_old_map(void);",
           "addr": "0x184ba0"
+        },
+        {
+          "decl": "scenario_t *global_scenario_get(void);",
+          "addr": "0x18e380"
+        },
+        {
+          "decl": "void predicted_resources_precache(int *a1);",
+          "addr": "0x1bde10"
         }
       ]
     }

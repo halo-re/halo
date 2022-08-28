@@ -188,5 +188,21 @@ typedef struct
   char              unk_148[24]; ///< offset=0x94
 } window_t;
 
+// FIXME: Structure size
+/// size=0xF0
+typedef struct
+{
+  _BYTE unk_0[60];   ///< offset=0x0
+  _WORD type;        ///< offset=0x3C
+  _BYTE unk_62[174]; ///< offset=0x3E
+  int   unk_236;     ///< offset=0xEC
+} scenario_t;
+
+// FIXME: Merge adjacent globals into this structure
+/// size=0x01
+typedef struct
+{
+  bool main_menu_scenario_loaded; ///< offset=0x00
+} main_globals_t;
 
 #pragma pack()

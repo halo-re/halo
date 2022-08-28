@@ -15,7 +15,7 @@ void create_local_players(void)
   int16_t desired_controllers[4];
   int16_t default_controllers[4];
 
-  if (byte_46DA42) {
+  if (main_globals.main_menu_scenario_loaded) {
     local_player_set_player_index(0, player_new(0, -1, 0, 0));
     return;
   }
@@ -62,6 +62,33 @@ void create_local_players(void)
     player = player_new(0, -1, gamepad_index, 0);
     local_player_set_player_index(gamepad_index, player);
   }
+}
+
+void main_menu_precache_resources(void)
+{
+  scenario_t *scenario = global_scenario_get();
+  if (scenario) {
+    assert_halt(scenario->type == _scenario_type_main_menu);
+    predicted_resources_precache(&scenario->unk_236);
+  }
+}
+
+void main_menu_load(void)
+{
+  if (!main_globals.main_menu_scenario_loaded) {
+    main_load_ui_scenario(0);
+  }
+  main_screen_shell_load();
+  main_menu_precache_resources();
+  update_server_delete();
+  update_server_new();
+  update_server_start();
+  game_time_dispose_from_old_map();
+  game_time_initialize_for_new_map();
+  game_time_start();
+  hs_runtime_dispose_from_old_map();
+  hs_runtime_initialize_for_new_map();
+  main_menu_load_pending = false;
 }
 
 void main_pregame_render(void)
@@ -122,8 +149,7 @@ void main_setup_connection(void)
 
   word_46DA0C = 0;
   game_options_new(&game_options);
-  csstrncpy(game_options.map_name, map_name,
-            sizeof(game_options.map_name) - 1);
+  csstrncpy(game_options.map_name, map_name, sizeof(game_options.map_name) - 1);
   game_options.map_name[sizeof(game_options.map_name) - 1] = 0;
   game_options.difficulty = global_difficulty_level;
   game_precache_new_map(game_options.map_name, 1);
@@ -341,7 +367,8 @@ void main_loop(void)
       }
       if (byte_46DA50) {
         if (cache_files_precache_in_progress() &&
-            (unsigned __int16)cache_files_precache_map_status((float *)v9) == 1) {
+            (unsigned __int16)cache_files_precache_map_status((float *)v9) ==
+              1) {
           cache_files_precache_map_end();
         }
         if (!cache_files_precache_in_progress()) {
@@ -418,9 +445,10 @@ void main_loop(void)
           a2a = (double)(unsigned __int8)byte_46DA46;
           a2a *= flt_46DA08;
           game_time_update(a2a);
-          v1 = byte_46DA42 || (byte_46DA46 && ((unsigned __int8)game_time_end() ||
-                                               game_time_get_elapsed() > 0 ||
-                                               game_time_get_speed() < 1.0));
+          v1 = main_globals.main_menu_scenario_loaded ||
+               (byte_46DA46 &&
+                ((unsigned __int8)game_time_end() ||
+                 game_time_get_elapsed() > 0 || game_time_get_speed() < 1.0));
 
           v1 &= !game_engine_running() || game_time_get() >= 3;
 

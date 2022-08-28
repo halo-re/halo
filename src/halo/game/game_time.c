@@ -5,7 +5,24 @@ void game_time_initialize(void)
   csmemset(game_time_globals, 0, sizeof(game_time_globals_t));
 }
 
-void game_time_start()
+bool game_in_progress(void)
+{
+  assert_halt(game_time_globals);
+  if (game_time_globals->initialized) {
+    if (game_time_globals->active) {
+      return true;
+    }
+    if (game_time_globals->unk_2) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+void game_time_start(void)
 {
   assert_halt(game_time_globals && game_time_globals->initialized);
   assert_halt(!game_time_globals->active);

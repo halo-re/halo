@@ -67,7 +67,8 @@ typedef struct {
 typedef struct {
   bool     initialized; ///< offset=0x00
   bool     active;      ///< offset=0x01
-  char     unk_2[10];   ///< offset=0x02
+  bool     unk_2;       ///< offset=0x02
+  char     unk_3[9];    ///< offset=0x03
   uint32_t local_time;  ///< offset=0x0c
   uint16_t elapsed;     ///< offset=0x10
   char     unk_18[6];   ///< offset=0x12

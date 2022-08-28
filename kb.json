@@ -1835,7 +1835,7 @@
           "addr": "0x457069"
         },
         {
-          "decl": "game_time_globals_t *game_time_globals;",
+          "decl": "game_time_globals_t * game_time_globals;",
           "addr": "0x45708c"
         },
         {

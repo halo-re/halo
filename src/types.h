@@ -192,7 +192,7 @@ typedef struct
 /// size=0xF0
 typedef struct
 {
-  _BYTE unk_0[60];   ///< offset=0x0
+  _BYTE unk_0[60];   ///< offset=0x00
   _WORD type;        ///< offset=0x3C
   _BYTE unk_62[174]; ///< offset=0x3E
   int   unk_236;     ///< offset=0xEC
@@ -204,5 +204,14 @@ typedef struct
 {
   bool main_menu_scenario_loaded; ///< offset=0x00
 } main_globals_t;
+
+/// size=0x10c
+typedef struct
+{
+  uint32_t magic;      ///< offset=0x0
+  char     unk_4[2];   ///< offset=0x4
+  int16_t  unk_6;      ///< offset=0x6
+  char     unk_8[260]; ///< offset=0x8
+} file_ref_t;
 
 #pragma pack()

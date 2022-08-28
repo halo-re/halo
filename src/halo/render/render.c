@@ -1,4 +1,4 @@
-void render_frame_pregame(pregame_render_info_t *pregame_info, void *bitmap)
+void render_frame_pregame(pregame_render_info_t *pregame_info, void *main_globals_movie)
 {
   pregame_render_info_t *pregame_info2; // ebx
   window_parameters_t window_parameters; // [esp+Ch] [ebp-260h] BYREF

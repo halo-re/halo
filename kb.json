@@ -1614,6 +1614,10 @@
           "addr": "0x325714"
         },
         {
+          "decl": "cinematic_globals_t * cinematic_globals;",
+          "addr": "0x44df00"
+        },
+        {
           "decl": "game_globals_t * game_globals;",
           "addr": "0x4566ec"
         },

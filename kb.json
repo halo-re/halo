@@ -792,6 +792,10 @@
           "addr": "0xfff80"
         },
         {
+          "decl": "int __cdecl sort_desired_local_player_controllers(const void *a1, const void *a2);",
+          "addr": "0x100090"
+        },
+        {
           "decl": "void create_local_players(void);",
           "addr": "0x1000d0"
         },
@@ -1822,10 +1826,6 @@
         {
           "decl": "void ui_widget_game_data_build_version(int a2);",
           "addr": "0xf0ea0"
-        },
-        {
-          "decl": "int __cdecl sub_100090(const void *a1, const void *a2);",
-          "addr": "0x100090"
         },
         {
           "decl": "void j__render_dispose_from_old_map(void);",

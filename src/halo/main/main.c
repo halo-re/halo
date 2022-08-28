@@ -54,7 +54,7 @@ void create_local_players(void)
     }
   }
 
-  qsort(desired_controllers, 4, 2, sub_100090);
+  qsort(desired_controllers, 4, 2, sort_desired_local_player_controllers);
 
   for (i = 0; i < player_spawn_count; i++) {
     gamepad_index = desired_controllers[i];

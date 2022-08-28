@@ -127,8 +127,26 @@ void main_pregame_render(void)
   pregame_render_info.cam1.z_far = 1.0;
   qmemcpy(&pregame_render_info.cam0, &pregame_render_info.cam1,
           sizeof(pregame_render_info.cam0));
-  render_frame_pregame(&pregame_render_info, bitmap);
+  render_frame_pregame(&pregame_render_info, main_globals_movie);
   collision_log_end_period();
+}
+
+void main_present_frame(void)
+{
+  const char *err_msg;
+  char path[512];
+  file_ref_t file_ref;
+
+  render_frame_present(0, main_globals_movie);
+
+  if (global_screenshot_count <= 0 && main_globals_movie) {
+    snprintf(path, sizeof(path), "movie\\frame%06d.tga", movie_frame_count++);
+    file_reference_create_from_path(&file_ref, path, 0);
+    err_msg = tiff_export(&file_ref, main_globals_movie);
+    if (err_msg) {
+      error(2, err_msg);
+    }
+  }
 }
 
 void main_setup_connection(void)
@@ -228,7 +246,7 @@ void main_game_render(double a2)
   set_window_camera_values(current_window, 0);
 
   if (global_screenshot_count <= 0) {
-    render_frame(window, num_players + 1, 0, 0, bitmap, a2);
+    render_frame(window, num_players + 1, 0, 0, main_globals_movie, a2);
   } else {
     screenshot_render(window);
   }
@@ -418,9 +436,9 @@ void main_loop(void)
       if ((!game_in_editor() &&
            (input_key_is_down(0x55u) || input_key_is_down(0))) ||
           editor_should_exit()) {
-        if (bitmap) {
-          bitmap_delete(bitmap);
-          bitmap = 0;
+        if (main_globals_movie) {
+          bitmap_delete(main_globals_movie);
+          main_globals_movie = 0;
         }
         if (!game_engine_running()) {
           word_46DA40 = -1;

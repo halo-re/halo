@@ -419,7 +419,7 @@
       "source": "cseries/errors.c",
       "functions": [
         {
-          "decl": "void error(int l, const char *msg, ...);",
+          "decl": "void error(unsigned __int16 a1, const char *a2, ...);",
           "addr": "0x8f390"
         }
       ]
@@ -1686,8 +1686,12 @@
           "addr": "0x46da0c"
         },
         {
-          "decl": "__int16 * bitmap;",
+          "decl": "__int16 * main_globals_movie;",
           "addr": "0x46da10"
+        },
+        {
+          "decl": "int movie_frame_count;",
+          "addr": "0x46da1c"
         },
         {
           "decl": "bool game_reset_pending;",
@@ -1824,6 +1828,10 @@
       ],
       "functions": [
         {
+          "decl": "const char *tiff_export(file_ref_t *info, __int16 *bitmap);",
+          "addr": "0x7f5e0"
+        },
+        {
           "decl": "void hs_runtime_dispose_from_old_map(void);",
           "addr": "0xca800"
         },
@@ -1852,12 +1860,24 @@
           "addr": "0x184ba0"
         },
         {
+          "decl": "void render_frame_present(_WORD *a1, void *a2);",
+          "addr": "0x184dc0"
+        },
+        {
           "decl": "scenario_t *global_scenario_get(void);",
           "addr": "0x18e380"
         },
         {
+          "decl": "void file_reference_create_from_path(file_ref_t *info, const char *directory, bool a4);",
+          "addr": "0x1999f0"
+        },
+        {
           "decl": "void predicted_resources_precache(int *a1);",
           "addr": "0x1bde10"
+        },
+        {
+          "decl": "int snprintf(char *str, size_t size, const char *format, ...);",
+          "addr": "0x1d9179"
         }
       ]
     }

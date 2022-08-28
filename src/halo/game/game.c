@@ -46,6 +46,46 @@ void game_initialize(void)
   progress_bar_initialize();
 }
 
+void game_dispose(void)
+{
+  recorded_animations_dispose();
+  cinematic_dispose();
+  hs_dispose();
+  cheats_dispose();
+  ui_widgets_dispose();
+  editor_dispose();
+  ai_dispose();
+  player_effect_dispose();
+  rumble_dispose();
+  game_sound_dispose();
+  sound_classes_dispose();
+  game_engine_dispose();
+  particle_systems_dispose();
+  weather_particle_systems_dispose();
+  effects_dispose();
+  particles_dispose();
+  contrails_dispose();
+  players_dispose();
+  decals_dispose();
+  breakable_surfaces_dispose();
+  structures_dispose();
+  render_dispose();
+  objects_dispose();
+  director_dispose();
+  interface_dispose();
+  game_allegiance_dispose();
+  game_time_dispose();
+  saved_game_files_dispose();
+  event_manager_dispose();
+  input_abstraction_dispose();
+  player_ui_dispose();
+  game_state_dispose();
+  telnet_console_dispose();
+  transport_dispose();
+  bink_playback_dispose();
+  progress_bar_dispose();
+}
+
 void game_dispose_from_old_map()
 {
   rasterizer_dispose_from_old_map();

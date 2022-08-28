@@ -205,13 +205,21 @@ typedef struct
   bool main_menu_scenario_loaded; ///< offset=0x00
 } main_globals_t;
 
-/// size=0x10c
+/// size=0x10C
 typedef struct
 {
-  uint32_t magic;      ///< offset=0x0
-  char     unk_4[2];   ///< offset=0x4
-  int16_t  unk_6;      ///< offset=0x6
-  char     unk_8[260]; ///< offset=0x8
+  uint32_t magic;      ///< offset=0x00
+  char     unk_4[2];   ///< offset=0x04
+  int16_t  unk_6;      ///< offset=0x06
+  char     unk_8[260]; ///< offset=0x08
 } file_ref_t;
+
+/// size=0x1C
+typedef struct
+{
+  char unk_0[10];      ///< offset=0x00
+  bool can_be_skipped; ///< offset=0x0A
+  char unk_11[17];     ///< offset=0x0B
+} cinematic_globals_t;
 
 #pragma pack()

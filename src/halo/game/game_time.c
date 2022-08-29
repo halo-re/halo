@@ -22,6 +22,12 @@ bool game_in_progress(void)
   }
 }
 
+float game_time_get_speed(void)
+{
+  assert_halt(game_time_globals);
+  return game_time_globals->speed;
+}
+
 void game_time_start(void)
 {
   assert_halt(game_time_globals && game_time_globals->initialized);

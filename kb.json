@@ -710,7 +710,7 @@
           "addr": "0xb5be0"
         },
         {
-          "decl": "int game_time_end(void);",
+          "decl": "bool game_time_end(void);",
           "addr": "0xb5c30"
         },
         {

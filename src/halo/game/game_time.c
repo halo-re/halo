@@ -22,6 +22,12 @@ bool game_in_progress(void)
   }
 }
 
+bool game_time_end(void)
+{
+  assert_halt(game_time_globals);
+  return game_time_globals->unk_2;
+}
+
 float game_time_get_speed(void)
 {
   assert_halt(game_time_globals);

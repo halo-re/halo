@@ -40,7 +40,7 @@ void game_time_end(void)
 int game_time_get(void)
 {
   assert_halt(game_time_globals && game_time_globals->initialized);
-  return game_time_globals->local_time;
+  return game_time_globals->time;
 }
 
 __int16 game_time_get_elapsed(void)
@@ -52,7 +52,7 @@ __int16 game_time_get_elapsed(void)
 int local_time_get(void)
 {
   assert_halt(game_time_globals && game_time_globals->initialized);
-  return game_time_globals->local_time;
+  return game_time_globals->time;
 }
 
 __int16 local_time_get_elapsed(void)

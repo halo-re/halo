@@ -73,7 +73,7 @@ typedef struct {
   uint16_t unk_6;       ///< offset=0x06  stats
   uint16_t unk_8;       ///< offset=0x08  stats
   char     unk_10[2];   ///< offset=0x0a  padding?
-  uint32_t local_time;  ///< offset=0x0c
+  uint32_t time;        ///< offset=0x0c
   uint16_t elapsed;     ///< offset=0x10
   char     unk_18[2];   ///< offset=0x12  padding?
   uint32_t unk_20;      ///< offset=0x14  update

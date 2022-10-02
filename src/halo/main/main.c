@@ -307,7 +307,7 @@ void main_loop(void)
         hud_load(0);
       }
       if (byte_46DA3B) {
-        if (!(unsigned __int8)game_time_end()) {
+        if (!(unsigned __int8)game_time_get_paused()) {
           v0 = word_46DA4C++ <= 90;
           if (!v0) {
             byte_46DA3B = 0;
@@ -320,7 +320,7 @@ void main_loop(void)
         main_won_map_private();
       }
       if (byte_46DA3C) {
-        if (!(unsigned __int8)game_time_end() && !cinematic_in_progress()) {
+        if (!(unsigned __int8)game_time_get_paused() && !cinematic_in_progress()) {
           v0 = word_46DA4E++ <= 90;
           if (!v0) {
             if (players_respawn_coop()) {
@@ -351,7 +351,7 @@ void main_loop(void)
         }
         should_skip_cinematic = 0;
       }
-      if (game_reset_pending && !(unsigned __int8)game_time_end()) {
+      if (game_reset_pending && !(unsigned __int8)game_time_get_paused()) {
         scenario_switch_structure_bsp(0);
         game_dispose_from_old_map();
         input_flush();
@@ -395,7 +395,7 @@ void main_loop(void)
         }
       }
     } else {
-      if (game_reset_pending && !(unsigned __int8)game_time_end()) {
+      if (game_reset_pending && !(unsigned __int8)game_time_get_paused()) {
         scenario_switch_structure_bsp(0);
         game_dispose_from_old_map();
         input_flush();
@@ -465,7 +465,7 @@ void main_loop(void)
           game_time_update(a2a);
           v1 = main_globals.main_menu_scenario_loaded ||
                (byte_46DA46 &&
-                ((unsigned __int8)game_time_end() ||
+                ((unsigned __int8)game_time_get_paused() ||
                  game_time_get_elapsed() > 0 || game_time_get_speed() < 1.0));
 
           v1 &= !game_engine_running() || game_time_get() >= 3;

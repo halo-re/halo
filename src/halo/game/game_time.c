@@ -12,9 +12,7 @@ void game_time_initialize(void)
 
 void game_time_initialize_for_new_map(void)
 {
-  assert_halt_msg(game_time_globals || !game_time_globals->initialized, 
-    "game_time_globals && !game_time_globals->initialized");
-
+  assert_halt(game_time_globals || !game_time_globals->initialized);
   csmemset(game_time_globals, 0, 32);
   game_time_globals->initialized = true;
 }

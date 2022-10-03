@@ -519,16 +519,84 @@
           "addr": "0xa6fb0"
         },
         {
+          "decl": "void game_unload(void);",
+          "addr": "0xa6fd0"
+        },
+        {
           "decl": "void game_dispose_from_old_map(void);",
           "addr": "0xa7050"
+        },
+        {
+          "decl": "void game_frame(float);",
+          "addr": "0xa7110"
+        },
+        {
+          "decl": "void remove_quitting_players_from_game(void);",
+          "addr": "0xa71b0"
+        },
+        {
+          "decl": "void game_tick(void);",
+          "addr": "0xa7260"
         },
         {
           "decl": "void game_options_new(game_options_t *game_options);",
           "addr": "0xa7370"
         },
         {
+          "decl": "bool game_options_verify(game_options_t *game_options);",
+          "addr": "0xa73A0"
+        },
+        {
           "decl": "void game_initial_pulse(void);",
           "addr": "0xa73c0"
+        },
+        {
+          "decl": "void game_set_players_are_double_speed(bool);",
+          "addr": "0xa7410"
+        },
+        {
+          "decl": "bool game_players_are_double_speed(void);",
+          "addr": "0xa7430"
+        },
+        {
+          "decl": "void game_difficulty_level_set(int16_t);",
+          "addr": "0xa7440"
+        },
+        {
+          "decl": "int16_t game_difficulty_level_get(void);",
+          "addr": "0xa7460"
+        },
+        {
+          "decl": "int game_difficulty_level_get_ignore_easy(void);",
+          "addr": "0xa7460"
+        },
+        {
+          "decl": "void game_set_game_variant(game_variant_t *variant);",
+          "addr": "0xa7490"
+        },
+        {
+          "decl": "void game_set_game_engine_index(void);",
+          "addr": "0xa74C0"
+        },
+        {
+          "decl": "bool game_all_quiet(void);",
+          "addr": "0xa74f0"
+        },
+        {
+          "decl": "bool game_safe_to_save(void);",
+          "addr": "0xa7530"
+        },
+        {
+          "decl": "bool game_safe_to_speak(void);",
+          "addr": "0xa7670"
+        },
+        {
+          "decl": "bool game_is_cooperative(void);",
+          "addr": "0xa769d"
+        },
+        {
+          "decl": "void set_random_seed(int);",
+          "addr": "0xa76a0"
         },
         {
           "decl": "bool game_load(game_options_t *options);",
@@ -537,6 +605,10 @@
         {
           "decl": "void game_initialize_for_new_map(void);",
           "addr": "0xa7780"
+        },
+        {
+          "decl": "void game_set_game_variant_from_name(const char*);",
+          "addr": "0xa78e0"
         }
       ]
     },

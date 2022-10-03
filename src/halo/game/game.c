@@ -86,6 +86,18 @@ void game_dispose(void)
   progress_bar_dispose();
 }
 
+// TODO: void game_precache_new_map(char *map_name, int a2);
+
+bool game_map_loading_in_progress(float *progress)
+{
+  if (progress) {
+    *progress = game_globals->map_load_progress;
+  }
+  return game_globals->map_loading;
+}
+
+// TODO: void game_unload(void);
+
 void game_dispose_from_old_map()
 {
   rasterizer_dispose_from_old_map();
@@ -126,12 +138,61 @@ void game_dispose_from_old_map()
   game_globals->active = 0;
 }
 
+// TODO: void game_frame(float);
+// TODO: void remove_quitting_players_from_game(void);
+
+void game_tick(void)
+{
+  float seconds_per_tick;
+
+  profile_tick_start();
+  collision_log_begin_period(0);
+  real_math_reset_precision();
+  if (profile_global_enable && byte_2EF808)
+    profile_enter_private(&off_2EF800);
+
+  assert_halt(game_globals->active);
+
+  remove_quitting_players_from_game();
+  game_allegiance_update();
+  units_update();
+  ai_update();
+  players_update_before_game();
+
+  seconds_per_tick = 1 / 30.0f;
+  if (game_globals->players_double_speed)
+    seconds_per_tick = 1 / 60.0f;
+
+  effects_update(*(float *)&seconds_per_tick);
+  lock_global_random_seed();
+  rumble_update();
+  first_person_weapons_update();
+  unlock_global_random_seed();
+  game_engine_update();
+  editor_update();
+  hs_update();
+  recorded_animations_update();
+  objects_update();
+  players_update_after_game();
+  hud_update();
+  player_effect_update();
+  if ( profile_global_enable && byte_2EF808 )
+    profile_exit_private(&off_2EF800);
+  collision_log_end_period();
+  profile_tick_end();
+}
+
 void game_options_new(game_options_t *options)
 {
   csmemset(options, 0, sizeof(*options));
   options->unk_4 = 0;
   options->difficulty = 1;
   options->random_seed = 0xDEADBEEF;
+}
+
+static bool game_options_verify(game_options_t *options)
+{
+  return options->difficulty >= 0 && options->difficulty < 4;
 }
 
 void game_initial_pulse()
@@ -144,9 +205,75 @@ void game_initial_pulse()
   game_engine_game_starting();
 }
 
-static bool game_options_verify(game_options_t *options)
+void game_set_players_are_double_speed(bool is_double_speed)
 {
-  return options->difficulty >= 0 && options->difficulty < 4;
+  game_globals->players_double_speed = is_double_speed;
+}
+
+bool game_players_are_double_speed(void)
+{
+  return game_globals->players_double_speed;
+}
+
+void game_difficulty_level_set(int16_t difficulty)
+{
+  game_globals->game_options.difficulty = difficulty;
+}
+
+int16_t game_difficulty_level_get(void)
+{
+  return game_globals->game_options.difficulty;
+}
+
+int game_difficulty_level_get_ignore_easy(void)
+{
+  int16_t difficulty = game_globals->game_options.difficulty;
+
+  if (difficulty <= 1)
+    return 1;
+
+  return difficulty;
+}
+
+void game_set_game_variant(game_variant_t *variant)
+{
+  if (!variant)
+    csmemset(&game_variant_global, 0, sizeof(game_variant_t));
+  else
+    qmemcpy(&game_variant_global, variant, sizeof(game_variant_t));
+}
+
+void game_set_game_engine_index(void)
+{
+  display_assert("this is broken and should get updated for the variants, ask michael",
+    __FILE__, __LINE__, true);
+  system_exit(-1);
+}
+
+bool game_all_quiet(void)
+{
+  return !dangerous_projectiles_near_player() &&
+  !dangerous_items_near_player() &&
+  !dangerous_effects_near_player() &&
+  !any_unit_is_dangerous() &&
+  !ai_enemies_can_see_player();
+}
+
+// TODO: bool game_safe_to_save(void);
+
+bool game_safe_to_speak(void)
+{
+  return !dangerous_projectiles_near_player() && !any_player_is_dead();
+}
+
+bool game_is_cooperative(void)
+{
+  return player_spawn_count > 1;
+}
+
+void set_random_seed(int seed)
+{
+  *(int*)get_global_random_seed_address() = seed;
 }
 
 bool game_load(game_options_t *options)
@@ -226,3 +353,5 @@ void game_initialize_for_new_map(void)
   }
   ui_widgets_safe_to_load(1);
 }
+
+// TODO: void game_set_game_variant_from_name(const char*);

@@ -1,12 +1,47 @@
-#ifdef MSVC_EARLY
-#define qmemcpy memcpy strlen
-#pragma intrinsic(atan2)
+#define qmemcpy memcpy
+
+#ifdef MSVC
+  #ifdef MSVC_INTRINSIC_DEFS
+    #define INCLUDE_PRAGMA_FUNCTIONS
+    #define INCLUDE_DEFS
+  #else
+    #define INCLUDE_PRAGMA_INTRINSICS
+    #define INCLUDE_DECLS
+  #endif
+  #define INLINE
+#else
+  #define INLINE static inline
+  #define INCLUDE_DEFS
+#endif
+
+
+#ifdef INCLUDE_DECLS
+double atan2(double y, double x);
+void *memcpy(void *s1, const void *s2, size_t n);
+size_t strlen(const char *s);
+#undef INCLUDE_DECLS
+#endif
+
+
+#ifdef INCLUDE_PRAGMA_FUNCTIONS
+// #pragma function(atan2)
+#pragma function(memcpy)
+#pragma function(strlen)
+#undef INCLUDE_PRAGMA_FUNCTIONS
+#endif
+
+
+#ifdef INCLUDE_PRAGMA_INTRINSICS
+// #pragma intrinsic(atan2)
 #pragma intrinsic(memcpy)
 #pragma intrinsic(strlen)
-#else
-#define atan2 atan2_
+#undef INCLUDE_PRAGMA_INTRINSICS
+#endif
 
-static inline double atan2_(double y, double x)
+
+#ifdef INCLUDE_DEFS
+
+INLINE double atan2(double y, double x)
 {
   double r = 0;
 #ifdef MSVC
@@ -22,7 +57,7 @@ static inline double atan2_(double y, double x)
   return r;
 }
 
-static inline void *qmemcpy(void *s1, const void *s2, size_t n)
+INLINE void *memcpy(void *s1, const void *s2, size_t n)
 {
   char *dest = (char *)s1;
   const char *src = (const char *)s2;
@@ -32,7 +67,7 @@ static inline void *qmemcpy(void *s1, const void *s2, size_t n)
   return s1;
 }
 
-static inline size_t strlen(const char *s)
+INLINE size_t strlen(const char *s)
 {
   size_t c = 0;
   while (*s++) {
@@ -41,4 +76,9 @@ static inline size_t strlen(const char *s)
   return c;
 }
 
-#endif // MSVC_EARLY
+#undef INCLUDE_DEFS
+#endif // INCLUDE_DEFS
+
+#ifdef INLINE
+#undef INLINE
+#endif

@@ -1,5 +1,6 @@
 target_sources(halo PRIVATE
 	entrypoint.c
+	inlines.c
 	halo/cseries/cseries.c
 	halo/game/game.c
 	halo/game/game_engine.c

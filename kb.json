@@ -241,6 +241,10 @@
           "addr": "0xff460"
         },
         {
+          "decl": "void console_warning(const char* format, ...);",
+          "addr": "0xff550"
+        },
+        {
           "decl": "void console_startup(void);",
           "addr": "0xff8a0"
         },
@@ -1026,6 +1030,10 @@
           "addr": "0x46e001"
         },
         {
+          "decl": "bool debug_game_save;",
+          "addr": "0x46e002"
+        },        
+        {
           "decl": "__int16 global_screenshot_count;",
           "addr": "0x46e008"
         }
@@ -1430,6 +1438,10 @@
         {
           "decl": "__int16 local_player_get_next(__int16 a1);",
           "addr": "0xba4c0"
+        },
+        {
+          "decl": "bool any_player_is_in_the_air(void);",
+          "addr": "0xba710"
         },
         {
           "decl": "bool any_player_is_dead(void);",
@@ -1998,6 +2010,16 @@
         {
           "decl": "bool any_unit_is_dangerous(void);",
           "addr": "0x1aa3c0"
+        }
+      ]
+    },
+    {
+      "name": "vehicles.obj",
+      "source": "units/vehicles.c",
+      "functions": [
+        {
+          "decl": "bool vehicle_moving_near_any_player(void);",
+          "addr": "0x1b7ee0"
         }
       ]
     },

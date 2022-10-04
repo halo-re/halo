@@ -640,7 +640,7 @@
         },
         {
           "decl": "bool game_is_cooperative(void);",
-          "addr": "0xa769d"
+          "addr": "0xa7690"
         },
         {
           "decl": "void set_random_seed(int);",

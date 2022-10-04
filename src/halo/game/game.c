@@ -167,7 +167,25 @@ void game_dispose_from_old_map()
   game_globals->active = 0;
 }
 
-// TODO: void game_frame(float);
+void game_frame(float elapsed)
+{
+  if (game_globals->players_double_speed)
+    elapsed *= 0.5f;
+
+  assert_halt(game_globals->active);
+
+  collision_log_begin_period(1);
+  particles_update(elapsed);
+  contrails_update(elapsed);
+  particle_systems_update(elapsed);
+  widgets_update(elapsed);
+  game_sound_update(elapsed);
+  scenario_frame_update(elapsed);
+  rasterizer_frame_update(elapsed);
+  numeric_countdown_timer_update();
+  collision_log_end_period();
+}
+
 // TODO: void remove_quitting_players_from_game(void);
 
 void game_tick(void)

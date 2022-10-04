@@ -277,6 +277,10 @@
         {
           "decl": "void contrails_initialize(void);",
           "addr": "0x97d40"
+        },
+        {
+          "decl": "void contrails_update(float);",
+          "addr": "0x98750"
         }
       ]
     },
@@ -751,6 +755,10 @@
         {
           "decl": "void game_sound_dispose_from_old_map(void);",
           "addr": "0x1c7e40"
+        },
+        {
+          "decl": "void game_sound_update(float);",
+          "addr": "0x1c8140"
         }
       ]
     },
@@ -1270,6 +1278,10 @@
         {
           "decl": "void particle_systems_dispose_from_old_map(void);",
           "addr": "0x9fcd0"
+        },
+        {
+          "decl": "void particle_systems_update(float);",
+          "addr": "0xa10f0"
         }
       ]
     },
@@ -1292,6 +1304,10 @@
         {
           "decl": "void particles_dispose(void);",
           "addr": "0xa14d0"
+        },
+        {
+          "decl": "void particles_update(float);",
+          "addr": "0xa2570"
         }
       ]
     },
@@ -1633,6 +1649,10 @@
       "source": "rasterizer/common/rasterizer_common.c",
       "functions": [
         {
+          "decl": "void rasterizer_frame_update(float);",
+          "addr": "0x155090"
+        },
+        {
           "decl": "void rasterizer_initialize_for_new_map(void);",
           "addr": "0x154fc0"
         },
@@ -1763,6 +1783,10 @@
           "addr": "0x18e2f0"
         },
         {
+          "decl": "void scenario_frame_update(float);",
+          "addr": "0x18e300"
+        },
+        {
           "decl": "void scenario_unload(void);",
           "addr": "0x18e310"
         },
@@ -1777,6 +1801,16 @@
         {
           "decl": "bool scenario_load(const char *map_name);",
           "addr": "0x18f090"
+        }
+      ]
+    },
+    {
+      "name": "shaders.obj",
+      "source": "shaders/shaders.c",
+      "functions": [
+        {
+          "decl": "void numeric_countdown_timer_update(void);",
+          "addr": "0x190db0"
         }
       ]
     },
@@ -2054,6 +2088,16 @@
         {
           "decl": "void weather_particle_systems_dispose(void);",
           "addr": "0xa3fb0"
+        }
+      ]
+    },
+    {
+      "name": "widgets.obj",
+      "source": "objects/widgets/widgets.c",
+      "functions": [
+        {
+          "decl": "void widgets_update(float);",
+          "addr": "0x136520"
         }
       ]
     },

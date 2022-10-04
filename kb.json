@@ -723,6 +723,10 @@
           "addr": "0xacdd0"
         },
         {
+          "decl": "game_variant_t *game_engine_get_variant_by_name(game_variant_t *variant, const char *name);",
+          "addr": "0xadd50"
+        },
+        {
           "decl": "void game_engine_initialize_for_new_map(void);",
           "addr": "0xae760"
         },

@@ -460,4 +460,17 @@ void game_initialize_for_new_map(void)
   ui_widgets_safe_to_load(1);
 }
 
-// TODO: void game_set_game_variant_from_name(const char* name);
+void game_set_game_variant_from_name(const char* name)
+{
+  game_variant_t variant;
+  game_variant_t variant_copy;
+
+  qmemcpy(&variant_copy, game_engine_get_variant_by_name(&variant, name), sizeof(game_variant_t));
+  if (!&variant_copy)
+  {
+    csmemset(&game_variant_global, (char)&variant_copy, sizeof(game_variant_t));
+    return;
+  }
+
+  qmemcpy(&game_variant_global, (const void*)&variant_copy, sizeof(game_variant_t));
+}

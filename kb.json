@@ -1044,6 +1044,10 @@
           "addr": "0xfff80"
         },
         {
+          "decl": "void display_error_damaged_media(void);",
+          "addr": "0xe8d20"
+        },
+        {
           "decl": "int __cdecl sort_desired_local_player_controllers(const void *a1, const void *a2);",
           "addr": "0x100090"
         },
@@ -1759,6 +1763,10 @@
           "addr": "0x18e2f0"
         },
         {
+          "decl": "void scenario_unload(void);",
+          "addr": "0x18e310"
+        },
+        {
           "decl": "scenario_t *global_scenario_get(void);",
           "addr": "0x18e380"
         },
@@ -1944,6 +1952,10 @@
         {
           "decl": "void *ui_widget_realloc(int a1, unsigned short a2, const char *a3, unsigned int a4);",
           "addr": "0xe3d20"
+        },
+        {
+          "decl": "void ui_widget_load_progress_widget(void);",
+          "addr": "0xe4470"
         },
         {
           "decl": "void display_error_when_main_menu_loaded(int16_t);",

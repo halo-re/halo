@@ -96,7 +96,36 @@ bool game_map_loading_in_progress(float *progress)
   return game_globals->map_loading;
 }
 
-// TODO: void game_unload(void);
+void game_unload(void)
+{
+  int status;
+
+  if (cache_files_precache_in_progress())
+  {
+    game_globals->map_loading = true;
+    ui_widget_load_progress_widget();
+
+    do
+    {
+      status = cache_files_precache_map_status(&game_globals->map_load_progress);
+      main_pregame_render();
+      main_rasterizer_throttle();
+      main_present_frame();
+    }
+    while (!status);
+
+    ui_widgets_close_all();
+    if (status == 2)
+      display_error_damaged_media();
+    cache_files_precache_map_end();
+  }
+  if (game_globals->map_loaded)
+  {
+    scenario_unload();
+    random_seed_debug_log(0);
+    game_globals->map_loaded = false;
+  }
+}
 
 void game_dispose_from_old_map()
 {

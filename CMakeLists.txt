@@ -63,11 +63,6 @@ if(MSVC)
 	endif()
 	set(CMAKE_C_FLAGS "/FI\"${CMAKE_SOURCE_DIR}/src/common.h\" /GS- /DMSVC")
 	set(CMAKE_EXE_LINKER_FLAGS "/entry:_start /nodefaultlib:msvcrtd.lib /nodefaultlib:msvcrt.lib /incremental:no")
-
-	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Zi")
-		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEBUG")
-	endif()
 else()
 	if(NOT CMAKE_C_COMPILER_ID STREQUAL "Clang")
 		# FIXME: We can support other toolchains, but currently do not

@@ -163,7 +163,7 @@ void game_tick(void)
   if (game_globals->players_double_speed)
     seconds_per_tick = 1 / 60.0f;
 
-  effects_update(*(float *)&seconds_per_tick);
+  effects_update(seconds_per_tick);
   lock_global_random_seed();
   rumble_update();
   first_person_weapons_update();

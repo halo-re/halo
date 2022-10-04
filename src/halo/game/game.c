@@ -329,12 +329,12 @@ bool game_is_cooperative(void)
 {
   return player_spawn_count > 1;
 }
-
+/*
 void set_random_seed(int seed)
 {
-  *(int*)get_global_random_seed_address() = seed;
+  *((int*)get_global_random_seed_address()) = seed;
 }
-
+*/
 bool game_load(game_options_t *options)
 {
   game_globals_t *globals;

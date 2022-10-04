@@ -10,8 +10,11 @@ on:
 
 jobs:
   BuildUbuntu:
-    name: Build on Ubuntu with clang
+    name: Build on Ubuntu with clang (${{ matrix.configuration }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
     steps:
       - name: Clone Tree
         uses: actions/checkout@v3
@@ -22,11 +25,14 @@ jobs:
 
       - name: Build
         run: |
-          docker run --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash -c "cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake && cmake --build build --target halo"
+          docker run --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash -c "cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} && cmake --build build --target halo"
 
   BuildWindows:
-    name: Build on Windows with MSVC
+    name: Build on Windows with MSVC (${{ matrix.configuration }})
     runs-on: windows-latest
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
     steps:
       - name: Clone Tree
         uses: actions/checkout@v3
@@ -39,11 +45,14 @@ jobs:
         run: |
           python -m pip install --user -r requirements.txt
           cmake -AWin32 -Bbuild -S.
-          cmake --build build --target halo
+          cmake --build build --target halo --config ${{ matrix.configuration }}
 
   BuildMacos:
-    name: Build on macOS with clang
+    name: Build on macOS with clang (${{ matrix.configuration }})
     runs-on: macos-latest
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
     steps:
       - name: Clone Tree
         uses: actions/checkout@v3
@@ -53,5 +62,5 @@ jobs:
           brew install llvm
           python3 -m pip install --user -r requirements.txt
           export PATH="/opt/homebrew/opt/llvm/bin:/usr/local/opt/llvm/bin:$PATH"
-          cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake
+          cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }}
           cmake --build build --target halo

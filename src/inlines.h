@@ -9,6 +9,7 @@
     #define INCLUDE_DECLS
   #endif
   #define INLINE
+  #define atan2 atan2_
 #else
   #define INLINE static inline
   #define INCLUDE_DEFS

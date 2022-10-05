@@ -86,7 +86,89 @@ void game_dispose(void)
   progress_bar_dispose();
 }
 
-// TODO: void game_precache_new_map(char *map_name, int a2);
+void game_precache_new_map(char *map_name, bool a2)
+{
+  __int16 map_status; // esi
+
+  if (cache_files_precache_map_loaded(map_name))
+  {
+  LABEL_22:
+    if (a2)
+    {
+      assert_halt(cache_files_precache_map_loaded(map_name));
+      main_save_current_solo_map(map_name);
+      main_queue_map_name(NULL);
+      
+      if (cache_files_precache_in_progress())
+        cache_files_precache_map_end();
+
+      if (player_spawn_count == 1)
+       player_ui_remember_player1_profile(true);
+    }
+    return;
+  }
+
+  if (cache_files_precache_in_progress() && !cache_files_precache_is_copying_map(map_name))
+  {
+    if (a2)
+    {
+      cache_files_precache_map_end();
+    }
+    else
+    {
+      cache_files_precache_map_queue_end();
+      main_queue_map_name(map_name);
+    }
+  }
+
+  if (!cache_files_precache_in_progress() && !cache_files_precache_map_begin(map_name, a2))
+  {
+    error(2, "shouldn't be here... map '%s' doesn't exist", (const char *)map_name);
+    if (a2)
+    {
+      display_assert(
+        "read the last error message for which map failed to load",
+        "c:\\halo\\SOURCE\\game\\game.c",
+        249,
+        1);
+      system_exit(-1);
+    }
+  }
+
+  cache_files_precache_set_priority(a2);
+
+  if (a2)
+  {
+    game_globals->map_loading = true;
+    game_globals->map_load_progress = 0.0f;
+    assert_halt(cache_files_precache_in_progress() && cache_files_precache_is_copying_map(map_name));
+    ui_widget_load_progress_widget();
+    progress_bar_begin(global_scenario_index != -1);
+
+    do
+    {
+      map_status = cache_files_precache_map_status(&game_globals->map_load_progress);
+      main_pregame_render();
+      main_rasterizer_throttle();
+      main_present_frame();
+    }
+    while (!map_status);
+
+    progress_bar_end();
+    ui_widgets_close_all();
+
+    if (map_status == 2)
+      display_error_damaged_media();
+
+    cache_files_precache_map_end();
+    assert_halt(cache_files_precache_map_loaded(map_name));
+
+    game_globals->map_loading = false;
+    game_globals->map_load_progress = 1.0f;
+
+    goto LABEL_22;
+  }
+}
 
 bool game_map_loading_in_progress(float *progress)
 {

@@ -127,15 +127,31 @@
       "source": "cache/cache_files_windows.c",
       "functions": [
         {
+          "decl": "void cache_files_precache_set_priority(bool);",
+          "addr": "0x1bc6a0"
+        },
+        {
           "decl": "bool cache_files_precache_in_progress(void);",
           "addr": "0x1bc6b0"
         },
         {
-          "decl": "int cache_files_precache_map_status(float *);",
+          "decl": "bool cache_files_precache_is_copying_map(char *map_name);",
+          "addr": "0x1bc6c0"
+        },
+        {
+          "decl": "void cache_files_precache_map_queue_end(void);",
+          "addr": "0x1bc6f0"
+        },
+        {
+          "decl": "__int16 cache_files_precache_map_status(float *);",
           "addr": "0x1bcf00"
         },
         {
-          "decl": "void cache_files_precache_map_begin(char *, char);",
+          "decl": "bool cache_files_precache_map_loaded(char *map_name);",
+          "addr": "0x1bd8e0"
+        },
+        {
+          "decl": "bool cache_files_precache_map_begin(char *map_name, bool);",
           "addr": "0x1bd910"
         },
         {
@@ -563,7 +579,7 @@
           "addr": "0xa6d00"
         },
         {
-          "decl": "void game_precache_new_map(char *map_name, int a2);",
+          "decl": "void game_precache_new_map(char *map_name, bool a2);",
           "addr": "0xa6dc0"
         },
         {
@@ -1068,6 +1084,10 @@
           "addr": "0x1000d0"
         },
         {
+          "decl": "void main_queue_map_name(char *map_name);",
+          "addr": "0x100590"
+        },
+        {
           "decl": "void main_menu_precache_resources(void);",
           "addr": "0x100640"
         },
@@ -1110,6 +1130,10 @@
         {
           "decl": "void main_vertical_blank_interrupt_handler(void);",
           "addr": "0x101cd0"
+        },
+        {
+          "decl": "void main_save_current_solo_map(char *map_name);",
+          "addr": "0x101d90"
         },
         {
           "decl": "void main_load_last_solo_map(void);",
@@ -1426,6 +1450,10 @@
           "addr": "0xe07c0"
         },
         {
+          "decl": "void player_ui_remember_player1_profile(bool);",
+          "addr": "0xe0c30"
+        },
+        {
           "decl": "void player_ui_initialize(void);",
           "addr": "0xe1350"
         }
@@ -1585,6 +1613,14 @@
         {
           "decl": "void progress_bar_dispose(void);",
           "addr": "0xe1c80"
+        },
+        {
+          "decl": "void progress_bar_begin(bool);",
+          "addr": "0xe1c90"
+        },
+        {
+          "decl": "void progress_bar_end(void);",
+          "addr": "0xe1cc0"
         },
         {
           "decl": "void progress_bar_display(float progress);",
@@ -1773,6 +1809,12 @@
     {
       "name": "scenario.obj",
       "source": "scenario/scenario.c",
+      "data": [
+        {
+          "decl": "int global_scenario_index;",
+          "addr": "0x326a08"
+        }
+      ],
       "functions": [
         {
           "decl": "void scenario_initialize(void);",

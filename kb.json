@@ -334,6 +334,10 @@
           "addr": "0x119550"
         },
         {
+          "decl": "void datum_delete(data_t *data, int datum_handle);",
+          "addr": "0x1196d0"
+        },
+        {
           "decl": "void data_iterator_new(data_iter_t *iter, data_t *data);",
           "addr": "0x1197b0"
         },
@@ -836,6 +840,10 @@
           "addr": "0xcf560"
         },
         {
+          "decl": "bool input_has_gamepad(uint16_t);",
+          "addr": "0xcf6c0"
+        },
+        {
           "decl": "void input_update(void);",
           "addr": "0xd0120"
         },
@@ -1258,7 +1266,7 @@
       "source": "game/players.c",
       "data": [
         {
-          "decl": "char unk_46B668[64];",
+          "decl": "char unk_46B668[16 * MAXIMUM_NUMBER_OF_LOCAL_PLAYERS];",
           "addr": "0x46b668"
         }
       ],
@@ -1278,6 +1286,30 @@
         {
           "decl": "void players_dispose(void);",
           "addr": "0xba240"
+        },
+        {
+          "decl": "void *machine_get_player_list(int16_t);",
+          "addr": "0xba270"
+        },
+        {
+          "decl": "bool local_player_exists(int16_t);",
+          "addr": "0xba2e0"
+        },
+        {
+          "decl": "int find_unused_local_player_index();",
+          "addr": "0xba340"
+        },
+        {
+          "decl": "void player_delete(int);",
+          "addr": "0xba390"
+        },
+        {
+          "decl": "int16_t players_get_respawn_failure(void);",
+          "addr": "0xba3b0"
+        },
+        {
+          "decl": "int local_player_get_player_index(int16_t);",
+          "addr": "0xba3c0"
         },
         {
           "decl": "int local_player_set_player_index(unsigned __int16 a1, int a2);",

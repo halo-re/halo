@@ -78,7 +78,9 @@ typedef struct {
 
 /// size=0xd4
 typedef struct {
-  char unk_0[0xd4];
+  char unk0[2];
+  int16_t local_player_index;
+  char unk_0[0xd0];
 } player_data_t;
 
 /// size=0x40

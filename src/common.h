@@ -15,6 +15,7 @@ extern const char *build_rev;
 extern const char *build_date;
 extern const char *build_ui_widget_text;
 
+#define NONE -1
 #define MAXIMUM_GAMEPADS 4
 #define MAXIMUM_NUMBER_OF_LOCAL_PLAYERS 4
 #define MAXIMUM_STRING_SIZE 0x2000

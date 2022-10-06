@@ -88,7 +88,7 @@ void game_dispose(void)
 
 void game_precache_new_map(char *map_name, bool a2)
 {
-  __int16 map_status; // esi
+  __int16 map_status;
 
   if (cache_files_precache_map_loaded(map_name))
   {
@@ -123,14 +123,12 @@ void game_precache_new_map(char *map_name, bool a2)
 
   if (!cache_files_precache_in_progress() && !cache_files_precache_map_begin(map_name, a2))
   {
-    error(2, "shouldn't be here... map '%s' doesn't exist", (const char *)map_name);
+    error(2, "shouldn't be here... map '%s' doesn't exist", map_name);
     if (a2)
     {
       display_assert(
         "read the last error message for which map failed to load",
-        "c:\\halo\\SOURCE\\game\\game.c",
-        249,
-        1);
+        __FILE__, __LINE__, true);
       system_exit(-1);
     }
   }
@@ -180,7 +178,7 @@ bool game_map_loading_in_progress(float *progress)
 
 void game_unload(void)
 {
-  int status;
+  __int16 map_status;
 
   if (cache_files_precache_in_progress())
   {
@@ -189,15 +187,15 @@ void game_unload(void)
 
     do
     {
-      status = cache_files_precache_map_status(&game_globals->map_load_progress);
+      map_status = cache_files_precache_map_status(&game_globals->map_load_progress);
       main_pregame_render();
       main_rasterizer_throttle();
       main_present_frame();
     }
-    while (!status);
+    while (!map_status);
 
     ui_widgets_close_all();
-    if (status == 2)
+    if (map_status == 2)
       display_error_damaged_media();
     cache_files_precache_map_end();
   }

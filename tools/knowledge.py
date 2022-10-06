@@ -48,10 +48,6 @@ class Symbol:
 			return self.decl
 		return self.cursor.spelling
 
-	@classmethod
-	def deserialize(cls, o):
-		return Function(**o)
-
 	def serialize(self):
 		return {'decl': self.decl, 'addr': hex(self.addr)}
 
@@ -78,11 +74,11 @@ class KnowledgeBase:
 
 	def __init__(self):
 		self.symbols = []
-		self.object_to_symbols = defaultdict(list)
-		self.symbol_to_object = {}
-		self.object_to_source = {}
-		self.name_to_addr = {}
-		self.expected_md5 = 'c7869590a1c64ad034e49a5ee0c02465'
+		self.object_to_symbols: Mapping[str, Sequence[Symbol]] = defaultdict(list)
+		self.symbol_to_object: Mapping[Symbol, str] = {}
+		self.object_to_source: Mapping[str, str] = {}
+		self.name_to_addr: Mapping[str, int] = {}
+		self.expected_md5: Optional[str] = None
 		self.addr_to_symbols = {}
 
 	def add_symbols(self, symbols: Sequence[Symbol]):
@@ -95,7 +91,7 @@ class KnowledgeBase:
 		c = match.span()[0]
 		text_before = s.decl[0:c]
 		assert text_before.find(',') < 0, "Can't handle non-first register argument thunks yet"
-		assert text_before.find('(') > 0, "Can't handle return in custom register"
+		assert text_before.find('(') > 0, "Can't handle return in custom register yet"
 
 		rtype = s.cursor.result_type.spelling
 		fname = s.cursor.spelling
@@ -208,7 +204,10 @@ class KnowledgeBase:
 		log.info('Saving knowledge base to %s...', self.kb_path)
 
 		with open(self.kb_path, 'w') as f:
-			out = {'objects': []}
+			out = {
+				'md5': self.expected_md5,
+				'objects': []
+			}
 
 			# Make sure symbols are associated with an object (or the None object)
 			for s in self.symbols:
@@ -240,6 +239,7 @@ class KnowledgeBase:
 			serialized_kb = json.load(f)
 
 		kb = KnowledgeBase()
+		kb.expected_md5 = serialized_kb['md5']
 		for o in serialized_kb['objects']:
 			if 'source' in o:
 				kb.object_to_source[o['name']] = o['source']

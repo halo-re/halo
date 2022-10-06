@@ -340,6 +340,10 @@
         {
           "decl": "void *data_iterator_next(data_iter_t *iterator);",
           "addr": "0x119810"
+        },
+        {
+          "decl": "void data_make_valid(data_t *data);",
+          "addr": "0x119b20"
         }
       ]
     },
@@ -1152,6 +1156,10 @@
       "source": "game/player_control.c",
       "functions": [
         {
+          "decl": "void player_control_dispose(void);",
+          "addr": "0xb63f0"
+        },
+        {
           "decl": "void player_control_initialize_for_new_map(void);",
           "addr": "0xb85c0"
         },
@@ -1248,6 +1256,12 @@
     {
       "name": "players.obj",
       "source": "game/players.c",
+      "data": [
+        {
+          "decl": "char unk_46B668[64];",
+          "addr": "0x46b668"
+        }
+      ],
       "functions": [
         {
           "decl": "void players_initialize(void);",

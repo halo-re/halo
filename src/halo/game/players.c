@@ -14,7 +14,7 @@ void players_initialize(void)
 void players_initialize_for_new_map(void)
 {
   player_control_dispose();
-  csmemset(&players_globals, 0,  sizeof(players_globals_t));
+  csmemset(players_globals, 0,  sizeof(players_globals_t));
   csmemset(&players_globals->local_player_indices[0], -1, 0x10u);
   csmemset(&players_globals->local_dead_player_indices[0], -1, 0x10u);
   players_globals->unk_0 = -1;

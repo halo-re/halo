@@ -88,7 +88,19 @@ typedef struct {
 
 /// size=0xb0
 typedef struct {
-  char unk_0[0xb0];
+  int unk_0;                                                        //< offset=0x00 see local_player_get_next, players_compute_local_player_count
+  int local_player_indices[MAXIMUM_NUMBER_OF_LOCAL_PLAYERS];        //< offset=0x04
+  int local_dead_player_indices[MAXIMUM_NUMBER_OF_LOCAL_PLAYERS];   //< offset=0x14
+  int16_t local_player_count;                                       //< offset=0x24
+  int16_t double_speed_ticks_remaining;                             //< offset=0x26
+  bool are_all_dead;                                                //< offset=0x28
+  bool input_disabled;                                              //< offset=0x29
+  int16_t unk_tag_index;                                            //< offset=0x2A bsp index? see players_reconnect_to_structure_bsp pulling from tag block at scnr+0x39C
+  int16_t respawn_failure;                                          //< offset=0x2C enum, see _players_get_respawn_failure
+  bool teleported;                                                  //< offset=0x2E
+  char unk_flags;                                                   //< offset=0x2F bsp-related flags? see players_update_after_game
+  char combined_pvs[0x40];                                          //< offset=0x30
+  char combined_pvs_local[0x40];                                    //< offset=0x70
 } players_globals_t;
 
 /// size=0x110

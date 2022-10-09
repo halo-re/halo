@@ -326,6 +326,10 @@
           "addr": "0x1191a0"
         },
         {
+          "decl": "void *datum_get(data_t *data, datum_index_t index);",
+          "addr": "0x119320"
+        },
+        {
           "decl": "void data_verify(data_t *data);",
           "addr": "0x1193f0"
         },
@@ -334,7 +338,7 @@
           "addr": "0x119550"
         },
         {
-          "decl": "void datum_delete(data_t *data, int datum_handle);",
+          "decl": "void datum_delete(data_t *data, datum_index_t index);",
           "addr": "0x1196d0"
         },
         {
@@ -1096,7 +1100,7 @@
           "addr": "0x8a4d0"
         },
         {
-          "decl": "void *observer_get_camera(unsigned __int16 local_player_index);",
+          "decl": "void *observer_get_camera(datum_index_t player);",
           "addr": "0x8a4e0"
         },
         {
@@ -1300,7 +1304,7 @@
           "addr": "0xba340"
         },
         {
-          "decl": "void player_delete(int);",
+          "decl": "void player_delete(datum_index_t);",
           "addr": "0xba390"
         },
         {
@@ -1308,23 +1312,59 @@
           "addr": "0xba3b0"
         },
         {
-          "decl": "int local_player_get_player_index(int16_t);",
+          "decl": "int local_player_get_player_index(int16_t local_player_index);",
           "addr": "0xba3c0"
         },
         {
-          "decl": "int local_player_set_player_index(unsigned __int16 a1, int a2);",
+          "decl": "void local_player_set_player_index(int16_t local_player_index, datum_index_t index);",
           "addr": "0xba410"
         },
         {
-          "decl": "__int16 local_player_count(void);",
+          "decl": "int16_t local_player_count(void);",
           "addr": "0xba4b0"
         },
         {
-          "decl": "__int16 local_player_get_next(__int16 a1);",
+          "decl": "bool players_are_all_dead(void);",
+          "addr": "0xba5e0"
+        },
+        {
+          "decl": "void* players_get_combined_pvs_local(void);",
+          "addr": "0xba6b0"
+        },
+        {
+          "decl": "void* players_get_combined_pvs(void);",
+          "addr": "0xba6c0"
+        },
+        {
+          "decl": "void player_input_enable(bool);",
+          "addr": "0xba6d0"
+        },
+        {
+          "decl": "bool player_input_enabled(void);",
+          "addr": "0xba6f0"
+        },
+        {
+          "decl": "bool any_player_is_dead(void);",
+          "addr": "0xba800"
+        },
+        {
+          "decl": "datum_index_t local_player_get_next(datum_index_t local_player);",
           "addr": "0xba4c0"
         },
         {
-          "decl": "int player_new(unsigned __int16 a1, int a2, unsigned __int16 a3, char *a4);",
+          "decl": "int players_compute_local_player_count(void);",
+          "addr": "0xbadf0"
+        },
+        {
+          "decl": "void player_examine_nearby_unit(void);",
+          "addr": "0xbae10"
+        },
+        {
+          "decl": "void player_reset_action_result(void);",
+          "addr": "0xbaeb0"
+        },
+        {
+          "decl": "datum_index_t player_new(unsigned __int16 a1, int a2, unsigned __int16 a3, char *a4);",
           "addr": "0xbb2f0"
         },
         {

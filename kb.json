@@ -1100,7 +1100,7 @@
           "addr": "0x8a4d0"
         },
         {
-          "decl": "void *observer_get_camera(datum_index_t player);",
+          "decl": "void *observer_get_camera(int16_t local_player_index);",
           "addr": "0x8a4e0"
         },
         {

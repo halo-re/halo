@@ -229,7 +229,7 @@ void main_game_render(double a2)
         }
       }
       current_window->local_player_index = next_player.index;
-      camera = observer_get_camera(next_player);
+      camera = observer_get_camera(next_player.index);
     } else {
       current_window->local_player_index = -1;
     }

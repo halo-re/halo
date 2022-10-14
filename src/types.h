@@ -254,11 +254,11 @@ typedef struct {
 
 /// size=0x10
 typedef struct {
-  data_t   *data;        ///< offset=0x00
-  uint16_t index;        ///< offset=0x04
-  char     unk_6[2];     ///< offset=0x06
-  uint32_t datum_handle; ///< offset=0x08
-  uint32_t cookie;       ///< offset=0x0c
+  data_t        *data;        ///< offset=0x00
+  uint16_t      index;        ///< offset=0x04
+  char          unk_6[2];     ///< offset=0x06
+  datum_index_t datum_index;  ///< offset=0x08
+  uint32_t      cookie;       ///< offset=0x0c
 } data_iter_t;
 
 /// size=8

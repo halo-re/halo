@@ -34,7 +34,7 @@ void data_iterator_new(data_iter_t *iter, data_t *data)
   iter->data = data;
   iter->cookie = (unsigned int)data ^ 0x69746572;
   iter->index = 0;
-  iter->datum_handle = -1;
+  iter->datum_index = INVALID_DATUM_HANDLE;
 }
 
 void *data_iterator_next(data_iter_t *iterator)
@@ -66,7 +66,7 @@ void *data_iterator_next(data_iter_t *iterator)
         return 0;
       }
     }
-    iterator->datum_handle = handle;
+    iterator->datum_index.handle = handle;
     iterator->index = index;
   }
   return result;

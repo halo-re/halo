@@ -1324,6 +1324,10 @@
           "addr": "0xba4b0"
         },
         {
+          "decl": "datum_index_t player_index_from_unit_index(datum_index_t);",
+          "addr": "0xba500"
+        },
+        {
           "decl": "bool players_are_all_dead(void);",
           "addr": "0xba5e0"
         },

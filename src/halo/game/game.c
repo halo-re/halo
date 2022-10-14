@@ -140,7 +140,7 @@ void game_initial_pulse()
 
   data_iterator_new(&iter, player_data);
   while (data_iterator_next(&iter))
-    game_engine_player_added(iter.datum_handle);
+    game_engine_player_added(iter.datum_index.handle);
   game_engine_game_starting();
 }
 

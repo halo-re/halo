@@ -9,6 +9,6 @@ void hud_load(bool a1)
   }
   scripted_hud_messages_clear();
   if (v1 != -1) {
-    hud_print_message(local_player_get_next(-1), hud_get_item_string(v1));
+    hud_print_message(local_player_get_next(INVALID_DATUM_HANDLE).index, hud_get_item_string(v1));
   }
 }

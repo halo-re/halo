@@ -9,7 +9,7 @@ void create_local_players(void)
 {
   int i;
   int j;
-  int player;
+  datum_index_t player;
   int16_t gamepad_index;
   int16_t assigned_controllers[4];
   int16_t desired_controllers[4];
@@ -197,14 +197,14 @@ void main_game_render(double a2)
   void *camera;
   int num_players;
   int num_screens;
-  __int16 next_player;
+  datum_index_t next_player;
 
   lock_global_random_seed();
   collision_log_continue_period(1);
   sound_render();
 
   force_single_screen = game_engine_force_single_screen();
-  next_player = -1;
+  next_player.handle = -1;
   num_screens = CLAMP(local_player_count(), 1, 4);
   num_players = num_screens;
 
@@ -221,17 +221,17 @@ void main_game_render(double a2)
                           &current_window->unk_140);
 
     if (!force_single_screen && player_index < num_screens) {
-      if (!byte_325714 || next_player == -1) {
+      if (!byte_325714 || next_player.handle == -1) {
         if (word_46DA0C == 3) {
-          next_player = 0;
+          next_player.handle = 0;
         } else {
           next_player = local_player_get_next(next_player);
         }
       }
-      current_window->player = next_player;
-      camera = observer_get_camera(next_player);
+      current_window->local_player_index = next_player.index;
+      camera = observer_get_camera(next_player.index);
     } else {
-      current_window->player = -1;
+      current_window->local_player_index = -1;
     }
 
     set_window_camera_values(current_window, camera);
@@ -241,7 +241,7 @@ void main_game_render(double a2)
   current_window = &window[num_players];
   compute_window_bounds(0, 1, &current_window->unk_132,
                         &current_window->unk_140);
-  current_window->player = -1;
+  current_window->local_player_index = -1;
   current_window->unk_2 = 1;
   set_window_camera_values(current_window, 0);
 

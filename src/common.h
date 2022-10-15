@@ -15,6 +15,11 @@ extern const char *build_rev;
 extern const char *build_date;
 extern const char *build_ui_widget_text;
 
+#define NONE -1
+#define MAXIMUM_GAMEPADS 4
+#define MAXIMUM_NUMBER_OF_LOCAL_PLAYERS 4
+#define MAXIMUM_STRING_SIZE 0x2000
+
 #include "types.h"
 #include "inlines.h"
 #include "decl.h"
@@ -37,10 +42,6 @@ extern const char *build_ui_widget_text;
 
 #define CLAMP(x, low, high) \
   ((x) < (low) ? (low) : ((x) > (high) ? (high) : (x)))
-
-#define MAXIMUM_GAMEPADS 4
-#define MAXIMUM_NUMBER_OF_LOCAL_PLAYERS 4
-#define MAXIMUM_STRING_SIZE 0x2000
 
 static const int _scenario_type_main_menu = 2;
 

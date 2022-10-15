@@ -74,28 +74,26 @@ bool local_player_exists(int16_t player_index)
 
 int find_unused_local_player_index()
 {
-  int v0; // edi
-  int v1; // esi
-  int v2; // esi
+  int local_player_index = NONE;
+  int index = 0;
 
-  v0 = -1;
-  v1 = 0;
-  while (!input_has_gamepad(v1) || local_player_exists(v1))
-  {
-    if (++v1 >= 4)
-      goto LABEL_7;
+  while (!input_has_gamepad(index) || local_player_exists(index)) {
+    if (++index >= MAXIMUM_NUMBER_OF_LOCAL_PLAYERS)
+      goto skip;
   }
-  v0 = v1;
-  if (v1 != -1)
-    return v0;
-  LABEL_7:
-  v2 = 0;
-  while (local_player_exists(v2))
-  {
-    if (++v2 >= 4)
-      return v0;
+
+  local_player_index = index;
+  if (index != NONE)
+    return local_player_index;
+
+  skip:
+  index = 0;
+  while (local_player_exists(index)) {
+    if (++index >= MAXIMUM_NUMBER_OF_LOCAL_PLAYERS)
+      return local_player_index;
   }
-  return v2;
+
+  return index;
 }
 
 void player_delete(datum_index_t player)

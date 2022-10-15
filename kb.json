@@ -1172,6 +1172,10 @@
           "addr": "0xb63f0"
         },
         {
+          "decl": "void player_control_new_unit(uint16_t local_player_index, datum_index_t player_index);",
+          "addr": "0xb6fc0"
+        },
+        {
           "decl": "void player_control_initialize_for_new_map(void);",
           "addr": "0xb85c0"
         },
@@ -1326,6 +1330,10 @@
         {
           "decl": "datum_index_t player_index_from_unit_index(datum_index_t);",
           "addr": "0xba500"
+        },
+        {
+          "decl": "void player_died(datum_index_t);",
+          "addr": "0xba550"
         },
         {
           "decl": "bool players_are_all_dead(void);",

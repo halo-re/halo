@@ -57,6 +57,8 @@ typedef union {
   };
 } datum_handle_t;
 
+static const datum_handle_t INVALID_DATUM_HANDLE = { -1 };
+
 /// size=0x10c
 typedef struct {
   uint32_t unk_0;         ///< offset=0x00
@@ -91,6 +93,144 @@ typedef struct {
   float    speed;       ///< offset=0x18
   uint32_t unk_28;      ///< offset=0x1c
 } game_time_globals_t;
+
+/// size=0x98
+typedef struct {
+  bool object_is_being_placed;                ///< offset=0x00    see .text:0013F060 _objects_place
+  bool object_marker_initialized;             ///< offset=0x01    see .text:0013EB70 _object_marker_begin
+  bool garbage_collect_now;                   ///< offset=0x02    see .text:0013DB50 _garbage_collect_now
+  char unk_3;                                 ///< offset=0x03    padding?
+  uint16_t unk_4;                             ///< offset=0x04    see .text:00144B50 _objects_garbage_collection & .text:001444F0 _object_update
+  uint16_t unk_6;                             ///< offset=0x06    padding?
+  datum_handle_t unk_8;                       ///< offset=0x08    see .text:0013D939 mov     eax, [ecx+8]   datum handle for object_header_data
+  char combined_pvs[64];                      ///< offset=0x0C    see .text:0013F9A1 add     edx, 0Ch
+  char combined_pvs_local[64];                ///< offset=0x4C    see .text:0013F9B2 add     eax, 4Ch
+  uint32_t last_garbage_collection_tick;      ///< offset=0x8C    see .text:00144EF6 mov     edx, [ecx+8Ch]
+  uint16_t pvs_activator_type;                ///< offset=0x90    see .text:0013DBE0 _object_pvs_set_object
+  uint16_t unk_146;                           ///< offset=0x92    padding?
+  datum_handle_t pvs_activator_object_index;  ///< offset=0x94    see .text:0013DBE0 _object_pvs_set_object & .text:0013DCE4 mov     ecx, [ecx+94h]
+} object_globals_t;
+
+/// size=0x1A4
+typedef struct {
+  uint32_t tag_index;
+  char unk_4[0x1A0];
+} object_data_t;
+
+/// size=0xc
+typedef struct {
+  uint16_t unk_0;         ///< offset=0x00
+  uint8_t unk_2;          ///< offset=0x02  see .text:0013FF78                 or      byte ptr [esi+2], 40h  flags
+  uint8_t type;           ///< offset=0x03  see .text:000F68C3                 movzx   ax, byte ptr [eax+3]
+  uint16_t unk_4;         ///< offset=0x04  cluster_index?
+  uint16_t data_size;     ///< offset=0x06  see .text:0013E015                 movsx   eax, word ptr [edi+6]
+  object_data_t* object;  ///< offset=0x08  see .text:0013D80E                 mov     esi, [eax+8]
+} object_header_data_t;
+
+// OBJE -> UNIT
+/// size=0x424
+typedef struct {
+  object_data_t object;   ///< offset=0x000
+  char unk_420[0x280];    ///< offset=0x1A4
+} unit_data_t;
+
+// OBJE -> UNIT -> BIPD
+/// size=0x480
+typedef struct {
+  unit_data_t unit;       ///< offset=0x000
+  char unk_1060[0x5C];    ///< offset=0x424
+} biped_data_t;
+
+// OBJE -> UNIT -> VEHI
+/// size=0x47C
+typedef struct {
+  unit_data_t unit;       ///< offset=0x000
+  char unk_1060[0x58];    ///< offset=0x424
+} vehicle_data_t;
+
+// OBJE -> ITEM
+/// size=0x1DC
+typedef struct {
+  object_data_t object;   ///< offset=0x000
+  char unk_420[0x38];     ///< offset=0x1A4
+} item_data_t;
+
+// OBJE -> ITEM -> WEAP
+/// size=0x27C
+typedef struct {
+  item_data_t item;       ///< offset=0x000
+  char unk_476[0xA0];     ///< offset=0x1DC
+} weapon_data_t;
+
+// OBJE -> ITEM -> EQUI
+/// size=0x1F4
+typedef struct {
+  item_data_t item;       ///< offset=0x000
+  char unk_476[0x18];     ///< offset=0x1DC
+} equipment_data_t;
+
+// OBJE -> ITEM -> GARB
+/// size=0x1F4
+typedef struct {
+  item_data_t item;       ///< offset=0x000
+  char unk_476[0x18];     ///< offset=0x1DC
+} garbage_data_t;
+
+// OBJE -> PROJ
+/// size=0x228
+typedef struct {
+  object_data_t object;   ///< offset=0x000
+  char unk_420[0x84];     ///< offset=0x1A4
+} projectile_data_t;
+
+// OBJE -> SCEN
+/// size=0x1A8
+typedef struct {
+  object_data_t object;   ///< offset=0x000
+  char unk_420[4];        ///< offset=0x1A4
+} scenery_data_t;
+
+// OBJE -> DEVI
+/// size=0x1C4
+typedef struct {
+  object_data_t object;   ///< offset=0x000
+  char unk_420[0x20];     ///< offset=0x1A4
+} device_data_t;
+
+// OBJE -> DEVI -> MACH
+/// size=0x1D8
+typedef struct {
+  device_data_t device;   ///< offset=0x000
+  char unk_452[0x14];     ///< offset=0x1C4
+} machine_data_t;
+
+// OBJE -> DEVI -> CTRL
+/// size=0x1CC
+typedef struct {
+  device_data_t device;   ///< offset=0x000
+  char unk_452[8];        ///< offset=0x1C4
+} control_data_t;
+
+// OBJE -> DEVI -> LIFI
+/// size=0x1DC
+typedef struct {
+  device_data_t device;   ///< offset=0x000
+  char unk_452[0x18];     ///< offset=0x1C4
+} light_fixture_data_t;
+
+// OBJE -> PLAC
+/// size=0x1FC
+typedef struct {
+  object_data_t object;   ///< offset=0x000
+  char unk_420[0x58];     ///< offset=0x1A4
+} placeholder_data_t;
+
+// OBJE -> SSCE
+/// size=0x1A8
+typedef struct {
+  object_data_t object;   ///< offset=0x000
+  char unk_420[4];        ///< offset=0x1A4
+} sound_scenery_data_t;
 
 /// size=0xd4
 typedef struct {

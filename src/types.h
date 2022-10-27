@@ -57,8 +57,6 @@ typedef union {
   };
 } datum_handle_t;
 
-static const datum_handle_t INVALID_DATUM_HANDLE = { -1 };
-
 /// size=0x10c
 typedef struct {
   uint32_t unk_0;         ///< offset=0x00
@@ -113,8 +111,89 @@ typedef struct {
 
 /// size=0x1A4
 typedef struct {
-  uint32_t tag_index;
-  char unk_4[0x1A0];
+  uint32_t tag_index;       ///< offset=0x00
+  uint32_t flags;           ///< offset=0x04  .text:00095B7B                 mov     [esi+4], ecx
+  uint32_t unk_8;           ///< offset=0x08  .text:0013EC41                 mov     edx, [esi+8] compared against global object marker
+  vector3_t unk_12;         ///< offset=0x0C
+  vector3_t unk_24;         ///< offset=0x18
+  vector3_t unk_36;         ///< offset=0x24
+  vector3_t unk_48;         ///< offset=0x30
+  vector3_t unk_60;         ///< offset=0x3C
+  uint32_t unk_72;          ///< offset=0x48  .text:00140149                 mov     edx, [ecx+48h] location.???, leaf index?
+
+  // .text:00031FEE                 mov     edx, [eax+4Ch]  
+  // .text:00034D1F                 movsx   eax, word ptr [eax+4Ch] object.location.cluster_index
+  datum_handle_t unk_76;    ///< offset=0x4C
+
+  float unk_80;             ///< offset=0x50  .text:0009D161                 fsub    dword ptr [ebx+50h]
+  float unk_84;             ///< offset=0x54  .text:0009D167                 fsub    dword ptr [ebx+54h]
+  float unk_88;             ///< offset=0x58  .text:0009D16D                 fsub    dword ptr [ebx+58h]
+  float unk_92;             ///< offset=0x5C  .text:0009D155                 fld     dword ptr [ebx+5Ch]
+  float unk_96;             ///< offset=0x60  .text:00141E5B                 fld     dword ptr [esi+60h]
+  int16_t type;             ///< offset=0x64  .text:0013D811                 movsx   ecx, word ptr [esi+64h] type enum
+  int16_t unk_102;          ///< offset=0x66
+  int16_t unk_104;          ///< offset=0x68  .text:00032344                 movsx   eax, word ptr [eax+68h] team-related index
+  int16_t unk_106;          ///< offset=0x6A
+  int16_t unk_108;          ///< offset=0x6C  .text:000A8741                 cmp     [eax+6Ch], si
+  int16_t unk_110;          ///< offset=0x6E  .text:0003EC0B                 cmp     word ptr [edi+6Eh], 64h
+  uint32_t unk_112;         ///< offset=0x70  .text:00143FFA                 mov     [edi+70h], edx
+  uint32_t unk_116;         ///< offset=0x74  .text:000348B6                 mov     eax, [ecx+74h]
+  uint32_t unk_120;         ///< offset=0x78
+  uint32_t unk_124;         ///< offset=0x7C  .text:00141C2B                 mov     eax, [esi+7Ch]
+  int16_t unk_128;          ///< offset=0x80  .text:00141C3E                 cmp     word ptr [esi+80h], 0FFFFh  animation related, possibly datum index
+  int16_t unk_130;          ///< offset=0x82  .text:000FBB39                 mov     word ptr [esi+82h], 0  animation related, possibly datum index
+  int16_t unk_132;          ///< offset=0x84  .text:001401F8                 movsx   edx, word ptr [esi+84h]
+  int16_t unk_134;          ///< offset=0x86  .text:001401FF                 movsx   ecx, word ptr [esi+86h]
+  uint32_t unk_136;         ///< offset=0x88  .text:00136654                 mov     [esi+88h], ecx   float?   body vitality?
+  float unk_140;            ///< offset=0x8C  .text:000C9C40                 fmul    dword ptr [ecx+8Ch]  shield vitality?
+  float unk_144;            ///< offset=0x90  .text:00136675                 fstp    dword ptr [esi+90h]  shield/vitality related
+  float unk_148;            ///< offset=0x94  .text:000C9C46                 fstp    dword ptr [ecx+94h]  shield related, double charge?
+  uint32_t unk_152;         ///< offset=0x98  .text:00136BA8                 mov     dword ptr [esi+98h], 0   float? shield
+  float unk_156;            ///< offset=0x9C  .text:0001FA9E                 fld     dword ptr [edi+9Ch]
+  uint32_t unk_160;         ///< offset=0xA0  .text:00137F25                 cmp     dword ptr [ebx+0A0h], 0FFFFFFFFh   datum_handle?
+  float unk_164;            ///< offset=0xA4  .text:00138865                 fld     dword ptr [esi+0A4h]
+  float unk_168;            ///< offset=0xA8  .text:001387AF                 fld     dword ptr [esi+0A8h]
+  uint32_t unk_172;         ///< offset=0xAC  .text:00143FB0                 mov     [edi+0ACh], eax
+  uint32_t unk_176;         ///< offset=0xB0  .text:0013877C                 mov     eax, [esi+0B0h]   datum_handle?
+
+  // 32-bit flags?
+  int16_t unk_180;          ///< offset=0xB4  .text:00138775                 mov     [esi+0B4h], ax
+  int8_t unk_182;           ///< offset=0xB6  .text:00018832                 or      byte ptr [eax+0B6h], 40h
+  int8_t unk_183;           ///< offset=0xB7  .text:0003B35D                 test    byte ptr [eax+0B7h], 1  ranged weapon
+
+  uint32_t unk_184;         ///< offset=0xB8
+  uint32_t unk_188;         ///< offset=0xBC  .text:00143F81                 mov     [edi+0BCh], eax
+  uint32_t unk_192;         ///< offset=0xC0
+  datum_handle_t next_object_index;   ///< offset=0xC4  .text:0014537B                 mov     ecx, [eax+0C4h]
+  datum_handle_t unk_200;   ///< offset=0xC8  .text:000320C3                 mov     eax, [edi+0C8h]
+  datum_handle_t parent_object_index;   ///< offset=0xCC  .text:00145348                 mov     ecx, [eax+0CCh]
+
+  // TODO: 
+  //float unk_208[5];         ///< offset=0xD0  .text:0013E640                 fld     dword ptr [ebx+edx*4+0D0h]
+  // .text:0013E640                 fld     dword ptr [ebx+edx*4+0D0h] array base? Colors related, 5 4-byte elements
+  // .text:0013EAE4                 mov     al, [edi+0D3h] wtf???
+  // .text:00140408                 mov     al, [esi+0D3h]
+  // .text:000F7EEB                 lea     ebx, [esi+0D4h]
+  // .text:0013EABF                 fadd    dword ptr [edi+esi*4+0E4h] array base?
+  // .text:001403FF                 mov     edx, [esi+ecx*4+0E4h]
+  // .text:001393F0                 mov     cl, [eax+esi+0F4h] illumination related?
+  // TODO: 0xF8
+  // .text:00097B90                 mov     eax, [edx+ecx*4+0FCh] illumination related?
+  // .text:0009E714                 mov     dword ptr [esi+eax*4+0FCh], 0FFFFFFFFh
+  // .text:0013617A                 mov     dword ptr [esi+11Ch], 0FFFFFFFFh widget-related?
+  // .text:00143F94                 mov     [edi+120h], eax
+  // .text:001376FF                 movzx   eax, word ptr [ebx+124h] region-related?
+  // .text:00144015                 mov     [edi+126h], dx
+  // .text:00141B01                 movzx   eax, byte ptr [edx+edi+128h]
+  // .text:00136A62                 mov     [esi+ebx+130h], al  array base, shield/vitality regions?
+  // .text:00140A77                 mov     byte ptr [edi+ecx+130h], 0
+  // .text:0013E4AA                 movzx   ecx, byte ptr [esi+ecx+130h]
+  // .text:0013E21D                 lea     ebx, [edi+138h]  color stuff
+  // .text:001401E2                 lea     edx, [esi+198h] mode related
+  // .text:001401D1                 lea     ecx, [esi+19Ch] mode related
+  // .text:00140EF1                 add     eax, 1A0h node matrix reference?
+
+  char unk_208[0xD4];
 } object_data_t;
 
 /// size=0xc
@@ -127,11 +206,178 @@ typedef struct {
   object_data_t* object;  ///< offset=0x08  see .text:0013D80E                 mov     esi, [eax+8]
 } object_header_data_t;
 
+#define MAXIMUM_WEAPONS_PER_UNIT 4
+#define NUMBER_OF_UNIT_GRENADE_TYPES 2
+
 // OBJE -> UNIT
 /// size=0x424
 typedef struct {
-  object_data_t object;   ///< offset=0x000
-  char unk_420[0x280];    ///< offset=0x1A4
+  object_data_t object;               ///< offset=0x000
+  datum_handle_t actor_index;         ///< offset=0x1A4 .text:0003EB73                 cmp     dword ptr [edi+1A4h], 0FFFFFFFFh
+  datum_handle_t swarm_actor_index;   ///< offset=0x1A8 .text:0003EB9C                 cmp     dword ptr [edi+1A8h], 0FFFFFFFFh
+  datum_handle_t unk_428;             ///< offset=0x1AC .text:00031492                 mov     eax, [eax+1ACh]
+  datum_handle_t unk_432;             ///< offset=0x1B0 .text:0003AF89                 mov     eax, [esi+1B0h]   datum index?
+  uint32_t unk_436;                   ///< offset=0x1B4 .text:001A80D0                 test    dword ptr [esi+1B4h], 400000h   flags
+  uint32_t unk_440;                   ///< offset=0x1B8 .text:000D93E7                 mov     ecx, [eax+1B8h] flags
+  uint16_t unk_444;                   ///< offset=0x1BC .text:001B3701                 inc     word ptr [ebx+1BCh]
+  uint8_t unk_446;                    ///< offset=0x1BE .text:001A8125                 movsx   edx, byte ptr [esi+1BEh]
+  uint8_t unk_447;                    ///< offset=0x1BF .text:001AE773                 mov     [esi+1BFh], al    seat index
+  uint32_t unk_448;                   ///< offset=0x1C0 .text:001A81DA                 mov     [esi+1C0h], ecx
+  uint32_t persistent_control_flags;  ///< offset=0x1C4 .text:001A81D3                 mov     [esi+1C4h], edi
+  datum_handle_t unk_456;             ///< offset=0x1C8 .text:00030656                 cmp     dword ptr [ebx+1C8h], 0FFFFFFFFh
+  uint16_t unk_460;                   ///< offset=0x1CC .text:0004091B                 cmp     bx, [esi+1CCh]
+  uint16_t unk_462;                   ///< offset=0x1CE .text:001A9B5E                 mov     [esi+1CEh], ax
+  uint32_t unk_464;                   ///< offset=0x1D0 .text:00040924                 mov     ecx, [esi+1D0h] game time related
+  vector3_t unk_468;                  ///< offset=0x1D4 .text:001AF62B                 lea     ecx, [esi+1D4h]
+  vector3_t unk_480;                  ///< offset=0x1E0 .text:001AF63E                 lea     edx, [esi+1E0h]
+  vector3_t unk_492;                  ///< offset=0x1EC .text:001AF678                 lea     eax, [esi+1ECh]
+  vector3_t unk_504;                  ///< offset=0x1F8 .text:001AF7E5                 fld     dword ptr [esi+1F8h]
+  vector3_t unk_516;                  ///< offset=0x204 .text:001AF651                 lea     eax, [esi+204h]
+  vector3_t unk_528;                  ///< offset=0x210 .text:001AF68B                 add     esi, 210h
+  vector3_t unk_540;                  ///< offset=0x21C .text:001AF82F                 fld     dword ptr [esi+21Ch]
+  vector3_t unk_552;                  ///< offset=0x228 .text:001B39A3                 lea     edx, [ebx+228h]
+  float unk_564;                      ///< offset=0x234 .text:001B387D                 mov     dword ptr [ebx+234h], 3F800000h
+  uint8_t unk_568;                    ///< offset=0x238
+  uint8_t unk_569;                    ///< offset=0x239 .text:001ABDB1                 mov     cl, [esi+239h]
+  uint8_t unk_570;                    ///< offset=0x23A .text:001ABDE5                 mov     cl, [esi+23Ah]
+  uint8_t unk_571;                    ///< offset=0x23B .text:001B0EC8                 mov     al, [edi+23Bh]
+  uint8_t unk_572;                    ///< offset=0x23C .text:0003D1D3                 mov     [eax+23Ch], bl
+  uint8_t unk_573;                    ///< offset=0x23D .text:001AB0FB                 mov     byte ptr [esi+23Dh], 3
+  uint8_t unk_574;                    ///< offset=0x23E .text:001AB2F7                 movsx   ecx, word ptr [esi+23Eh]
+  uint8_t unk_575;                    ///< offset=0x23F padding?
+  uint16_t unk_576;                   ///< offset=0x240 .text:001AB2FE                 movsx   edx, word ptr [esi+240h]
+  uint16_t unk_578;                   ///< offset=0x242
+  datum_handle_t unk_580;             ///< offset=0x244 .text:001AB147                 mov     edi, [esi+244h]
+  uint8_t unk_584;                    ///< offset=0x248 .text:001ACF38                 or      byte ptr [eax+248h], 2
+  uint8_t unk_585;                    ///< offset=0x249
+  uint16_t unk_586;                   ///< offset=0x24A .text:001A8C5D                 cmp     word ptr [esi+24Ah], 0FFFFh
+  uint16_t unk_588;                   ///< offset=0x24C .text:001AD69B                 mov     [esi+24Ch], ax
+  uint16_t unk_590;                   ///< offset=0x24E .text:001B2887                 mov     [esi+24Eh], bx
+  uint8_t unk_592;                    ///< offset=0x250 .text:001A841D                 movsx   ecx, byte ptr [esi+250h]
+  uint8_t unk_593;                    ///< offset=0x251 .text:001A8432                 movsx   ecx, byte ptr [esi+251h]
+  uint8_t unk_594;                    ///< offset=0x252 .text:001A8A0C                 movsx   eax, byte ptr [esi+252h]
+  uint8_t unk_595;                    ///< offset=0x253 .text:001A8B46                 movsx   eax, byte ptr [esi+253h]
+  uint8_t unk_596;                    ///< offset=0x254 .text:001A8AEB                 mov     [esi+254h], cl
+  uint8_t unk_597;                    ///< offset=0x255 .text:001A8B31                 movsx   cx, byte ptr [esi+255h]
+  uint8_t unk_598;                    ///< offset=0x256 .text:001B0E17                 movsx   eax, byte ptr [edi+256h]
+  uint8_t base_seat_index;            ///< offset=0x257 .text:001AE2E8                 movsx   si, byte ptr [esi+257h]
+  uint8_t unk_600;                    ///< offset=0x258 .text:001AC08A                 mov     [eax+258h], cl
+  uint8_t unk_601;                    ///< offset=0x259 padding? 
+  uint16_t unk_602;                   ///< offset=0x25A .text:001AFD69                 mov     ax, [esi+25Ah]   tag block index
+  uint16_t unk_604;                   ///< offset=0x25C .text:001AFD7E                 mov     cx, [esi+25Ch]   tag block index
+  uint16_t unk_606;                   ///< offset=0x25E .text:001AFDA5                 mov     ax, [esi+25Eh]   tag block index
+  uint16_t unk_608;                   ///< offset=0x260 .text:001AFDB4                 mov     cx, [esi+260h]   tag block index
+  uint16_t unk_610;                   ///< offset=0x262 .text:001AFDDB                 mov     ax, [esi+262h]   tag block index
+  uint16_t unk_612;                   ///< offset=0x264 .text:001AFDEA                 mov     cx, [esi+264h]   tag block index
+  uint8_t unk_614;                    ///< offset=0x266 .text:001ADAB2                 mov     bl, [eax+266h]
+  uint8_t unk_615;                    ///< offset=0x267 .text:001ADAC0                 mov     bl, [eax+267h]
+  float unk_616;                      ///< offset=0x268 .text:001ADAB8                 lea     edi, [eax+268h]  quat?
+  float unk_620;                      ///< offset=0x26C .text:001B0225                 fstp    dword ptr [esi+26Ch]
+  float unk_624;                      ///< offset=0x270 .text:001B0244                 fstp    dword ptr [esi+270h]
+  float unk_628;                      ///< offset=0x274 .text:001B0263                 fstp    dword ptr [esi+274h]
+  float unk_632;                      ///< offset=0x278 .text:001ADAC6                 lea     edi, [eax+278h]  quat?
+  float unk_636;                      ///< offset=0x27C .text:001B0459                 fstp    dword ptr [esi+27Ch]
+  float unk_640;                      ///< offset=0x280 .text:001B0472                 fstp    dword ptr [esi+280h]
+  float unk_644;                      ///< offset=0x284 .text:001B0491                 fstp    dword ptr [esi+284h]
+  float unk_648;                      ///< offset=0x288
+  uint32_t unk_652;                   ///< offset=0x28C
+  float unk_656;                      ///< offset=0x290 .text:001AB900                 fstp    dword ptr [esi+290h]   rgb color brightness
+  float unk_660;                      ///< offset=0x294 .text:001AB90C                 fstp    dword ptr [esi+294h]   self illumination
+  float unk_664;                      ///< offset=0x298 .text:001A80AC                 fld     dword ptr [esi+298h]
+  uint32_t unk_668;                   ///< offset=0x29C
+  uint16_t unk_672;                   ///< offset=0x2A0 .text:000B6805                 movsx   ecx, word ptr [edi+2A0h]   tag block index
+  uint16_t unk_674;                   ///< offset=0x2A2 .text:000B0B06                 mov     ax, [ebx+2A2h]   current weapon index into (0x2A8)
+  uint16_t unk_676;                   ///< offset=0x2A4 .text:000B707C                 mov     ax, [ebx+2A4h]   next weapon index
+  uint16_t unk_678;                   ///< offset=0x2A6
+  datum_handle_t unk_680[MAXIMUM_WEAPONS_PER_UNIT]; ///< offset=0x2A8 .text:001AAD23                 mov     eax, [edi+ecx*4+2A8h]
+  datum_handle_t unk_696[MAXIMUM_WEAPONS_PER_UNIT]; ///< offset=0x2B8 .text:001B1E5D                 mov     dword ptr [edi+eax*4+2B8h], 0
+  datum_handle_t unk_712;             ///< offset=0x2C8 .text:001AA97E                 mov     eax, [eax+2C8h] current equipment
+  uint8_t current_grenade_index;      ///< offset=0x2CC .text:001AAEF1                 mov     al, [esi+2CCh] unit->unit.current_grenade_index
+  uint8_t unk_717;                    ///< offset=0x2CD .text:000B7087                 movsx   cx, byte ptr [ebx+2CDh]
+  uint8_t unk_718[NUMBER_OF_UNIT_GRENADE_TYPES];  ///< offset=0x2CE .text:001A99E3                 cmp     byte ptr [ecx+ebx+2CEh], 0   grenade counts
+  uint8_t zoom_level;                 ///< offset=0x2D0 .text:001A869E                 movsx   ax, byte ptr [eax+2D0h]
+  uint8_t unk_721;                    ///< offset=0x2D1 .text:000B7093                 movsx   dx, byte ptr [ebx+2D1h]
+  uint8_t unk_722;                    ///< offset=0x2D2
+  uint8_t unk_723;                    ///< offset=0x2D3 .text:001A8090                 movzx   edx, byte ptr [esi+2D3h]
+  datum_handle_t unk_724;             ///< offset=0x2D4 .text:001AA4DE                 mov     ecx, [eax+2D4h]
+  datum_handle_t unk_728;             ///< offset=0x2D8 .text:000D8D8D                 cmp     [eax+2D8h], edi
+  uint32_t unk_732;                   ///< offset=0x2DC .text:0003AC65                 mov     ecx, [esi+2DCh]  game time related
+  uint32_t unk_736;                   ///< offset=0x2E0 .text:000BC220                 mov     [ebx+2E0h], eax  game time related
+  uint16_t unk_740;                   ///< offset=0x2E4 .text:00057E26                 mov     ax, [eax+2E4h]   actor related
+  uint16_t unk_742;                   ///< offset=0x2E6 .text:0003DF30                 mov     ax, [edi+2E6h]   squad related
+  float unk_744;                      ///< offset=0x2E8 .text:001A8078                 fld     dword ptr [esi+2E8h]
+  float unk_748;                      ///< offset=0x2EC .text:001A8085                 fld     dword ptr [esi+2ECh]
+  float unk_752;                      ///< offset=0x2F0 .text:000D7F87                 cmp     dword ptr [ecx+2F0h], 3F800000h
+  float unk_756;                      ///< offset=0x2F4 .text:000D7FAD                 fld     dword ptr [ecx+2F4h]
+  float unk_760;                      ///< offset=0x2F8 .text:001B1337                 mov     dword ptr [edi+2F8h], 0  zoom-related?
+  vector3_t unk_764;                  ///< offset=0x2FC .text:001AB4F7                 lea     ecx, [esi+2FCh]
+  uint16_t powerup_type;              ///< offset=0x308 .text:001AA9DD                 cmp     word ptr [esi+308h], 6  equipment_definition->equipment.powerup_type
+  uint16_t unk_778;                   ///< offset=0x30A .text:001AA9BD                 movsx   eax, word ptr [esi+30Ah]
+  float unk_782;                      ///< offset=0x30C .text:001AB528                 fsub    dword ptr [esi+30Ch]
+  float unk_786;                      ///< offset=0x310 .text:001AB531                 fsub    dword ptr [esi+310h]
+  vector3_t unk_790;                  ///< offset=0x314 .text:001B46F1                 fld     dword ptr [ebx+314h]
+  vector3_t unk_800;                  ///< offset=0x320 .text:001AB57C                 fstp    dword ptr [esi+320h]
+  float unk_812;                      ///< offset=0x32C .text:0013B79C                 fld     dword ptr [edi+32Ch]
+  float unk_816;                      ///< offset=0x330 .text:0003CA20                 fstp    dword ptr [eax+330h]
+  uint32_t unk_820;                   ///< offset=0x334 .text:001A698A                 mov     eax, [ecx+334h]  tag index
+  uint16_t unk_824;                   ///< offset=0x338 .text:001A6BD3                 cmp     [eax+338h], cx  command type?, also see action_obey_command_perform
+  uint16_t unk_826;                   ///< offset=0x33A .text:001A6D9A                 mov     ax, [edi+33Ah]
+  uint32_t unk_828;                   ///< offset=0x33C .text:001A6D4B                 mov     eax, [edi+33Ch]  tag index
+  uint16_t unk_832;                   ///< offset=0x340 .text:001A6FB3                 mov     ax, [ebx+340h]
+  uint16_t unk_834;                   ///< offset=0x342 .text:001A6FC1                 mov     dx, [ebx+342h]
+  uint16_t unk_836;                   ///< offset=0x344 .text:001A6FBA                 mov     cx, [ebx+344h]
+  uint16_t unk_838;                   ///< offset=0x346
+  uint8_t unk_840[0x20];              ///< offset=0x348 .text:001A7913                 lea     eax, [esi+348h]  4th arg to ai_communication_started
+  uint16_t unk_872;                   ///< offset=0x368 .text:001A6A73                 mov     dx, [ecx+368h]
+  uint8_t unk_874[0x2E];              ///< offset=0x36A
+  uint16_t unk_920;                   ///< offset=0x398 .text:001A77D9                 mov     [esi+398h], ax
+  uint16_t unk_922;                   ///< offset=0x39A .text:001A77E4                 mov     ax, [esi+39Ah]
+  uint16_t unk_924;                   ///< offset=0x39C .text:001A7803                 mov     ax, [esi+39Ch]
+  uint16_t unk_926;                   ///< offset=0x39E
+  uint32_t unk_928;                   ///< offset=0x3A0 .text:001A6BA2                 mov     edx, [ecx+3A0h]
+  uint8_t unk_932;                    ///< offset=0x3A4 .text:001A718B                 mov     byte ptr [esi+3A4h], 1 bool?
+  uint8_t unk_933;                    ///< offset=0x3A5 .text:001A6FDF                 mov     byte ptr [ebx+3A5h], 0 bool?
+  uint8_t unk_934;                    ///< offset=0x3A6 .text:001A79C5                 mov     byte ptr [esi+3A6h], 1 bool?
+  uint8_t unk_935;                    ///< offset=0x3A7
+  uint16_t unk_936;                   ///< offset=0x3A8 .text:001A7192                 mov     word ptr [esi+3A8h], 0
+  uint16_t unk_938;                   ///< offset=0x3AA .text:00043F5E                 movsx   eax, word ptr [edi+3AAh]   vocalization timer related
+  uint16_t unk_940;                   ///< offset=0x3AC .text:001A6FFE                 mov     [ebx+3ACh], dx
+  uint16_t unk_942;                   ///< offset=0x3AE .text:001A6B28                 movsx   ebx, word ptr [eax+3AEh]
+  uint32_t unk_944;                   ///< offset=0x3B0 .text:001A6FED                 mov     dword ptr [ebx+3B0h], 0FFFFFFFFh
+  uint16_t unk_948;                   ///< offset=0x3B4 .text:001B29DF                 mov     [esi+3B4h], di
+  uint16_t unk_950;                   ///< offset=0x3B6 .text:001B29E6                 mov     [esi+3B6h], di
+  uint32_t unk_952;                   ///< offset=0x3B8 .text:001B29ED                 mov     [esi+3B8h], edi
+  uint32_t unk_956;                   ///< offset=0x3BC .text:001B489C                 mov     dword ptr [ebx+3BCh], 0FFFFFFFFh
+  datum_handle_t unk_960;             ///< offset=0x3C0 .text:0001C789                 mov     ecx, [eax+3C0h]
+  float unk_964;                      ///< offset=0x3C4 .text:001AF3F9                 fsub    dword ptr [edi+3C4h]
+  float unk_968;                      ///< offset=0x3C8 .text:001AF451                 fsub    dword ptr [edi+3C8h]
+  datum_handle_t unk_972;             ///< offset=0x3CC .text:0002F7DC                 mov     eax, [eax+3CCh]
+  uint16_t feign_death_timer;         ///< offset=0x3D0 .text:001B5025                 mov     [esi+3D0h], ax  unit->unit.feign_death_timer
+  uint16_t unk_978;                   ///< offset=0x3D2 .text:000BC3C1                 mov     [eax+3D2h], si   datum index only, not a full handle?
+  float unk_980;                      ///< offset=0x3D4 .text:000B7471                 fld     dword ptr [eax+3D4h]
+  uint16_t unk_984;                   ///< offset=0x3D8
+  uint16_t unk_986;                   ///< offset=0x3DA .text:0005BE6E                 movsx   eax, word ptr [eax+3DAh] combat related?
+  uint32_t unk_988;                   ///< offset=0x3DC .text:001A90DA                 mov     ecx, [esi+3DCh]
+
+  // array size of 4, struct size of 0x10  .text:0002FB1B                 add     edi, 10h
+  // .text:0002FAAB                 lea     edi, [eax+3E0h]
+  // .text:001A8F4A                 cmp     dword ptr [eax+edi], 0FFFFFFFFh (0x3E0 + index*16)
+  // .text:001A8F05                 lea     eax, [edi+3E4h]
+  // .text:001A8F7B                 fcomp   dword ptr [eax+edi+3E4h]
+  // .text:0002FAB8                 mov     edx, [edi+8]
+  // .text:001A8F6D                 lea     edx, [edi+3F4h]
+  uint8_t unk_992[0x10 * 4];          ///< offset=0x3E0
+  uint32_t unk_1056;                  ///< offset=0x420
+
+/*
+  // not sure about these seemingly out-of-bounds accesses
+  uint32_t unk_1060;                  ///< offset=0x424 .text:00038FDE                 mov     al, [ebx+424h]
+  uint32_t unk_1064;                  ///< offset=0x428
+  uint32_t unk_1068;                  ///< offset=0x42C
+  uint32_t unk_1072;                  ///< offset=0x430 .text:00038FBE                 cmp     dword ptr [ebx+430h], 0FFFFFFFFh
+  uint8_t unk_1076[0x38];             ///< offset=0x434
+  vector3_t unk_1132;                 ///< offset=0x46C .text:00038FC7                 lea     eax, [ebx+46Ch]
+*/
 } unit_data_t;
 
 // OBJE -> UNIT -> BIPD
@@ -152,7 +398,18 @@ typedef struct {
 /// size=0x1DC
 typedef struct {
   object_data_t object;   ///< offset=0x000
-  char unk_420[0x38];     ///< offset=0x1A4
+  uint32_t flags;         ///< offset=0x1A4   .text:000F6BBB                 mov     edx, [ecx+1A4h]
+  uint16_t unk_424;       ///< offset=0x1A8   .text:000F7BC6                 mov     ax, [ebx+1A8h]
+  uint16_t unk_426;       ///< offset=0x1AA
+  char unk_428[4];        ///< offset=0x1AC
+  uint32_t unk_432;       ///< offset=0x1B0   .text:000F693A                 mov     dword ptr [esi+1B0h], 0FFFFFFFFh   datum_handle?
+  uint32_t unk_436;       ///< offset=0x1B4   .text:000F6934                 mov     [esi+1B4h], eax game time related
+  char unk_440[16];       ///< offset=0x1B8
+  float unk_456;          ///< offset=0x1C8   .text:000F6BDE                 fstp    dword ptr [ecx+1C8h]
+  float unk_460;          ///< offset=0x1CC   .text:000F6BE9                 fstp    dword ptr [ecx+1CCh]
+  float unk_464;          ///< offset=0x1D0   .text:000F6BF2                 fstp    dword ptr [ecx+1D0h]
+  float unk_468;          ///< offset=0x1D4   .text:000F6BFC                 fstp    dword ptr [ecx+1D4h]
+  float unk_472;          ///< offset=0x1D8   .text:000F6C04                 fstp    dword ptr [ecx+1D8h]
 } item_data_t;
 
 // OBJE -> ITEM -> WEAP
@@ -194,21 +451,35 @@ typedef struct {
 /// size=0x1C4
 typedef struct {
   object_data_t object;   ///< offset=0x000
-  char unk_420[0x20];     ///< offset=0x1A4
+  uint8_t flags;          ///< offset=0x1A4   .text:00096784                 test    byte ptr [edi+1A4h], 2
+  char unk_421[3];        ///< offset=0x1A5
+  uint16_t unk_424;       ///< offset=0x1A8   .text:000960EB                 mov     [esi+1A8h], ax
+  uint16_t unk_426;       ///< offset=0x1AA
+  float unk_428;          ///< offset=0x1AC   .text:00096182                 fld     dword ptr [edi+1ACh]
+  float unk_432;          ///< offset=0x1B0   .text:0009618D                 fld     dword ptr [edi+1B0h]
+  uint16_t unk_436;       ///< offset=0x1B4   .text:000960E4                 mov     [esi+1B4h], ax
+  uint16_t unk_438;       ///< offset=0x1B6
+  float unk_440;          ///< offset=0x1B8   .text:000961BB                 fld     dword ptr [edi+1B8h]
+  float unk_444;          ///< offset=0x1BC   .text:000961C6                 fld     dword ptr [edi+1BCh]
+  uint16_t unk_448;       ///< offset=0x1C0   .text:000962CD                 movsx   edx, word ptr [edi+1C0h]
+  uint16_t unk_450;       ///< offset=0x1C2
 } device_data_t;
 
 // OBJE -> DEVI -> MACH
 /// size=0x1D8
 typedef struct {
   device_data_t device;   ///< offset=0x000
-  char unk_452[0x14];     ///< offset=0x1C4
+  uint32_t flags;         ///< offset=0x1C4   .text:00096247                 mov     ecx, [esi+1C4h]
+  uint32_t unk_456;       ///< offset=0x1C8   .text:00095EB2                 mov     edx, [esi+1C8h]
+  vector3_t unk_460;      ///< offset=0x1CC   .text:00095F1E                 fsub    dword ptr [esi+1CCh]
 } machine_data_t;
 
 // OBJE -> DEVI -> CTRL
 /// size=0x1CC
 typedef struct {
   device_data_t device;   ///< offset=0x000
-  char unk_452[8];        ///< offset=0x1C4
+  uint32_t flags;         ///< offset=0x1C4   .text:0009571F                 or      [esi+1C4h], eax
+  datum_handle_t unk_456; ///< offset=0x1C8   .text:000D06C1                 cmp     word ptr [esi+1C8h], 0FFFFh    datum_handle?
 } control_data_t;
 
 // OBJE -> DEVI -> LIFI

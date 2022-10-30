@@ -383,8 +383,38 @@ typedef struct {
 // OBJE -> UNIT -> BIPD
 /// size=0x480
 typedef struct {
-  unit_data_t unit;       ///< offset=0x000
-  char unk_1060[0x5C];    ///< offset=0x424
+  unit_data_t unit;         ///< offset=0x000
+  uint32_t flags;           ///< offset=0x424 .text:001A29F5                 test    byte ptr [esi+424h], 1   ; 1A9BEE shows it's 32-bit
+  uint8_t unk_1064;         ///< offset=0x428 .text:001A0EDF                 mov     byte ptr [esi+428h], 0
+  uint8_t unk_1065;         ///< offset=0x429 .text:001A0EED                 mov     [esi+429h], al
+  uint8_t unk_1066;         ///< offset=0x42A .text:001A2567                 movsx   eax, byte ptr [esi+42Ah]
+  uint8_t unk_1067;         ///< offset=0x42B .text:001A4A37                 mov     byte ptr [esi+42Bh], 0
+  uint32_t unk_1068;        ///< offset=0x42C .text:00095FBE                 mov     edx, [eax+42Ch]
+  uint32_t unk_1072;        ///< offset=0x430 .text:001A0874                 mov     [eax+430h], ecx
+  uint32_t unk_1076;        ///< offset=0x434 .text:001A087A                 mov     [eax+434h], ecx
+  vector3_t unk_1080;       ///< offset=0x438 .text:0003E1D6                 add     eax, 438h
+  uint32_t unk_1092;        ///< offset=0x444 .text:001A1C28                 cmp     eax, [esi+444h]  game time related
+  uint32_t unk_1096;        ///< offset=0x448 .text:001A0880                 mov     [eax+448h], ecx
+  uint32_t unk_1100;        ///< offset=0x44C .text:001A4A0D                 mov     [esi+44Ch], ebx
+  uint32_t unk_1104;        ///< offset=0x450 .text:001A0848                 mov     dword ptr [esi+450h], 0FFFFFFFFh
+  datum_handle_t unk_1108;  ///< offset=0x454 .text:001A0AB9                 cmp     [esi+454h], edi 
+  uint8_t unk_1112;         ///< offset=0x458 .text:001A0B1D                 mov     byte ptr [esi+458h], 0F1h
+  uint8_t unk_1113;         ///< offset=0x459 .text:001A1EE2                 cmp     byte ptr [esi+459h], 1Eh
+  uint8_t unk_1114;         ///< offset=0x45A .text:001A2B28                 mov     al, [esi+45Ah]
+  uint8_t unk_1115;         ///< offset=0x45B .text:001A2576                 mov     byte ptr [esi+45Bh], 1
+  uint8_t unk_1116;         ///< offset=0x45C .text:001A2406                 mov     byte ptr [esi+45Ch], 0
+  uint8_t unk_1117;         ///< offset=0x45D .text:001A66F4                 mov     [esi+45Dh], bl
+  uint8_t unk_1118;         ///< offset=0x45E .text:001A66EE                 mov     [esi+45Eh], dl
+  uint8_t unk_1119;         ///< offset=0x45F
+  uint16_t unk_1120;        ///< offset=0x460 .text:001A0ED6                 mov     [esi+460h], cx 
+  uint16_t unk_1122;        ///< offset=0x462 
+  float unk_1124;           ///< offset=0x464 .text:001A0905                 fmul    dword ptr [edi+464h]
+  float unk_1128;           ///< offset=0x468 .text:001A4586                 fld     dword ptr [esi+468h]
+  vector3_t unk_1132;       ///< offset=0x46C .text:001A0826                 lea     edx, [esi+46Ch]
+  uint32_t unk_1144;        ///< offset=0x478 .text:001A5F90                 mov     [edi+478h], edx
+  uint8_t unk_1148;         ///< offset=0x47C .text:0019FAF7                 mov     dl, [esi+47Ch]
+  uint8_t unk_1149;         ///< offset=0x47D .text:0019FAE0                 mov     cl, [esi+47Dh]
+  char unk_1150[2];         ///< offset=0x47E
 } biped_data_t;
 
 // OBJE -> UNIT -> VEHI

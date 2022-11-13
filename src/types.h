@@ -109,6 +109,9 @@ typedef struct {
   datum_handle_t pvs_activator_object_index;  ///< offset=0x94    see .text:0013DBE0 _object_pvs_set_object & .text:0013DCE4 mov     ecx, [ecx+94h]
 } object_globals_t;
 
+#define NUMBER_OF_OUTGOING_OBJECT_FUNCTIONS 4
+#define MAXIMUM_REGIONS_PER_OBJECT 8
+
 /// size=0x1A4
 typedef struct {
   uint32_t tag_index;       ///< offset=0x00
@@ -167,33 +170,20 @@ typedef struct {
   datum_handle_t next_object_index;   ///< offset=0xC4  .text:0014537B                 mov     ecx, [eax+0C4h]
   datum_handle_t unk_200;   ///< offset=0xC8  .text:000320C3                 mov     eax, [edi+0C8h]
   datum_handle_t parent_object_index;   ///< offset=0xCC  .text:00145348                 mov     ecx, [eax+0CCh]
-
-  // TODO: 
-  //float unk_208[5];         ///< offset=0xD0  .text:0013E640                 fld     dword ptr [ebx+edx*4+0D0h]
-  // .text:0013E640                 fld     dword ptr [ebx+edx*4+0D0h] array base? Colors related, 5 4-byte elements
-  // .text:0013EAE4                 mov     al, [edi+0D3h] wtf???
-  // .text:00140408                 mov     al, [esi+0D3h]
-  // .text:000F7EEB                 lea     ebx, [esi+0D4h]
-  // .text:0013EABF                 fadd    dword ptr [edi+esi*4+0E4h] array base?
-  // .text:001403FF                 mov     edx, [esi+ecx*4+0E4h]
-  // .text:001393F0                 mov     cl, [eax+esi+0F4h] illumination related?
-  // TODO: 0xF8
-  // .text:00097B90                 mov     eax, [edx+ecx*4+0FCh] illumination related?
-  // .text:0009E714                 mov     dword ptr [esi+eax*4+0FCh], 0FFFFFFFFh
-  // .text:0013617A                 mov     dword ptr [esi+11Ch], 0FFFFFFFFh widget-related?
-  // .text:00143F94                 mov     [edi+120h], eax
-  // .text:001376FF                 movzx   eax, word ptr [ebx+124h] region-related?
-  // .text:00144015                 mov     [edi+126h], dx
-  // .text:00141B01                 movzx   eax, byte ptr [edx+edi+128h]
-  // .text:00136A62                 mov     [esi+ebx+130h], al  array base, shield/vitality regions?
-  // .text:00140A77                 mov     byte ptr [edi+ecx+130h], 0
-  // .text:0013E4AA                 movzx   ecx, byte ptr [esi+ecx+130h]
-  // .text:0013E21D                 lea     ebx, [edi+138h]  color stuff
-  // .text:001401E2                 lea     edx, [esi+198h] mode related
-  // .text:001401D1                 lea     ecx, [esi+19Ch] mode related
-  // .text:00140EF1                 add     eax, 1A0h node matrix reference?
-
-  char unk_208[0xD4];
+  float unk_208[5];         ///< offset=0xD0  .text:0013E640                 fld     dword ptr [ebx+edx*4+0D0h] Colors related, 5 4-byte elements
+  float unk_228[NUMBER_OF_OUTGOING_OBJECT_FUNCTIONS]; ///< offset=0xE4  .text:001403FF                 mov     edx, [esi+ecx*4+0E4h] function stuff
+  char unk_244[8];          ///< offset=0xF4
+  char unk_252[32];         ///< offset=0xFC  .text:00097B90                 mov     eax, [edx+ecx*4+0FCh] illumination related?
+  uint32_t unk_284;         ///< offset=0x11C .text:0013617A                 mov     dword ptr [esi+11Ch], 0FFFFFFFFh widget-related?
+  uint32_t unk_288;         ///< offset=0x120 .text:00143F94                 mov     [edi+120h], eax
+  uint16_t unk_292;         ///< offset=0x124 .text:001376FF                 movzx   eax, word ptr [ebx+124h] region-related?
+  uint16_t unk_294;         ///< offset=0x126 .text:00144015                 mov     [edi+126h], dx
+  uint8_t unk_296[MAXIMUM_REGIONS_PER_OBJECT];  ///< offset=0x128 .text:00141B01                 movzx   eax, byte ptr [edx+edi+128h]
+  uint8_t unk_304[MAXIMUM_REGIONS_PER_OBJECT];  ///< offset=0x130 .text:00136A62                 mov     [esi+ebx+130h], al  shield/vitality regions?
+  char unk_312[0x60];       ///< offset=0x138 .text:0013E21D                 lea     ebx, [edi+138h] color stuff
+  uint32_t unk_408;         ///< offset=0x198 .text:001401E2                 lea     edx, [esi+198h] mode related
+  uint32_t unk_412;         ///< offset=0x19C .text:001401D1                 lea     ecx, [esi+19Ch] mode related
+  uint32_t unk_416;         ///< offset=0x1A0 .text:00140EF1                 add     eax, 1A0h node matrix reference?
 } object_data_t;
 
 /// size=0xc
@@ -366,18 +356,8 @@ typedef struct {
   // .text:001A8F7B                 fcomp   dword ptr [eax+edi+3E4h]
   // .text:0002FAB8                 mov     edx, [edi+8]
   // .text:001A8F6D                 lea     edx, [edi+3F4h]
-  uint8_t unk_992[0x10 * 4];          ///< offset=0x3E0
+  char unk_992[0x10 * 4];             ///< offset=0x3E0
   uint32_t unk_1056;                  ///< offset=0x420
-
-/*
-  // not sure about these seemingly out-of-bounds accesses
-  uint32_t unk_1060;                  ///< offset=0x424 .text:00038FDE                 mov     al, [ebx+424h]
-  uint32_t unk_1064;                  ///< offset=0x428
-  uint32_t unk_1068;                  ///< offset=0x42C
-  uint32_t unk_1072;                  ///< offset=0x430 .text:00038FBE                 cmp     dword ptr [ebx+430h], 0FFFFFFFFh
-  uint8_t unk_1076[0x38];             ///< offset=0x434
-  vector3_t unk_1132;                 ///< offset=0x46C .text:00038FC7                 lea     eax, [ebx+46Ch]
-*/
 } unit_data_t;
 
 // OBJE -> UNIT -> BIPD
@@ -421,7 +401,29 @@ typedef struct {
 /// size=0x47C
 typedef struct {
   unit_data_t unit;       ///< offset=0x000
-  char unk_1060[0x58];    ///< offset=0x424
+  uint16_t unk_1060;      ///< offset=0x424 .text:001B578E                 mov     [esi+424h], bx
+  uint16_t unk_1062;      ///< offset=0x426 .text:001B9819                 cmp     word ptr [ebx+426h], 0
+  uint8_t unk_1064;       ///< offset=0x428 .text:001A2020                 cmp     byte ptr [ebx+428h], 1Eh
+  uint8_t unk_1065;       ///< offset=0x429 .text:001B57A2                 mov     [esi+429h], bl
+  uint8_t unk_1066;       ///< offset=0x42A .text:001B57A8                 mov     [esi+42Ah], bl
+  uint8_t unk_1067;       ///< offset=0x42B .text:001B572C                 mov     al, [esi+42Bh]
+  float unk_1068;         ///< offset=0x42C .text:001B6025                 fld     dword ptr [esi+42Ch]
+  float unk_1072;         ///< offset=0x430 .text:001B7B31                 fld     dword ptr [esi+430h]
+  float unk_1076;         ///< offset=0x434 .text:001B602B                 fsub    dword ptr [esi+434h]
+  float unk_1080;         ///< offset=0x438 .text:001B5BA9                 fld     dword ptr [esi+438h]
+  float unk_1084;         ///< offset=0x43C .text:001B604C                 fadd    dword ptr [esi+43Ch]
+  float unk_1088;         ///< offset=0x440 .text:001B608F                 fadd    dword ptr [esi+440h]
+  float unk_1092;         ///< offset=0x444 .text:0002EAA8                 fld     dword ptr [edi+444h]
+  float unk_1096;         ///< offset=0x448 .text:001B6860                 fcomp   dword ptr [edi+448h]
+  uint8_t unk_1100[8];    ///< offset=0x44C .text:001B5786                 lea     ecx, [esi+44Ch] & .text:001B5C28                 mov     cl, [edi+esi+44Ch]
+  vector3_t unk_1108;     ///< offset=0x454 .text:001B5631                 lea     eax, [esi+454h]
+  float unk_1120;         ///< offset=0x460 .text:0015225F                 fadd    dword ptr [edi+460h]
+  float unk_1124;         ///< offset=0x464 .text:0015226E                 fadd    dword ptr [edi+464h]
+  float unk_1128;         ///< offset=0x468 .text:0015227D                 fadd    dword ptr [edi+468h]
+  float unk_1132;         ///< offset=0x46C .text:0015228C                 fadd    dword ptr [edi+46Ch]
+  float unk_1136;         ///< offset=0x470 .text:0015229B                 fadd    dword ptr [edi+470h]
+  float unk_1140;         ///< offset=0x474 .text:001522AA                 fadd    dword ptr [edi+474h]
+  uint32_t unk_1144;      ///< offset=0x478 .text:001B80DA                 test    [ebx+478h], edx
 } vehicle_data_t;
 
 // OBJE -> ITEM
@@ -442,11 +444,59 @@ typedef struct {
   float unk_472;          ///< offset=0x1D8   .text:000F6C04                 fstp    dword ptr [ecx+1D8h]
 } item_data_t;
 
+/// size=0x24
+typedef struct
+{
+  uint8_t unk_528;                  ///< offset=0x00
+  uint8_t unk_529;                  ///< offset=0x01 .text:000FCEA2                 mov     byte ptr [eax+211h], 7 & .text:000FB3D5                 mov     cl, [eax+235h]
+  uint16_t unk_530;                 ///< offset=0x02 .text:000FB8FA                 mov     [eax+212h], dx
+  char unk_532[12];                 ///< offset=0x04
+  float unk_544;                    ///< offset=0x10 .text:000FC17C                 fld     dword ptr [edi+ecx*4+220h]
+  float unk_548;                    ///< offset=0x14 .text:000FC156                 fld     dword ptr [edi+eax*4+224h]
+  char unk_552[4];                  ///< offset=0x18
+  float unk_556;                    ///< offset=0x1C .text:000D137D                 fld     dword ptr [esi+22Ch]
+  char unk_560[4];                  ///< offset=0x20
+} weapon_trigger_data_t;
+
+/// size=0xC
+typedef struct
+{
+  uint16_t unk_0;                  ///< offset=0x00 .text:000DE270                 cmp     word ptr [edi+258h], 0
+  uint16_t unk_2;                  ///< offset=0x02 .text:000DD7F7                 sub     bx, [edx+25Ah]
+  uint16_t unk_4;                  ///< offset=0x04 .text:000DD7E7                 mov     bx, [eax+25Ch]
+  uint16_t unk_6;                  ///< offset=0x06 .text:000D1228                 movsx   ecx, word ptr [esi+25Eh]
+  uint16_t unk_8;                  ///< offset=0x08 .text:000D120A                 movsx   edx, word ptr [esi+260h]
+  char unk_10[2];                  ///< offset=0x0A 
+} weapon_magazine_data_t;
+
+#define MAXIMUM_NUMBER_OF_TRIGGERS_PER_WEAPON 2
+#define MAXIMUM_NUMBER_OF_MAGAZINES_PER_WEAPON 2  // TODO: confirm
+
 // OBJE -> ITEM -> WEAP
 /// size=0x27C
 typedef struct {
-  item_data_t item;       ///< offset=0x000
-  char unk_476[0xA0];     ///< offset=0x1DC
+  item_data_t item;                 ///< offset=0x000
+  uint32_t unk_476;                 ///< offset=0x1DC .text:000A87F0                 mov     ecx, [eax+1DCh]
+  uint8_t unk_480;                  ///< offset=0x1E0 .text:000FDA9E                 test    byte ptr [ebx+1E0h], 40h
+  char unk_481[3];                  ///< offset=0x1E1
+  float unk_484;                    ///< offset=0x1E4 .text:000D1375                 fld     dword ptr [esi+1E4h]
+  uint8_t unk_488;                  ///< offset=0x1E8 .text:000FD158                 mov     al, [eax+1E8h]   state related?
+  uint8_t unk_489;                  ///< offset=0x1E9
+  uint16_t unk_490;                 ///< offset=0x1EA .text:000FD343                 mov     [edi+1EAh], ax
+  float unk_492;                    ///< offset=0x1EC .text:000D121A                 fld     dword ptr [esi+1ECh]
+  float unk_496;                    ///< offset=0x1F0 .text:000D1204                 fld     dword ptr [esi+1F0h]
+  float unk_500;                    ///< offset=0x1F4 .text:000DD8F9                 fld     dword ptr [edx+1F4h]
+  uint32_t integrated_light_power;  ///< offset=0x1F8 .text:000FAEC4                 mov     [eax+1F8h], ecx
+  char unk_508[4];                  ///< offset=0x1FC
+  uint32_t unk_512;                 ///< offset=0x200 .text:000FD55C                 mov     dword ptr [edi+200h], 0FFFFFFFFh
+  char unk_516[8];                  ///< offset=0x204
+  uint16_t unk_524;                 ///< offset=0x20C .text:000FD906                 cmp     word ptr [ebx+20Ch], 0
+  char unk_526[2];                  ///< offset=0x20E
+  weapon_trigger_data_t triggers[MAXIMUM_NUMBER_OF_TRIGGERS_PER_WEAPON];  ///< offset=0x210 .text:000FCFA3                 lea     edi, [edi+eax*4+210h]
+  weapon_magazine_data_t magazines[MAXIMUM_NUMBER_OF_MAGAZINES_PER_WEAPON];  ///< offset=0x258 .text:000FBC8D                 lea     edi, [ebx+eax*4]   &v2[3 * magazine_index? + 0x96]; (0x258 is the base address, 12-byte struct due to dword access)
+  char unk_624[4];                  ///< offset=0x270
+  uint32_t unk_628;                 ///< offset=0x274 .text:000FBD3A                 mov     dword ptr [edi+274h], 0FFFFFFFFh
+  char unk_632[4];                  ///< offset=0x278
 } weapon_data_t;
 
 // OBJE -> ITEM -> EQUI
@@ -460,14 +510,35 @@ typedef struct {
 /// size=0x1F4
 typedef struct {
   item_data_t item;       ///< offset=0x000
-  char unk_476[0x18];     ///< offset=0x1DC
+  uint16_t unk_476;       ///< offset=0x1DC .text:000F6833                 dec     word ptr [eax+1DCh]
+  char unk_478[0x16];     ///< offset=0x1DE
 } garbage_data_t;
 
 // OBJE -> PROJ
 /// size=0x228
 typedef struct {
   object_data_t object;   ///< offset=0x000
-  char unk_420[0x84];     ///< offset=0x1A4
+  char unk_420[0x38];     ///< offset=0x1A4
+  uint32_t unk_476;       ///< offset=0x1DC .text:000F7CBE                 mov     ecx, [eax+1DCh]
+  uint16_t unk_480;       ///< offset=0x1E0 .text:000F7E4B                 cmp     si, [eax+1E0h]   type of some sort, also see projectile_collision
+  uint16_t unk_482;       ///< offset=0x1E2 .text:000F8D84                 mov     [esi+1E2h], bx
+  datum_handle_t unk_484; ///< offset=0x1E4 .text:000F8D90                 mov     [esi+1E4h], eax
+  datum_handle_t unk_488; ///< offset=0x1E8 .text:000F7D44                 mov     [eax+1E8h], ecx
+  uint32_t unk_492;       ///< offset=0x1EC .text:000F9CAC                 mov     eax, [ebx+1ECh]  index into [ebx+eax*4+0FCh]
+  float unk_496;          ///< offset=0x1F0 .text:000F8A91                 fmul    dword ptr [edi+1F0h]
+  float unk_500;          ///< offset=0x1F4 .text:000F8DEC                 fstp    dword ptr [esi+1F4h]
+  float unk_504;          ///< offset=0x1F8 .text:000F9DBD                 fld     dword ptr [ebx+1F8h]
+  float unk_508;          ///< offset=0x1FC .text:000F8E15                 fstp    dword ptr [esi+1FCh]
+  float unk_512;          ///< offset=0x200 .text:000F7F66                 fld     dword ptr [esi+200h]
+  float unk_516;          ///< offset=0x204 .text:000F8702                 mov     dword ptr [esi+204h], 3F800000h
+  float unk_520;          ///< offset=0x208 .text:000F86AB                 fstp    dword ptr [esi+208h]
+  float unk_524;          ///< offset=0x20C .text:000F8677                 fstp    dword ptr [esi+20Ch]
+  float unk_528;          ///< offset=0x210 .text:000FA304                 fcomp   dword ptr [ebx+210h]
+  float unk_532;          ///< offset=0x214 .text:000F85E7                 fstp    dword ptr [ecx+214h]
+  float unk_536;          ///< offset=0x218 .text:000F85F2                 fstp    dword ptr [ecx+218h]
+  float unk_540;          ///< offset=0x21C .text:000F85FB                 fstp    dword ptr [ecx+21Ch]
+  float unk_544;          ///< offset=0x220 .text:000F8605                 fstp    dword ptr [ecx+220h]
+  float unk_548;          ///< offset=0x224 .text:000F860D                 fstp    dword ptr [ecx+224h]
 } projectile_data_t;
 
 // OBJE -> SCEN
@@ -516,7 +587,9 @@ typedef struct {
 /// size=0x1DC
 typedef struct {
   device_data_t device;   ///< offset=0x000
-  char unk_452[0x18];     ///< offset=0x1C4
+  char unk_452[0x10];     ///< offset=0x1C4
+  uint32_t unk_468;       ///< offset=0x1D4 .text:00095A08                 mov     [esi+1D4h], ecx
+  uint32_t unk_472;       ///< offset=0x1D8 .text:00095A12                 mov     [esi+1D8h], edx
 } light_fixture_data_t;
 
 // OBJE -> PLAC

@@ -8,6 +8,9 @@
 #define static_assert(cond) _Static_assert(cond, #cond)
 #endif
 #define NULL ((void*)0)
+#define true 1
+#define false 0 
+#define NONE -1
 
 #define cs(t, s)    static_assert(sizeof(t) == s)
 #define co(t, f, o) static_assert(offsetof(t, f) == o)
@@ -36,10 +39,23 @@ typedef uint8_t _BYTE;
 #define __int16 short
 #define __int8 char
 
-static const bool true = 1;
-static const bool false = 0;
-
 #pragma pack(1)
+
+/// size=0x0C
+typedef struct {
+  float x; ///< offset=0x00
+  float y; ///< offset=0x04
+  float z; ///< offset=0x08
+} vector3_t;
+
+/// size=0x04
+typedef union {
+  int32_t value;   ///< offset=0x00
+  struct {
+    int16_t index; ///< offset=0x00
+    int16_t salt;  ///< offset=0x02
+  };
+} datum_handle_t;
 
 /// size=0x10c
 typedef struct {

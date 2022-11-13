@@ -146,13 +146,6 @@ typedef struct
   int16_t x1; ///< offset=0x06
 } viewport_bounds_t;
 
-/// size=0x0C
-typedef struct {
-  float x; ///< offset=0x00
-  float y; ///< offset=0x04
-  float z; ///< offset=0x08
-} vector3_t;
-
 /// size=0x54
 typedef struct {
   vector3_t         unk_0;                  ///< offset=0x00

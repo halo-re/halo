@@ -286,7 +286,7 @@ a, a:hover, a:visited {
 <div class="page-control-button-outer"><a href="#" id="exit-fullscreen" class="page-control-button" title="Exit fullscreen"><i class="ic x-icon"></i></a></div>
 <div class="page-control-button-outer"><a href="#" id="top-of-page" class="page-control-button" title="Go to top of page"><i class="ic arrow-sm-up-icon"></i></a></div>
 <div class="page-control-button-outer"><a href="#" id="toggle-theme" class="page-control-button" title="Toggle light/dark theme"><i class="ic sun-icon"></i></a></div>
-<div class="page-control-button-outer"><a href="https://github.com/mborgerson/halo" class="page-control-button" title="Visit project GitHub page"><i class="ic github-icon"></i></a></div>
+<div class="page-control-button-outer"><a href="https://github.com/halo-re/halo" class="page-control-button" title="Visit project GitHub page"><i class="ic github-icon"></i></a></div>
 </div>
 
 <div id="fullscreen-container">
@@ -296,7 +296,7 @@ a, a:hover, a:visited {
 <header>
 <h1 id="title"><a href="/">Halo Decompilation Project</a></h1>
 <h3>Progress Report</h3>
-<p>The goal of this project is to study and create an open-source re-implementation of the original Xbox launch title Halo:&nbsp;Combat&nbsp;Evolved.<br/>For more details, see the project <a href="https://github.com/mborgerson/halo/blob/main/README.md">README</a>.</p>
+<p>The goal of this project is to study and create an open-source re-implementation of the original Xbox launch title Halo:&nbsp;Combat&nbsp;Evolved.<br/>For more details, see the project <a href="https://github.com/halo-re/halo/blob/main/README.md">README</a>.</p>
 <p id="disclaimer">Project not affiliated with Microsoft or Bungie. For research and educational purposes only. Buy a copy of the game. <a href="https://www.youtube.com/watch?v=p08mIRKB-Yg">Heck, buy two!</a></p>
 </header>
 
@@ -446,7 +446,7 @@ function update_tables() {
 		markup = `
 			<tr>
 				<td>` + item[0].toString(16) + `</td>
-				<td class="ellipsis-column"><a href="https://github.com/mborgerson/halo/blob/main` + item[2] + `">` + item[1] + `</a></td>
+				<td class="ellipsis-column"><a href="https://github.com/halo-re/halo/blob/main` + item[2] + `">` + item[1] + `</a></td>
 				<td><a href="?f=` + item[1] + `#callgraph" class="callgraph-link" title="View Call Graph for this function"><i class="callgraph-icon"></i></a></td>
 			</tr>
 		`;
@@ -562,7 +562,7 @@ function show_call_graph_for_addr(addr) {
 	var name = addr_to_name[addr][0];
 	if (addr_to_name[addr][1] == "imp") {
 		var src_path = addr_to_name[addr][2];
-		$("#callgraph-details").html("<a href=\"https://github.com/mborgerson/halo/blob/main" + src_path + "\">" + name + " (" + addr.toString(16) + ")</a>");
+		$("#callgraph-details").html("<a href=\"https://github.com/halo-re/halo/blob/main" + src_path + "\">" + name + " (" + addr.toString(16) + ")</a>");
 	} else {
 		$("#callgraph-details").html(name + " (" + addr.toString(16) + ")");
 	}

@@ -1,0 +1,93 @@
+<!doctype html><html lang=en class=theme-light>
+<head>
+<title>Progress Report | Halo Decompilation Project</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<script src=https://blam.info/js/jquery.min.js></script>
+<script src=https://blam.info/js/vis-network.min.js></script>
+<link rel=stylesheet href=https://blam.info/css/bootstrap.min.css>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400&family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap" rel=stylesheet>
+<style type=text/css>.theme-light{--body-bg-color:#eeeee8;--body-alt-bg-color:#e5e6e0;--body-fg-color:#08161f;--pb-border-color:#0e6dc9;--pb-fill-1:#2896ff;--pb-fill-2:#28c6ff}.theme-dark{--body-bg-color:#08161f;--body-alt-bg-color:#121f28;--body-fg-color:#eeeee8;--pb-border-color:#b7e3ff;--pb-fill-1:#1a4f82;--pb-fill-2:#3c87d0}body{--basic-radius:7px;--monospace-font:'JetBrains Mono', monospace;font-family:roboto,Arial,sans-serif;background-color:var(--body-bg-color);color:var(--body-fg-color)}header{margin-top:2em;text-align:center}#title a{text-decoration:none}h1,h2,h3,h4{font-family:saira semi condensed,roboto,Arial,sans-serif;text-transform:uppercase}h2{margin-top:1em;border-bottom:1px var(--body-fg-color)solid}table{border:1px var(--body-fg-color)solid;border-radius:var(--basic-radius);border-spacing:0;border-collapse:separate;overflow:hidden;width:100%}th{background-color:var(--body-fg-color);color:var(--body-bg-color);font-weight:700;padding:.25em}tbody tr:nth-child(even){background-color:var(--body-alt-bg-color)}td{font-family:var(--monospace-font)}th,td{padding:.25em .75em}.ellipsis-column{max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}th:last-child,td:last-child{text-align:center}th:first-child,td:first-child{text-align:right}p{padding:1em}a,a:hover,a:visited{color:var(--body-fg-color)}#pb-container{display:flex;flex-direction:row;align-items:center}#pb-percentage{font-family:var(--monospace-font);font-size:2em;margin-left:.5em;color:var(--pb-border-color)}#pb{overflow:hidden;border-radius:.45em;width:100%;height:3em;display:inline-block;border:var(--pb-border-color)2px solid;box-shadow:inset 0 0 10px 10px #28C6ff20,0 0 10px 10px #28C6ff20}#pb-fill{background:linear-gradient(90deg,var(--pb-fill-1) 0%,var(--pb-fill-2) 100%);height:100%}#disclaimer{background:var(--body-alt-bg-color);padding:1em}#callgraph-outer-container{border:1px var(--body-fg-color)solid;border-radius:var(--basic-radius);overflow:hidden;width:100%;height:500px;position:relative}#callgraph-inner-container{background-color:var(--body-bg-color);width:100%;height:100%}#callgraph-graph{width:100%;height:100%}#callgraph-view-fullscreen-link{background-color:var(--body-bg-color);border-radius:100%;display:inline-block;z-index:3;padding:.5em;position:absolute;right:0}#callgraph-details-container{background:var(--body-alt-bg-color);z-index:2;padding:.5em;position:absolute;top:0;font-family:var(--monospace-font);border-radius:.5em}#callgraph-details-icon-container{display:inline-block;margin-bottom:-.3em}.code{background:var(--body-alt-bg-color);font-family:var(--monospace-font);padding:.25em}#page-control-container{z-index:100;position:fixed;top:.5em;right:.5em}.page-control-button{background-color:var(--body-bg-color);display:inline-block;border-radius:100%;font-size:.5em;padding:4px;margin:10px}.page-control-button-outer{display:inline-block}.sun-icon,.arrow-sm-up-icon,.arrows-expand-icon,.x-icon,.location-marker-icon,.github-icon{background-color:var(--body-fg-color);display:block;width:24px;height:24px}.arrows-expand-icon,.location-marker-icon,.callgraph-icon{width:20px;height:20px}.sun-icon{-webkit-mask-image:url(https://blam.info/icons/sun.svg)}.arrow-sm-up-icon{-webkit-mask-image:url(https://blam.info/icons/arrow-sm-up.svg)}.arrows-expand-icon{-webkit-mask-image:url(https://blam.info/icons/arrows-expand.svg)}.x-icon{-webkit-mask-image:url(https://blam.info/icons/x.svg)}.location-marker-icon{-webkit-mask-image:url(https://blam.info/icons/location-marker.svg)}.github-icon{-webkit-mask-image:url(https://blam.info/icons/github.svg)}.callgraph-icon{-webkit-mask-image:url(https://blam.info/icons/call-graph-icon.svg);background-color:var(--body-fg-color);margin-bottom:-.3em;line-height:1.25em;display:inline-block}@media(hover:hover){.page-control-button-outer :hover{background-color:var(--body-fg-color);color:var(--body-bg-color)}.page-control-button-outer :hover .ic{background-color:var(--body-bg-color)}}.page-control-button-outer :active{background-color:var(--body-fg-color);color:var(--body-bg-color)}#fullscreen-container{display:none;background-color:var(--body-bg-color);z-index:99;position:fixed;top:0;left:0;width:100%;height:100%}#main-container{max-width:1300px}</style>
+</head>
+<body>
+<div id=page-control-container>
+<div class=page-control-button-outer><a href=# id=exit-fullscreen class=page-control-button title="Exit fullscreen"><i class="ic x-icon"></i></a></div>
+<div class=page-control-button-outer><a href=# id=top-of-page class=page-control-button title="Go to top of page"><i class="ic arrow-sm-up-icon"></i></a></div>
+<div class=page-control-button-outer><a href=# id=toggle-theme class=page-control-button title="Toggle light/dark theme"><i class="ic sun-icon"></i></a></div>
+<div class=page-control-button-outer><a href=https://github.com/halo-re/halo class=page-control-button title="Visit project GitHub page"><i class="ic github-icon"></i></a></div>
+</div>
+<div id=fullscreen-container>
+</div>
+<div class="p-3 col-md-10 mx-auto" id=main-container>
+<header>
+<h1 id=title><a href=/>Halo Decompilation Project</a></h1>
+<h3>Progress Report</h3>
+<p>The goal of this project is to study and create an open-source re-implementation of the original Xbox launch title Halo:&nbsp;Combat&nbsp;Evolved.<br>For more details, see the project <a href=https://github.com/halo-re/halo/blob/main/README.md>README</a>.</p>
+<p id=disclaimer>Project not affiliated with Microsoft or Bungie. For research and educational purposes only. Buy a copy of the game. <a href="https://www.youtube.com/watch?v=p08mIRKB-Yg">Heck, buy two!</a></p>
+</header>
+<main>
+<h2>Progress</h2>
+<p>Percentage of <span class=code>.text</span> section game code that has been re-implemented.</p>
+<div id=pb-container>
+<div id=pb>
+<div id=pb-fill style=width:0%></div>
+</div>
+<span id=pb-percentage>0.00%</span>
+</div>
+<h2 id=callgraph>Call Graph</h2>
+<p>Graph of function callers and callees.<br><br><b>Usage:</b> Double-click on a function node to display its call graph. Use browser back/forward buttons to quickly return to previous locations.</p>
+<div id=callgraph-outer-container>
+<a id=callgraph-view-fullscreen-link href=# title="Expand graph to fullscreen"><i class=arrows-expand-icon></i></a>
+<div id=callgraph-inner-container>
+<div id=callgraph-details-container>
+<div id=callgraph-details-icon-container title="Current location"><i class=location-marker-icon></i></div>
+<span id=callgraph-details>No function selected</span>
+</div>
+<div id=callgraph-graph></div>
+</div>
+</div>
+<h2>Re-implemented Functions</h2>
+<p>Functions that have been re-implemented.</p>
+<table id=functions>
+<thead>
+<tr>
+<th>Address</th>
+<th class=ellipsis-column>Name</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h2>Frontier</h2>
+<p>Functions yet to be re-implemented that are called by functions that have been re-implemented.</p>
+<table id=frontier>
+<thead>
+<tr>
+<th>Address</th>
+<th class=ellipsis-column>Name</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</main>
+</div>
+</body>
+<script type=text/javascript>var addr_to_name,name_to_addr,call_data,nodes,edges,network,current_graph_addr,fonts_loaded;function update_top_of_page_button_visibility(){var a=$("#top-of-page").parent(),b=$(document).scrollTop()>=$("#title").offset().top,c=$("#fullscreen-container").is(":visible");b&&!c?a.show():a.hide()}$(document).scroll(update_top_of_page_button_visibility);function update_exit_button_visibility(){var a=$("#exit-fullscreen").parent(),b=$("#fullscreen-container").is(":visible");b?a.show():a.hide()}function update_button_visibility(){update_top_of_page_button_visibility(),update_exit_button_visibility()}update_button_visibility(),$('#callgraph-view-fullscreen-link').on('click',function(b){var a=$('#fullscreen-container');return $('#callgraph-inner-container').detach().appendTo(a),a.show(),update_button_visibility(),!1}),$('#exit-fullscreen').on('click',function(d){var a=$('#fullscreen-container'),b=$('#callgraph-outer-container'),c=$('#callgraph-inner-container');return c.detach().appendTo(b),a.hide(),update_button_visibility(),!1});function setTheme(a){localStorage.setItem('theme',a),document.documentElement.className=a}$('#toggle-theme').on("click",function(a){return localStorage.getItem('theme')==='theme-dark'?setTheme('theme-light'):setTheme('theme-dark'),!1}),function(){localStorage.getItem('theme')==='theme-light'?setTheme('theme-light'):setTheme('theme-dark')}(),addr_to_name={},name_to_addr={},call_data=null;function update_percentage(){$('#pb-fill').animate({percentage:call_data.coverage_percentage},{duration:1e3,step:function(a,b){$('#pb-fill').css('width',b.pos*Math.ceil(a)+'%'),$('#pb-percentage').html(a.toFixed(2)+'%')}})}function update_tables(){var a=$("#functions tbody");call_data.funcs.forEach(function(b,c){markup=`
+			<tr>
+				<td>`+b[0].toString(16)+`</td>
+				<td class="ellipsis-column"><a href="https://github.com/halo-re/halo/blob/main`+b[2]+`">`+b[1]+`</a></td>
+				<td><a href="?f=`+b[1]+`#callgraph" class="callgraph-link" title="View Call Graph for this function"><i class="callgraph-icon"></i></a></td>
+			</tr>
+		`,a.append(markup)}),a=$("#frontier tbody"),call_data.funcs_unimplemented.forEach(function(b,c){markup=`
+			<tr>
+				<td>`+b[0].toString(16)+`</td>
+				<td class="ellipsis-column">`+b[1]+`</td>
+				<td><a href="?f=`+b[1]+`#callgraph" class="callgraph-link" title="View Call Graph for this function"><i class="callgraph-icon"></i></a></td>
+			</tr>
+		`,a.append(markup)})}$.getJSON("/data.json",function(a){if(call_data=a,a.funcs.forEach(function(a,b){addr_to_name[a[0]]=[a[1],"imp",a[2]],name_to_addr[a[1]]=a[0]}),a.funcs_unimplemented.forEach(function(a,b){addr_to_name[a[0]]=[a[1],"unimp"],name_to_addr[a[1]]=a[0]}),update_tables(),update_percentage(),$('.callgraph-link').click(function(b){b.preventDefault();var a=$(this).attr('href');window.history.pushState({},'',a),location.href=a,update_call_graph_from_url()}),window.location.hash){var b=location.href;location.href=location.href}update_call_graph_from_url()}),$(window).on('popstate',function(a){update_call_graph_from_url()}),nodes=null,edges=null,network=null,current_graph_addr=null;function destroy_call_graph(){network!==null&&(network.destroy(),network=null)}function navigate_to_new_call_graph_addr(b){var a=addr_to_name[b][0],c=`?f=`+a+`#callgraph`;window.history.pushState({},'',c),show_call_graph_for_name(a)}function update_call_graph_from_url(){const b=new URLSearchParams(window.location.search);var a=b.get('f');a||(a='main'),show_call_graph_for_name(a)}function show_call_graph_for_name(a){if(call_data===null)return;if(!name_to_addr.hasOwnProperty(a))return;show_call_graph_for_addr(name_to_addr[a])}fonts_loaded=!1,document.fonts.onloadingdone=function(a){fonts_loaded=!0,network!==null&&network.setOptions({nodes:{font:{face:'JetBrains Mono'}}})};function show_call_graph_for_addr(a){var d,g,b,c,e,h,i,j;if(a===current_graph_addr)return;if(call_data===null)return;if(destroy_call_graph(),!addr_to_name.hasOwnProperty(a))return;d=addr_to_name[a][0],addr_to_name[a][1]=="imp"?(g=addr_to_name[a][2],$("#callgraph-details").html('<a href="https://github.com/halo-re/halo/blob/main'+g+'">'+d+" ("+a.toString(16)+")</a>")):$("#callgraph-details").html(d+" ("+a.toString(16)+")"),b=[],c=[],e=[];function f(a,c){e.includes(a)||(b.push({id:a,label:addr_to_name[a][0],group:addr_to_name[a][1],level:c}),e.push(a))}f(a,0),call_data.call_edges.forEach(function(b,d){(b[0]==a||b[1]==a)&&(c.push({from:b[0],to:b[1]}),f(b[0],-1),f(b[1],1))}),b.sort(),c.sort(),h=document.getElementById("callgraph-graph"),i={nodes:new vis.DataSet(b),edges:new vis.DataSet(c)},j={layout:{hierarchical:{direction:'LR',levelSeparation:500}},nodes:{font:{face:fonts_loaded?'JetBrains Mono':'monospace',color:'black'},borderWidth:1,shape:'box'},edges:{color:{inherit:'to'},arrows:{to:{enabled:!0,scaleFactor:.5}},width:1,smooth:{enabled:!0,type:'cubicBezier',forceDirection:'horizontal',roundness:.8}},groups:{imp:{color:{background:"lightblue",border:"cornflowerblue"}},unimp:{color:{background:"orange",border:"orange"}}}},network=new vis.Network(h,i,j),network.on("doubleClick",function(a){a.nodes.length>0&&navigate_to_new_call_graph_addr(a.nodes[0])}),current_graph_addr=a}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XLVWSLM62C"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-XLVWSLM62C')</script>
+</html>

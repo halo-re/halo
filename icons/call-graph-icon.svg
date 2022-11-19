@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg6"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <circle
+     style="fill:#000000;stroke-width:2.35924"
+     id="circle1010"
+     cx="5.6026354"
+     cy="10.303417"
+     r="2.2912467" />
+  <circle
+     style="fill:#000000;stroke-width:2.35924"
+     id="circle1014"
+     cx="17.904818"
+     cy="4.8739853"
+     r="2.2912467" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 14.231577,4.6061829 C 6.240716,3.8123062 5.4698121,10.310817 5.4698121,10.310817"
+     id="path1246" />
+  <path
+     id="path4249"
+     style="fill:none;stroke:#000000;stroke-width:1.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 12.437776,7.013647 14.771324,4.6800991 12.437777,2.3465515" />
+  <circle
+     style="fill:#000000;stroke-width:2.35924"
+     id="circle10387"
+     cx="17.904818"
+     cy="-15.429801"
+     r="2.2912467"
+     transform="scale(1,-1)" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 14.231577,15.697603 C 6.240716,16.49148 5.4698121,9.992969 5.4698121,9.992969"
+     id="path10389" />
+  <path
+     id="path10391"
+     style="fill:none;stroke:#000000;stroke-width:1.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 12.437776,13.290139 2.333548,2.333548 -2.333547,2.333547" />
+</svg>

@@ -1,0 +1,42 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Halo Decompilation Project">
+<meta property="og:description" content="An open-source project to study and re-implement the iconic Xbox launch title Halo: Combat Evolved">
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400&family=Roboto&display=swap" rel=stylesheet>
+<title>Halo Decompilation Project</title>
+<link rel=stylesheet href=https://blam.info/css/bootstrap.min.css>
+<link rel=stylesheet href=https://blam.info/css/extra.css>
+</head>
+<body>
+<main role=main>
+<div class="jumbotron d-flex align-items-center min-vh-100">
+<div id=bg-scene></div>
+<div class="container project-info py-5">
+<div class=row>
+<div class="mx-auto text-center">
+<h1 class="display-5 logo-text">Halo Decompilation Project</h1>
+<p>Project to study and re-implement the iconic Xbox launch title <a href=https://en.wikipedia.org/wiki/Halo:_Combat_Evolved>Halo:&nbsp;Combat&nbsp;Evolved</a></p>
+<a class="btn btn-primary btn-lg m-1" role=button href=https://github.com/halo-re/halo><i class=github-icon aria-hidden=true></i>View on GitHub</a>
+<a class="btn btn-secondary btn-lg m-1" role=button href=/progress>Progress Report</a>
+</div>
+</div>
+</div>
+<div class="disclaimer text-center text-small mx-auto mb-5">
+Project not affiliated with Microsoft or Bungie.
+For research and educational purposes only.<br>
+Buy a copy of the game. <a href="https://www.youtube.com/watch?v=p08mIRKB-Yg">Heck, buy two!</a>
+</div>
+</div>
+</main>
+<script src=https://blam.info/js/three.min.js></script>
+<script src=https://blam.info/js/GLTFLoader.js></script>
+<script type=text/javascript>var canvas=document.querySelector('#bg-scene'),scene=new THREE.Scene,camera=new THREE.PerspectiveCamera(74,canvas.offsetWidth/canvas.offsetHeight,.1,1e3),renderer=new THREE.WebGLRenderer({antialias:!0}),cam,clock,render;renderer.setSize(canvas.offsetWidth,canvas.offsetHeight),renderer.setPixelRatio(window.devicePixelRatio),canvas.appendChild(renderer.domElement),scene.background=new THREE.Color('#202020'),primary_color=new THREE.Color(.372,.733,.949);let ring_object=null;const loader=new THREE.GLTFLoader;loader.load('https://blam.info/data/ring.glb',function(e){ring_object=e.scene;const a=ring_object.getObjectByName('outline-rib');a&&(a.material=new THREE.MeshBasicMaterial({color:primary_color}));const b=ring_object.getObjectByName('outline-ring');b&&(b.material=new THREE.MeshBasicMaterial({color:primary_color}));const c=ring_object.getObjectByName('ring-inner');c&&(c.material=new THREE.MeshStandardMaterial({color:primary_color,side:THREE.DoubleSide,transparent:!0,opacity:.8}));const d=ring_object.getObjectByName('ring-outer');d&&(d.material=new THREE.MeshStandardMaterial({color:primary_color,side:THREE.DoubleSide,transparent:!0,opacity:.8})),scene.add(ring_object)},void 0,function(a){console.error(a)});{let a=new THREE.DirectionalLight(primary_color,.8);a.position.set(0,-1,0),scene.add(a);const b=new THREE.AmbientLight(primary_color,.1);scene.add(b)}cam=Math.floor(Math.random()*5),cam==0?(camera.position.x=2,camera.position.y=-17,camera.position.z=5,camera.lookAt(0,-15,0)):cam==1?(camera.position.x=0,camera.position.y=-17.5,camera.position.z=-6,camera.lookAt(0,-5,-20)):cam==2?(camera.position.x=10,camera.position.y=-18,camera.position.z=-5,camera.lookAt(0,10,30)):cam==3?(camera.position.x=20,camera.position.y=20,camera.position.z=20,camera.lookAt(0,0,0)):cam==4&&(camera.position.x=2,camera.position.y=-16,camera.position.z=12,camera.lookAt(1,-13,0)),clock=new THREE.Clock,render=function(){requestAnimationFrame(render);var a=clock.getElapsedTime();ring_object&&(ring_object.rotation.x=a/30),renderer.render(scene,camera)},render(),window.addEventListener('resize',function(){camera.aspect=canvas.offsetWidth/canvas.offsetHeight,camera.updateProjectionMatrix(),renderer.setSize(canvas.offsetWidth,canvas.offsetHeight)},!1)</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XLVWSLM62C"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-XLVWSLM62C')</script>
+</body>
+</html>

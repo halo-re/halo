@@ -1,5 +1,7 @@
 __pycache__
 .gdbinit
+/build
+/halo-patched
 src/decl.h
 src/halo.xbe.def
 src/build_info.c

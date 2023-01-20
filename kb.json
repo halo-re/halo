@@ -1,4 +1,5 @@
 {
+  "md5": "c7869590a1c64ad034e49a5ee0c02465",
   "objects": [
     {
       "name": "<common>",
@@ -22,6 +23,10 @@
         {
           "decl": "game_variant_t game_variant_global;",
           "addr": "0x5aa820"
+        },
+        {
+          "decl": "data_t * object_header_data;",
+          "addr": "0x5abc10"
         }
       ]
     },
@@ -1234,6 +1239,20 @@
     {
       "name": "objects.obj",
       "source": "objects/objects.c",
+      "data": [
+        {
+          "decl": "void * object_name_list;",
+          "addr": "0x46f07c"
+        },
+        {
+          "decl": "void * objects;",
+          "addr": "0x46f080"
+        },
+        {
+          "decl": "object_globals_t * object_globals;",
+          "addr": "0x46f084"
+        }
+      ],
       "functions": [
         {
           "decl": "void objects_place(void);",

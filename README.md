@@ -25,17 +25,17 @@ The [Progress Report](https://blam.info/progress/) details what functionality ha
 
 Build
 -----
-You can build with Visual Studio or clang, on Windows, macOS, and Linux. Project tooling is developed with [Python 3](https://www.python.org/), so that will need to be installed.
+You can build with Visual Studio or Clang, on Windows, macOS, and Linux. Project tooling is developed with [Python 3](https://www.python.org/), so that will need to be installed.
 
 * First prepare `halo-patched` directory with disc files and original executable
   * Retail disc game files
   * Original executable version `01.10.12.2276` (MD5: `c7869590a1c64ad034e49a5ee0c02465`) as file `cachebeta.xbe`
-* You can build in a Docker container, or outside of a container with system tools (e.g. clang, MSVC).
+* You can build in a Docker container, or outside of a container with system tools (e.g. Clang, MSVC).
 * If not using a container to build, install system deps:
   * Ensure Python 3 is installed.
   * Install Python requirements: `python -m pip install -r requirements.txt`
   * On Windows you can use Visual Studio (MSVC).
-  * On Linux/macOS/WSL you can use clang:
+  * On Linux/macOS/WSL you can use Clang:
 
 ### Build options
 
@@ -52,7 +52,7 @@ cmake -AWin32 -Bbuild -S.
 cmake --build build
 ```
 
-Build on Linux (Ubuntu) with CMake and clang:
+Build on Linux (Ubuntu) with CMake and Clang:
 ```bash
 sudo apt install cmake clang lld python3-pip
 python3 -m pip install --user -r requirements.txt
@@ -60,7 +60,7 @@ cmake -Bbuild -S. -DCMAKE_TOOLCHAIN_FILE=toolchains/llvm.cmake
 cmake --build build
 ```
 
-Build on macOS (works on both Intel and Apple Silicon macs) with CMake and clang:
+Build on macOS (works on both Intel and Apple Silicon macs) with CMake and Clang:
 ```bash
 brew install llvm cmake
 python3 -m pip install --user -r requirements.txt

@@ -104,7 +104,7 @@ def main():
         pe_header_data = pe_header_data[:first_section.VirtualAddress]
 
     hdr = XbeSectionHeader()
-    hdr.flags = hdr.FLAG_PRELOAD
+    hdr.flags = XbeSectionHeader.Flags.PRELOAD
     hdr.virtual_addr = base_addr
     hdr.virtual_size = round_up(len(pe_header_data), 0x1000)
     hdr.raw_addr = 0
@@ -129,13 +129,13 @@ def main():
         new_name = ensure_unique_section_name(xbe, name + '.patch')
 
         hdr = XbeSectionHeader()
-        hdr.flags = hdr.FLAG_PRELOAD | hdr.FLAG_WRITABLE  # FIXME: Writable for import resolve
+        hdr.flags = XbeSectionHeader.Flags.PRELOAD | XbeSectionHeader.Flags.WRITABLE  # FIXME: Writable for import resolve
         flag_text = 'r'
         if section.__dict__.get('IMAGE_SCN_MEM_WRITE', False):
-            hdr.flags |= hdr.FLAG_WRITABLE
+            hdr.flags |= XbeSectionHeader.Flags.WRITABLE
             flag_text += 'w'
         if section.__dict__.get("IMAGE_SCN_MEM_EXECUTE", False):
-            hdr.flags |= hdr.FLAG_EXECUTABLE
+            hdr.flags |= XbeSectionHeader.Flags.EXECUTABLE
             flag_text += 'x'
         hdr.virtual_addr = section.VirtualAddress + base_addr
         hdr.virtual_size = round_up(section.Misc_VirtualSize, 0x1000)

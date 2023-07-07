@@ -76,7 +76,7 @@ You'll want to set up a debug environment.
 
 ### GDB debugging
 
-To create an executable with symbols, add `-DCMAKE_BUILD_TYPE=Debug` argument to CMake when configuring the project. For example, when using the LLVM toolchain:
+To create an executable with symbols when building with the LLVM toolchain, add `-DCMAKE_BUILD_TYPE=Debug` argument to CMake when configuring the project.
 
 During the build process, a `.gdbinit` script is generated. This script will help initialize a gdb session for debugging. It will be loaded automatically when `gdb` is invoked from the current directory. You can launch xemu with a GDB server by passing the `-s` flag.
 

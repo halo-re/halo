@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+if __name__ == "__main__":
+    from check_requirements import check_requirements
+    check_requirements()
+
 import argparse
 import logging
 import os

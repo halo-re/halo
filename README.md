@@ -21,7 +21,7 @@ Current State
 * Several more functions are implemented
 * Long way to go...
 
-The [Progress Report](https://blam.info/progress/) details what functionality has re-implemented.
+The [Progress Report](https://blam.info/progress/) details what functionality has been re-implemented.
 
 Build
 -----

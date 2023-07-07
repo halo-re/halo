@@ -25,7 +25,7 @@ The [Progress Report](https://blam.info/progress/) details what functionality ha
 
 Build
 -----
-You can build with Visual Studio or clang, on Windows/macOS/Linux. You'll also need Python 3.
+You can build with Visual Studio or clang, on Windows, macOS, and Linux. Project tooling is developed with [Python 3](https://www.python.org/), so that will need to be installed.
 
 * First prepare `halo-patched` directory with disc files and original executable
   * Retail disc game files
@@ -33,6 +33,7 @@ You can build with Visual Studio or clang, on Windows/macOS/Linux. You'll also n
 * You can build in a Docker container, or outside of a container with system tools (e.g. clang, MSVC).
 * If not using a container to build, install system deps:
   * Ensure Python 3 is installed.
+  * Install Python requirements: `python -m pip install -r requirements.txt`
   * On Windows you can use Visual Studio (MSVC).
   * On Linux/macOS/WSL you can use clang:
 

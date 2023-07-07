@@ -36,7 +36,7 @@ Build overview:
   * Ensure Python 3 is installed.
   * Install Python requirements: `python -m pip install -r requirements.txt`
   * On Windows you can use Visual Studio (MSVC).
-  * On Linux/macOS/WSL you can use Clang:
+  * On Linux/macOS/WSL you can use Clang.
 
 ### Build options
 

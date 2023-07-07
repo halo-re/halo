@@ -25,8 +25,9 @@ The [Progress Report](https://blam.info/progress/) details what functionality ha
 
 Build
 -----
-You can build with Visual Studio or Clang, on Windows, macOS, and Linux. Project tooling is developed with [Python 3](https://www.python.org/), so that will need to be installed.
+This project can be built with Visual Studio or Clang, on Windows, macOS, and Linux. Project tooling is developed with [Python 3](https://www.python.org/), so that will need to be installed, along with dependencies listed in requirements.txt. CMake will also need to be installed.
 
+Build overview:
 * First prepare `halo-patched` directory with disc files and original executable
   * Retail disc game files
   * Original executable version `01.10.12.2276` (MD5: `c7869590a1c64ad034e49a5ee0c02465`) as file `cachebeta.xbe`

@@ -10,6 +10,8 @@ The goal of this project is to study and create a free, open-source re-implement
 
 Community
 ---------
+The homepage for this project is: https://blam.info/
+
 There is a Discord server for the project: https://discord.gg/wJFfe6c9UB
 
 Current State
@@ -18,6 +20,8 @@ Current State
 * Main loop of the game is re-implemented
 * Several more functions are implemented
 * Long way to go...
+
+The [Progress Report](https://blam.info/progress/) details what functionality has re-implemented.
 
 Build
 -----
@@ -77,3 +81,5 @@ The process of adding re-implemented functions is mostly automated and relativel
 * Implement new functions in the appropriate source file `src/halo/**/*.c`. Add new source files to `src/CMakeLists.txt`.
 * The build system will compile and patch the XBE with redirects from the original implementations to the re-implementations.
 * Naturally, your new code will call some function in the original binary that has not yet been re-implemented. These functions will also be automatically linked correctly, provided the definitions of data and called functions are in `kb.json`.
+
+See the [Progress Report](https://blam.info/progress/) to interactively explore the call graph, familiarize yourself with the code base, and examine the project frontier.

@@ -687,6 +687,10 @@
       "source": "game/game_time.c",
       "functions": [
         {
+          "decl": "bool game_time_initialized(void);",
+          "addr": "0xb5990"
+        },    
+        {
           "decl": "void game_time_initialize(void);",
           "addr": "0xb59b0"
         },
@@ -703,6 +707,10 @@
           "addr": "0xb5a50"
         },
         {
+          "decl": "void game_time_end(void);",
+          "addr": "0xb5a60"
+        },
+        {
           "decl": "int game_time_get(void);",
           "addr": "0xb5aa0"
         },
@@ -711,16 +719,48 @@
           "addr": "0xb5ae0"
         },
         {
+          "decl": "int local_time_get(void);",
+          "addr": "0xb5b20"
+        },
+        {
+          "decl": "int16_t local_time_get_elapsed(void);",
+          "addr": "0xb5b60"
+        },
+        {
+          "decl": "bool game_predicting(void);",
+          "addr": "0xb5ba0"
+        },
+        {
           "decl": "bool game_in_progress(void);",
           "addr": "0xb5be0"
         },
         {
-          "decl": "bool game_time_end(void);",
+          "decl": "bool game_time_get_paused(void);",
+          "addr": "0xb5c30"
+        },
+        {
+          "decl": "void game_time_set_paused(bool);",
+          "addr": "0xb5c70"
+        },
+        {
+          "decl": "bool game_time_get_paused(void);",
           "addr": "0xb5c30"
         },
         {
           "decl": "float game_time_get_speed(void);",
           "addr": "0xb5cc0"
+        },
+        {
+          "decl": "void game_time_set_speed(float);",
+          "addr": "0xb5d00"
+        },
+        {
+          "decl": "void game_time_statistics_new(void);",
+          "addr": "0xb5d50"
+        },
+        {
+          "decl": "void game_time_statistics_frame(int16_t, int16_t, int16_t);",
+          "addr": "0xb5d50"
         },
         {
           "decl": "void game_time_start(void);",

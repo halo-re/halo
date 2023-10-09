@@ -47,11 +47,14 @@ docker run -it --rm  -u $(id -u):$(id -g) -v $PWD:/work -w /work halo /bin/bash 
 ```
 
 Build on Windows with CMake and Visual Studio:
+Launching with 'Developer Command Prompt' 
+Can be done by "Win+R" then typing command prompt
 ```bash
-python3 -m pip install --user -r requirements.txt
+python3 -m pip install --user -r requirements.txt 
 cmake -AWin32 -Bbuild -S.
 cmake --build build
 ```
+ 
 
 Build on Linux (Ubuntu) with CMake and Clang:
 ```bash
